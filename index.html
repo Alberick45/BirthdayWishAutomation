@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap online stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Outer stylesheet -->
+    <link rel="stylesheet" href="birthday.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap JavaScript library -->
+    <script src="birthday.js"></script>
+    <!-- jQuery and Bootstrap scripts from CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <!-- Navbar toggler button for collapse -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <!-- Hamburger icon using glyphicon -->
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </button>
+            <!-- Collapsible navbar content -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="gap-4 nav navbar-nav navbar-right">
+                    <!-- Dropdown menu for Messages -->
+                    <li class="dropdown nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="contactDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Messages
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="contactDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="show_message()">View Message</a></li>
+                            <li><a class="dropdown-item" href="#">Edit Message</a></li>
+                            <li><a class="dropdown-item" href="#">Add Message</a></li>
+                            <li><a class="dropdown-item" href="#">Send Custom Message</a></li>
+                            <li><a class="dropdown-item" href="#">Delete Message</a></li>
+                        </ul>
+                    </li>
+                    <!-- Dropdown menu for Birthdays -->
+                    <li class="dropdown nav-item">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="contactDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Birthdays
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="contactDropdown">
+                            <li><a class="dropdown-item" href="#">View Upcoming Birthdays</a></li>
+                            <li><a class="dropdown-item" href="#">View Birthday of a Person</a></li>
+                            <!-- <li><a class="dropdown-item" href="#">Send Manual Birthday Wish</a></li> -->
+                            <li><a class="dropdown-item" href="#">Set Automatic Birthday Wish</a></li>
+                        </ul>
+                    </li>
+                    <!-- Dropdown menu for Contacts -->
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="contactDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Contacts
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="contactDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="open_form()">Add Contact</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="retrieveContacts()">Retrieve Contact</a></li>
+                            <li><a class="dropdown-item" href="#">Update Contact</a></li>
+                            <li><a class="dropdown-item" href="#">Delete Contact</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Form for adding contacts, hidden by default -->
+    <nav class="container-fluid bg-info" id="rg-form" style="display: none;">
+        <form action="register.php" method="POST">
+            <div class="form-group">
+                <br>
+                <!-- Close button for the form -->
+                <button type="button" class="close" onclick="close_form()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <br>
+                <!-- Input fields for contact details -->
+                <label for="firstname">First Name:</label>
+                <input type="text" id="firstname" name="firstname" placeholder="First Name" class="form-control"><br>
+                
+                <label for="lastname">Last Name:</label>
+                <input type="text" id="lastname" name="lastname" placeholder="Last Name" class="form-control"><br>
+                
+                <label for="country_code">Country Code:</label>
+                <input type="text" id="country_code" name="country_code" placeholder="+XXX" class="form-control"><br>
+                
+                <label for="contact">Contact:</label>
+                <input type="text" id="contact" name="contact" placeholder="Contact" class="form-control"><br>
+                
+                <label for="birthday">Birthday:</label>
+                <input type="date" id="birthday" name="birthday" class="form-control"><br>
+
+                <!-- Submit button -->
+                <input type="submit" value="Submit" class="form-control">
+            </div>
+        </form>
+    </nav>
+
+    <!-- Section to display messages, hidden by default -->
+    <nav id="message" class="container-fluid bg-info" style="display: none;width: 480px;">
+        <h2>Message</h2>
+        <p>Happy birthday, may you live long</p>
+    </nav>
+
+    <!-- Section to display retrieved contacts -->
+    <nav class="container-fluid bg-info" id="rt-form">
+       <!-- This is where items will be displayed -->
+    </nav>
+
+    <!-- JavaScript functions -->
+    <script>
+        // Function to open the contact form
+        function open_form(){
+            document.getElementById("rg-form").style.display = "block";
+        }
+
+        // Function to show the message section
+        function show_message(){
+            document.getElementById("message").style.display = "block";
+        }
+        
+        // Function to close the contact form
+        function close_form(){
+            document.getElementById("rg-form").style.display = "none";
+        }
+        
+        // Function to retrieve contacts and display them
+        function retrieveContacts() {
+            document.getElementById("rt-form").innerHTML = "Fetching contacts...";
+
+            // Make a fetch request to retrieve.php
+            fetch('retrieve.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("rt-form").innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error fetching contacts:', error);
+                    document.getElementById("rt-form").innerHTML = 'Failed to fetch contacts.';
+                });
+        }
+    </script>
+</body>
+</html>
