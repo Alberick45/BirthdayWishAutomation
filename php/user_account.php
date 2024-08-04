@@ -261,16 +261,15 @@
                 <?php 
                  require("config.php");
                   $userid = $_SESSION['user id'];
-                  $sql_options = "SELECT m_body FROM messages WHERE  m_type = 'custom' and m_ruid = $userid";
+                  $sql_options = "SELECT m_id,m_body FROM messages WHERE  m_type = 'custom' and m_ruid = $userid";
                   $result = $conn->query($sql_options);
-
                   $cmdata = "";
 
                   if ($result->num_rows > 0) {
                       while ($row = $result->fetch_assoc()) {
-                          $cmdata = '<tr class="table-secondary"> <th scope="row">
+                          $cmdata = '<tr class="table-secondary"> <th scope="row" id = '.htmlspecialchars($row["m_id"]).' >
                           <a class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#" role="button">Edit</a> |
-                <a class="btn btn-outline-danger" href="messages.php?action=delete&mbody=' . htmlspecialchars($row["m_body"]) . '" role="button">Delete</a>
+                <a class="btn btn-outline-danger" href="messages.php?action=delete&mid=' .  htmlspecialchars($row["m_id"]). '" role="button">Delete</a>
                  </th> <td>' . 
                           $row["m_body"]. '</td> </tr>' ;
                           echo $cmdata;
@@ -312,16 +311,16 @@
                 <?php 
                   require("config.php");
 
-                  $sql_options = "SELECT cf_name,cl_name,c_cntcode, c_pnum,c_dob,c_mid FROM contacts WHERE c_ruid = $userid";
+                  $sql_options = "SELECT c_id,cf_name,cl_name,c_cntcode, c_pnum,c_dob,c_mid FROM contacts WHERE c_ruid = $userid";
                   $result = $conn->query($sql_options);
 
                   $contactoptions = "";
 
                   if ($result->num_rows > 0) {
                       while ($row = $result->fetch_assoc()) {
-                          $contactoptions = '<tr class="table-secondary"> <th scope="row">
+                          $contactoptions = '<tr class="table-secondary"> <th scope="row" id = '.htmlspecialchars($row["c_id"]).'>
                 <a class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#update-contact-modal" role="button">Edit</a> |
-                <a class="btn btn-outline-danger" href="contacts.php?action=delete&contact=' . htmlspecialchars($row["c_pnum"]) . '" role="button">Delete</a>
+                <a class="btn btn-outline-danger" href="contacts.php?action=delete&cid=' . htmlspecialchars($row["c_id"]) . '" role="button">Delete</a>
             </th> <td>' . 
                           $row["cf_name"]. '</td> <td>' .$row["cl_name"] . '</td> <td>' . htmlspecialchars($row["c_cntcode"]." ".$row["c_pnum"]) . '</td> <td>'.$row["c_dob"] . '</td> <td>' .$row["c_mid"]. '</td> </tr>';
                           echo $contactoptions;

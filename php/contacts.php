@@ -37,12 +37,12 @@ function addContact() {
     $conn->close();
 }
 
-function deleteContact($contactNumber) {
+function deleteContact($cid) {
     global $conn ;
-    $sql = "DELETE FROM contacts WHERE c_pnum= ?";
+    $sql = "DELETE FROM contacts WHERE c_id= ?";
     $stmt = $conn -> stmt_init();
     $stmt ->prepare($sql);
-    $stmt -> bind_param("i",$contactNumber);
+    $stmt -> bind_param("i",$cid);
     $stmt -> execute();
     
     if ($stmt ->affected_rows > 0) {
@@ -96,8 +96,8 @@ if (isset($_POST['contactlist'])) {
 
 if (isset($_GET["action"])) {
     
-    if (isset($_GET['contact']) && $_GET["action"] === "delete") {
-        $contact = htmlspecialchars($_GET['contact']);
+    if (isset($_GET['cid']) && $_GET["action"] === "delete") {
+        $contact = htmlspecialchars($_GET['cid']);
         deleteContact($contact);
         exit();
     }

@@ -5,19 +5,19 @@ session_start();
 $userid = $_SESSION['user id'];
 
 
-function deleteMessage($mbody) {
+function deleteMessage($mid) {
     global $conn ;
-    $sql = "DELETE FROM messages WHERE m_body= ?";
+    $sql = "DELETE FROM messages WHERE m_id= ?";
     $stmt = $conn -> stmt_init();
     $stmt ->prepare($sql);
-    $stmt -> bind_param("s",$mbody);
+    $stmt -> bind_param("i",$mid);
     $stmt -> execute();
     
     if ($stmt ->affected_rows > 0) {
         echo "Message deleted successfully";
         header('Location: user_account.php');
     } else {
-        echo "Error deleting contact: " . $conn -> error;
+        echo "Error deleting message: " . $conn -> error;
     }
     
     $stmt -> close();
@@ -64,9 +64,9 @@ function deleteMessage($mbody) {
 
 if (isset($_GET["action"])) {
     
-    if (isset($_GET['mbody']) && $_GET["action"] === "delete") {
-        $mbody = htmlspecialchars($_GET['mbody']);
-        deleteMessage($mbody);
+    if (isset($_GET['mid']) && $_GET["action"] === "delete") {
+        $mid = htmlspecialchars($_GET['mid']);
+        deleteMessage($mid);
         exit();
     }
 }
