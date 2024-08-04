@@ -1,17 +1,45 @@
 <?php
-  session_start();
-  if (!isset($_SESSION['user id'])) {
+session_start();
+require("config.php");
+
+global $conn;
+if (!isset($_SESSION['user id'])) {
     header("Location: ../index.html");
     echo "You are not logged in";
     exit();
-} else {  
-    $userid = $_SESSION['user id'];
+} else {
+    $user_id = $_SESSION['user id'];
     if (isset($_SESSION['message'])) {
-      echo $_SESSION['message'];
-      unset($_SESSION['message']); 
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
     }
-} 
 
+    // Fetch messages for the logged-in user
+    $sql = "SELECT m_body FROM messages WHERE m_ruid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Initialize carousel items
+    $carouselItems = '';
+    $isActive = true;
+
+    while ($row = $result->fetch_assoc()) {
+        $message = $row['m_body'];
+        $activeClass = $isActive ? 'active' : '';
+        $carouselItems .= "
+            <div class='carousel-item $activeClass'>
+                <img src='../img/WhatsApp Image 2024-07-26 at 3.58.21 PM.jpeg' alt=''>
+                <div class='carousel-caption d-none d-md-block'>
+                    <h5 style='color:#ffc67b;'>$message</h5>
+                    <button type='button' class='btn' data-bs-toggle='tab' data-bs-target='#messages' style='background-color:#ff69b4; color:#fff;'>view Message</button>
+                </div>
+            </div>
+        ";
+        $isActive = false; // Only the first item should be active
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -173,30 +201,7 @@
 
                 <div class="carousel-inner">
                   
-                  <div class="carousel-item active">
-                    <img src="../img/WhatsApp Image 2024-07-26 at 3.58.21 PM.jpeg" alt="">
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5 style="color:#ffc67b;">Enjoy your day my good friend 🎂🥳🥳🥳🥳</h5>
-                    <button type="button" class="btn" data-bs-toggle="tab" data-bs-target="#messages"  style="background-color:#ff69b4; color:#fff;">view Message</button>
-                    </div>
-                  </div>
-                
-
-                <!-- <div class="carousel-item">
-                <img src="WhatsApp Image 2024-07-26 at 3.59.10 PM.jpeg" alt="">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5 style="color:#ffc67b">Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                  </div>
-                </div> -->
-
-                <div class="carousel-item">
-                  <img src="../img/WhatsApp Image 2024-07-26 at 3.58.21 PM.jpeg" alt="">
-                  <div class="carousel-caption d-none d-md-block">
-                    <h5 style="color:#ffc67b">Celebrate to its fullness<br>💕💕❤️🎂🎂</h5>
-                    <button type="button" class="btn" data-bs-toggle="tab" data-bs-target="#messages"  style="background-color:#ff69b4; color:#fff;">view Message</button>
-                  </div>
-                </div>
+                  <?php echo $carouselItems; ?>
 
               </div>
 
