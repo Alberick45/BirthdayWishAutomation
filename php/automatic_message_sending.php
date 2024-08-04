@@ -88,8 +88,8 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
 use Twilio\Rest\Client;
 
 // Your Account SID and Auth Token from twilio.com/console
-$sid = 'AC05bfd9499c87f3d78f952369ab6243c2';
-$token = '8fc5aa4ba108b942e641d60f54a918c9';
+$sid = '';
+$token = '';
 $client = new Client($sid, $token);
 
 // Your Twilio phone number and the recipient's phone number
