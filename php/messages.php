@@ -24,42 +24,42 @@ function deleteMessage($mid) {
     $conn -> close();
 }
 
-/* function updateContact($firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber,$messageid) {
-    global $conn ;
-    global $userid;
-    $sql = "UPDATE contacts SET first_name = ?,last_name = ?, dob = ?, countcode = ? , c_mid = ?, c_ruid = ? WHERE phone =?";
-    $stmt =$conn -> stmt_init();
-    $stmt -> prepare($sql);
-    $stmt -> bind_param('ssssiii',$firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber,$messageid,$userid);
-    $stmt -> execute();
 
-    if($stmt -> affected_rows >0){
-        echo 'updated successfully';
-        header('Location: user_account.php');
-    }else{
-        echo 'error updating info'. $conn -> error;
-    }
-    
+function updateMessage(){
+    global $conn;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Update_message'])) {
+            $updatedMessage = $conn->real_escape_string($_POST['changed_message']);
+            $umsgid = $conn->real_escape_string($_POST['umsgid']);
 
-    $stmt -> close();
-    $conn -> close();
-}
- */
+            $sql_update = "UPDATE messages SET m_body = ? WHERE m_id = ?";
+            $stmt = $conn->prepare($sql_update);
+            $stmt->bind_param('si', $updatedMessage, $umsgid);
+
+            if ($stmt->execute()) {
+                echo "Message updated successfully";
+                header('Location: user_account.php'); // Redirect to a specific page after updating
+                exit();
+            } else {
+                echo "Error updating message: " . $conn->error;
+            }
+
+            $stmt->close();
+            $conn->close();
+        }}
+
+
+
 /* Function calls */
-/* if (isset($_POST['contactlist'])) {
-    if ($_POST['contactlist'] === "Add") {
-        addContact();
+ if (isset($_POST['updatemessage'])) {
+    if ($_POST['updatemessage'] === "Update") {
+        updateMessage();
         exit();
-    } elseif ($_POST['contactlist'] === "Update"){
-            updateContact();
-            exit();
-        
     } else {
-        echo "Invalid function call: " . $_POST['contactlist'];
+        echo "Invalid function call: " . $_POST['updatemessage'];
     }
 } else {
     echo "Form submission error.";
-} */
+} 
 
 
 if (isset($_GET["action"])) {
@@ -71,3 +71,4 @@ if (isset($_GET["action"])) {
     }
 }
 
+?>

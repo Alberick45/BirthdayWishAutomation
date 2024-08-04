@@ -56,37 +56,54 @@ function deleteContact($cid) {
     $conn -> close();
 }
 
-/* function updateContact($firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber,$messageid) {
-    global $conn ;
-    global $userid;
-    $sql = "UPDATE contacts SET first_name = ?,last_name = ?, dob = ?, countcode = ? , c_mid = ?, c_ruid = ? WHERE phone =?";
-    $stmt =$conn -> stmt_init();
-    $stmt -> prepare($sql);
-    $stmt -> bind_param('ssssiii',$firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber,$messageid,$userid);
-    $stmt -> execute();
+function updateContact() {
+    global $conn, $userid;
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_POST['u_cfname'], $_POST['u_clname'], $_POST['u_cdob'], $_POST['u_ccntcd'], $_POST['u_cphone'], $_POST['u_cmsgid'], $_POST['ucid'])) {
+            $updated_firstname = $conn->real_escape_string($_POST['u_cfname']);
+            $updated_lastname = $conn->real_escape_string($_POST['u_clname']);
+            $updated_dateOfBirth = $conn->real_escape_string($_POST['u_cdob']);
+            $updated_countrycode = $conn->real_escape_string($_POST['u_ccntcd']);
+            $updated_contactNumber = $conn->real_escape_string($_POST['u_cphone']);
+            $updated_messageid = $conn->real_escape_string($_POST['u_cmsgid']);
+            $conid = $conn->real_escape_string($_POST['ucid']);
 
-    if($stmt -> affected_rows >0){
-        echo 'updated successfully';
-        header('Location: user_account.php');
-    }else{
-        echo 'error updating info'. $conn -> error;
+            $sql = "UPDATE contacts SET cf_name = ?,cl_name = ?, c_dob = ?, c_cntcode = ? , c_pnum =?, c_mid = ?, c_ruid = ? WHERE c_id = ?";
+            $stmt =$conn -> stmt_init();
+
+            if ($stmt->prepare($sql)) {
+                $stmt->bind_param('ssssiiii', $updated_firstname, $updated_lastname, $updated_dateOfBirth, $updated_countrycode, $updated_contactNumber, $updated_messageid, $userid,$conid);
+                if ($stmt->execute()) {
+                    echo 'updated successfully';
+                    header('Location: user_account.php');
+                    exit();
+                } else {
+                    echo "Error executing statement: " . $stmt->error;
+                }
+                $stmt->close();
+            } else {
+                echo "Error preparing statement: " . $conn->error;
+            }
+        } else {
+            echo "Please fill all fields.";
+        }
     }
-    
-
-    $stmt -> close();
-    $conn -> close();
+    $conn->close();
 }
- */
+    
+   
+
+
 /* Function calls */
 if (isset($_POST['contactlist'])) {
     if ($_POST['contactlist'] === "Add") {
         addContact();
         exit();
-    } /* elseif ($_POST['contactlist'] === "Update"){
+    } elseif ($_POST['contactlist'] === "Update"){
             updateContact();
             exit();
         
-    } */ else {
+    } else {
         echo "Invalid function call: " . $_POST['contactlist'];
     }
 } else {
