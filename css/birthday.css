@@ -1,0 +1,11 @@
+#rg-form {
+    width: 480px; 
+}
+#rt-form{
+    width: 480px; 
+}
+
+.form-control::placeholder {
+    color: lightgreen;
+}
+
