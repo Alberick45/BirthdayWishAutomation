@@ -95,7 +95,7 @@
 
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
-            <a href="/WishMe Project" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+            <a href="../index.html" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
               <!-- <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg> -->
               <h3>WishMe</h3>
             </a>
