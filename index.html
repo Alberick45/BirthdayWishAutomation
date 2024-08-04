@@ -4,28 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WishMe</title>
-    <script>
-       function automate_birthday() {
-    var bd = new XMLHttpRequest();
-    bd.open("GET", "php/automatic_message_sending.php", true);
-    bd.onload = function () {
-        if (bd.status === 200) {
-            console.log("Script executed: " + bd.responseText);
-            // Redirect to main page after 3 seconds
-            setTimeout(function() {
-                window.location.href = "index.html"; // Replace with your main page URL
-            }, 1000);
-        } else {
-            console.error("Failed to run script. Status: " + bd.status);
-        }
-    };
-    bd.onerror = function() {
-        console.error("Request failed");
-    };
-    bd.send();
-}
- 
-    </script>
+    <?php 
+    session_start();
+    if (isset($_SESSION['message'])) {
+      echo $_SESSION['message'];
+      unset($_SESSION['message']); 
+    }?>
+   <script>
+    function automate_birthday() {
+        console.log("Function called"); // Check if the function is being executed
+        var bd = new XMLHttpRequest();
+        bd.open("GET", "php/automatic_message_sending.php", true);
+        bd.onload = function () {
+            if (bd.status === 200) {
+                console.log("Script executed: " + bd.responseText);
+                // Redirect to main page after 3 seconds, with a query parameter to prevent loop
+                setTimeout(function() {
+                    if (!window.location.search.includes('redirected=true')) {
+                        window.location.href = "index.html?redirected=true"; // Add a query parameter
+                    }
+                }, 1000);
+            } else {
+                console.error("Failed to run script. Status: " + bd.status);
+            }
+        };
+        bd.onerror = function() {
+            console.error("Request failed");
+        };
+        bd.send();
+    }
+
+    window.onload = automate_birthday;
+</script>
+
+  
 
 <link rel="stylesheet" href="css/styles.css">
 <link href="css/bootstrap.min.css" rel="stylesheet">

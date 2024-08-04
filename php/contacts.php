@@ -5,7 +5,6 @@ session_start();
 $userid = $_SESSION['user id'];
 function addContact() {
     global $conn, $userid;
-    
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_POST['cfname'], $_POST['clname'], $_POST['cdob'], $_POST['ccntcd'], $_POST['cphone'], $_POST['cmsgid'])) {
             $firstname = $conn->real_escape_string($_POST['cfname']);
@@ -20,22 +19,24 @@ function addContact() {
             if ($stmt->prepare($sql)) {
                 $stmt->bind_param('ssssiii', $firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber, $messageid, $userid);
                 if ($stmt->execute()) {
-                    echo "Contact added successfully";
+                    // Set session variable for success message
+                    $_SESSION['message'] = "Contact added successfully";
                     header('Location: user_account.php');
                     exit();
                 } else {
-                    echo "Error executing statement: " . $stmt->error;
+                    $_SESSION['message'] =  "Error executing statement: " . $stmt->error;
                 }
                 $stmt->close();
             } else {
-                echo "Error preparing statement: " . $conn->error;
+                $_SESSION['message'] =  "Error preparing statement: " . $conn->error;
             }
         } else {
-            echo "Please fill all fields.";
+            $_SESSION['message'] =  "Please fill all fields.";
         }
     }
     $conn->close();
 }
+
 
 function deleteContact($cid) {
     global $conn ;
@@ -45,11 +46,14 @@ function deleteContact($cid) {
     $stmt -> bind_param("i",$cid);
     $stmt -> execute();
     
+    
     if ($stmt ->affected_rows > 0) {
-        echo "Contact deleted successfully";
+        // Set session variable for success message
+        $_SESSION['message'] = "Contact deleted successfully";
         header('Location: user_account.php');
+        exit();
     } else {
-        echo "Error deleting contact: " . $conn -> error;
+        $_SESSION['message'] =  "Error deleting contact: " . $conn -> error;
     }
     
     $stmt -> close();
@@ -67,25 +71,25 @@ function updateContact() {
             $updated_contactNumber = $conn->real_escape_string($_POST['u_cphone']);
             $updated_messageid = $conn->real_escape_string($_POST['u_cmsgid']);
             $conid = $conn->real_escape_string($_POST['ucid']);
-
+            
             $sql = "UPDATE contacts SET cf_name = ?,cl_name = ?, c_dob = ?, c_cntcode = ? , c_pnum =?, c_mid = ?, c_ruid = ? WHERE c_id = ?";
             $stmt =$conn -> stmt_init();
-
+            
             if ($stmt->prepare($sql)) {
                 $stmt->bind_param('ssssiiii', $updated_firstname, $updated_lastname, $updated_dateOfBirth, $updated_countrycode, $updated_contactNumber, $updated_messageid, $userid,$conid);
                 if ($stmt->execute()) {
-                    echo 'updated successfully';
+                    $_SESSION['message'] = "Contact updated successfully";
                     header('Location: user_account.php');
                     exit();
                 } else {
-                    echo "Error executing statement: " . $stmt->error;
+                    $_SESSION['message'] =  "Error executing statement: " . $stmt->error;
                 }
                 $stmt->close();
             } else {
-                echo "Error preparing statement: " . $conn->error;
+                $_SESSION['message'] =  "Error preparing statement: " . $conn->error;
             }
         } else {
-            echo "Please fill all fields.";
+            $_SESSION['message'] =  "Please fill all fields.";
         }
     }
     $conn->close();
@@ -104,10 +108,10 @@ if (isset($_POST['contactlist'])) {
             exit();
         
     } else {
-        echo "Invalid function call: " . $_POST['contactlist'];
+        $_SESSION['message'] =  "Invalid function call: " . $_POST['contactlist'];
     }
 } else {
-    echo "Form submission error.";
+   $_SESSION['message'] =  "Form submission error.";
 }
 
 

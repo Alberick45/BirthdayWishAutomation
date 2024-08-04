@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("si", $new_message,$_SESSION['user id']);
 
         if ($stmt->execute()) {
-            echo "New message added successfully";
+            $_SESSION['message'] = "New message added successfully";
             header("Location: user_account.php"); // Redirect back to the form page
         } else {
             echo "Error: " . $stmt->error;
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt->close();
     } else {
-        echo "No message provided.";
+        $_SESSION['message'] =  "No message provided.";
     }
 }
 

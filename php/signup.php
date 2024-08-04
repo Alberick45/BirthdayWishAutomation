@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' ){
         $stmt -> execute();
         
         if(($stmt -> affected_rows) > 0){
-            echo "entered successfully";
+            $_SESSION['message'] =  "Registered successfully";
             header("Location: ../index.html");
         }
         else{

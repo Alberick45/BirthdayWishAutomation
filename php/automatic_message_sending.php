@@ -3,6 +3,7 @@
 require("config.php");
 
 
+// Initialize variables
 $recipient_name = "";
 $recipient_dob = "";
 $recipient_phone = "";
@@ -10,20 +11,8 @@ $recipient_age = 0;
 $message = "";
 $recipients = [];
 
-//  check today's date and retrieve from databse anyone's id whose date is equal to this date
-
-
-
-// Initialize variables
-$recipient_name = "no contact selected";
-$recipient_dob = "";
-$recipient_phone = "";
-$recipient_age = 0;
-$message = "";
-$recipients = [];
-
 // Fetch contacts whose date of birth matches today's day and month
-$sql = "SELECT cf_name,c_ruid, cl_name, c_dob,c_mid CONCAT(c_cntcode, c_pnum) AS phone 
+$sql = "SELECT cf_name, c_ruid, cl_name, c_dob, c_mid, CONCAT(c_cntcode, c_pnum) AS phone 
         FROM contacts 
         WHERE MONTH(c_dob) = MONTH(CURDATE()) AND DAY(c_dob) = DAY(CURDATE())";
 
@@ -37,23 +26,28 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
         $registererid = $recipient_row['c_ruid'];
         $recipient_messageid = $recipient_row['c_mid'];
 
-        
-        // Fetch the  message creator using registererid
-        $sql = "SELECT ruf_name FROM registered_users WHERE ru_id = $registererid";
-        $usr_result = $conn->query($sql);
+        // Fetch the message creator using registererid
+        $stmt = $conn->prepare("SELECT ruf_name FROM registered_users WHERE ru_id = ?");
+        $stmt->bind_param("i", $registererid);
+        $stmt->execute();
+        $usr_result = $stmt->get_result();
         if ($usr_result && $usr_result->num_rows > 0) {
             $usr_row = $usr_result->fetch_assoc();
             $sender = $usr_row['ruf_name'];
         }
+        $stmt->close();
 
-        // Fetch the  message body using message_id
-        $sql = "SELECT m_body FROM messages WHERE m_id = $recipient_messageid";
-        $msg_result = $conn->query($sql);
+        // Fetch the message body using message_id
+        $stmt = $conn->prepare("SELECT m_body FROM messages WHERE m_id = ?");
+        $stmt->bind_param("i", $recipient_messageid);
+        $stmt->execute();
+        $msg_result = $stmt->get_result();
         $msg_body = "";
         if ($msg_result && $msg_result->num_rows > 0) {
             $msg_row = $msg_result->fetch_assoc();
             $msg_body = $msg_row['m_body'];
         }
+        $stmt->close();
 
         // Calculate recipient's age using DateTime
         if ($recipient_dob) {
@@ -63,13 +57,13 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
         }
 
         // Replace placeholders with actual values in the message
-        $personalized_message = str_ireplace("[Name]", $recipient_name, $msg_body);
-        $personalized_message = str_ireplace("[Age]", $recipient_age, $personalized_message);
-        $personalized_message = str_ireplace("[Your Name]", $sender, $personalized_message);
+        $personalized_message = str_ireplace("[Name]", htmlspecialchars($recipient_name), $msg_body);
+        $personalized_message = str_ireplace("[Age]", htmlspecialchars($recipient_age), $personalized_message);
+        $personalized_message = str_ireplace("[Your Name]", htmlspecialchars($sender), $personalized_message);
 
         // Display the final message
-        echo $personalized_message . "<br>";
-        echo $recipient_phone;
+        echo htmlspecialchars($personalized_message) . "<br>";
+        echo htmlspecialchars($recipient_phone) . "<br>";
 
         // Optionally, store each recipient's message
         $recipients[] = [
@@ -81,10 +75,9 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
 } else {
     echo "No contacts have a birthday today.";
 }
-
 /* Send message function */
 // Include Twilio PHP library
- require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 use Twilio\Rest\Client;
 
 // Your Account SID and Auth Token from twilio.com/console

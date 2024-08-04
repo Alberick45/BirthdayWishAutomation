@@ -14,10 +14,10 @@ function deleteMessage($mid) {
     $stmt -> execute();
     
     if ($stmt ->affected_rows > 0) {
-        echo "Message deleted successfully";
+        $_SESSION['message'] = "Message deleted successfully";
         header('Location: user_account.php');
     } else {
-        echo "Error deleting message: " . $conn -> error;
+        $_SESSION['message'] =  "Error deleting message: " . $conn -> error;
     }
     
     $stmt -> close();
@@ -36,11 +36,11 @@ function updateMessage(){
             $stmt->bind_param('si', $updatedMessage, $umsgid);
 
             if ($stmt->execute()) {
-                echo "Message updated successfully";
+                $_SESSION['message'] = "Message updated successfully";
                 header('Location: user_account.php'); // Redirect to a specific page after updating
                 exit();
             } else {
-                echo "Error updating message: " . $conn->error;
+                $_SESSION['message'] =  "Error updating message: " . $conn->error;
             }
 
             $stmt->close();
@@ -55,10 +55,10 @@ function updateMessage(){
         updateMessage();
         exit();
     } else {
-        echo "Invalid function call: " . $_POST['updatemessage'];
+        $_SESSION['message'] =  "Invalid function call: " . $_POST['updatemessage'];
     }
 } else {
-    echo "Form submission error.";
+    $_SESSION['message'] =  "Form submission error.";
 } 
 
 

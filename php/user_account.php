@@ -2,8 +2,15 @@
   session_start();
   if (!isset($_SESSION['user id'])) {
     header("Location: ../index.html");
+    echo "You are not logged in";
     exit();
-}
+} else {  
+    $userid = $_SESSION['user id'];
+    if (isset($_SESSION['message'])) {
+      echo $_SESSION['message'];
+      unset($_SESSION['message']); 
+    }
+} 
 
 ?>
 <!doctype html>
@@ -95,7 +102,7 @@
 
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
-            <a href="../index.html" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+            <a  class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
               <!-- <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg> -->
               <h3>WishMe</h3>
             </a>
@@ -170,7 +177,7 @@
                     <img src="../img/WhatsApp Image 2024-07-26 at 3.58.21 PM.jpeg" alt="">
                     <div class="carousel-caption d-none d-md-block">
                     <h5 style="color:#ffc67b;">Enjoy your day my good friend 🎂🥳🥳🥳🥳</h5>
-                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#views-model" style="background-color:#ff69b4; color:#fff;">view Message</button>
+                    <button type="button" class="btn" data-bs-toggle="tab" data-bs-target="#messages"  style="background-color:#ff69b4; color:#fff;">view Message</button>
                     </div>
                   </div>
                 
@@ -187,7 +194,7 @@
                   <img src="../img/WhatsApp Image 2024-07-26 at 3.58.21 PM.jpeg" alt="">
                   <div class="carousel-caption d-none d-md-block">
                     <h5 style="color:#ffc67b">Celebrate to its fullness<br>💕💕❤️🎂🎂</h5>
-                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#views-model" style="background-color:#ff69b4; color:#fff;">view Message</button>
+                    <button type="button" class="btn" data-bs-toggle="tab" data-bs-target="#messages"  style="background-color:#ff69b4; color:#fff;">view Message</button>
                   </div>
                 </div>
 

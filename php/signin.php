@@ -21,14 +21,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             if(password_verify($password,$HashedPassword)){
                 $_SESSION["user id"]= $user_id;
                 $_SESSION["username"]= $username;
-                echo " login successful".$username;
+                $_SESSION['message'] =  "You are  logged in successfully ".$username;
                 header("Location: user_account.php");
             }
             else{
-                echo "Incorrect password";
+                $_SESSION['message'] =  "Incorrect password";
             }
         }else{
-            echo "user not found";
+            $_SESSION['message'] =  "user not found";
         }
 
         
