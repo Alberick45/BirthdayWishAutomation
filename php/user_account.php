@@ -268,7 +268,10 @@
 
                   if ($result->num_rows > 0) {
                       while ($row = $result->fetch_assoc()) {
-                          $cmdata = '<tr class="table-secondary"> <th scope="row"> <button type="button" class="btn btn-outline-primary"> Edit </button> </th> <td>' . 
+                          $cmdata = '<tr class="table-secondary"> <th scope="row">
+                          <a class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#" role="button">Edit</a> |
+                <a class="btn btn-outline-danger" href="messages.php?action=delete&mbody=' . htmlspecialchars($row["m_body"]) . '" role="button">Delete</a>
+                 </th> <td>' . 
                           $row["m_body"]. '</td> </tr>' ;
                           echo $cmdata;
                       }
@@ -316,7 +319,10 @@
 
                   if ($result->num_rows > 0) {
                       while ($row = $result->fetch_assoc()) {
-                          $contactoptions = '<tr class="table-secondary"> <th scope="row"> <button type="button" class="btn btn-outline-primary"> Edit </button> </th> <td>' . 
+                          $contactoptions = '<tr class="table-secondary"> <th scope="row">
+                <a class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#update-contact-modal" role="button">Edit</a> |
+                <a class="btn btn-outline-danger" href="contacts.php?action=delete&contact=' . htmlspecialchars($row["c_pnum"]) . '" role="button">Delete</a>
+            </th> <td>' . 
                           $row["cf_name"]. '</td> <td>' .$row["cl_name"] . '</td> <td>' . htmlspecialchars($row["c_cntcode"]." ".$row["c_pnum"]) . '</td> <td>'.$row["c_dob"] . '</td> <td>' .$row["c_mid"]. '</td> </tr>';
                           echo $contactoptions;
                       }
@@ -388,8 +394,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-          <form action="add_contact.php" method = 'POST' id="contact" class="needs-validation" novalidate>
-            <input type="hidden" name="contact" value="add_new">
+          <form action="contacts.php" method = 'POST' id="contact" class="needs-validation" novalidate>
+            <input type="hidden" name="contactlist" value="Add">
             <div class="row g-3">
               <div class="col-6">
                 <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="cfname">
@@ -580,10 +586,35 @@
                 </div>
               </div>
               <div class="col-12">
-                  <input type="password" class="form-control" id="password" name="cmsgid" placeholder="Enter a password" required>
-                  <div class="invalid-feedback">
-                      password is required
-                  </div>
+              
+            <label for="messages">
+                Messages:
+                <select  id="messages" name="cmsgid">
+                    <!-- Options loaded dynamically -->
+                    <?php
+                    require("config.php");
+                    session_start();
+
+                    $userid = $_SESSION['user id'];
+                    $sql_options = "SELECT m_id, m_body FROM messages WHERE m_type='sample'OR m_ruid = '$userid'";
+                    $result = $conn->query($sql_options);
+
+                    $options2 = "";
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $options2 .= '<option value="' . $row["m_id"] . '">' . htmlspecialchars($row["m_body"]) . '</option>';
+                        }
+                    } else {
+                        $options2 .= '<option value="">No options available</option>';
+                    }
+
+                    $conn->close();
+                    echo $options2;
+                    ?>
+                    <option value="add_new">Add new message</option>
+                </select>
+            </label>
               </div>
             </div>    
           </form>
@@ -606,7 +637,6 @@
       </div>
     </div>
     </div>
-
      <!-- this is the logout modal -->
     <div class="modal fade" id="logout-modal" tabindex="-1" aria-labelledby="logout-modal-title" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
