@@ -25,10 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 header("Location: user_account.php");
             }
             else{
-                $_SESSION['message'] =  "Incorrect password";
+                echo  "<script>
+                        alert('Incorrect password');
+                        window.location.href = '../index.html';
+                      </script>";
+                exit();
+                
             }
         }else{
-            $_SESSION['message'] =  "user not found";
+            echo  "user not found";
         }
 
         

@@ -75,9 +75,11 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
 } else {
     echo "No contacts have a birthday today.";
 }
+
 /* Send message function */
 // Include Twilio PHP library
-require_once '../vendor/autoload.php';
+
+/* require_once '../vendor/autoload.php';
 use Twilio\Rest\Client;
 
 // Your Account SID and Auth Token from twilio.com/console
@@ -97,6 +99,6 @@ $client->messages->create(
         'body' => $personalized_message
     ]
 );
-
+ 
 echo "Message sent!"; 
-
+*/
