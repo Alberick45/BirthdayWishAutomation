@@ -12,14 +12,16 @@
         bd.open("GET", "php/automatic_message_sending.php", true);
         bd.onload = function () {
             if (bd.status === 200) {
-                console.log("Script executed: " + bd.responseText);
-                alert(bd.responseText);
+              if (!window.location.search.includes('redirected=true')) {
+                  console.log("Script executed: " + bd.responseText);
+                  alert(bd.responseText);
                 // Redirect to main page after 3 seconds, with a query parameter to prevent loop
-                setTimeout(function() {
-                    if (!window.location.search.includes('redirected=true')) {
+                  setTimeout(function() {
+                    
+                      console.log("Script executed: " + bd.responseText);
                         window.location.href = "index.html?redirected=true"; // Add a query parameter
-                    }
-                }, 1000);
+                        
+                    }, 1000);}
             } else {
                 console.error("Failed to run script. Status: " + bd.status);
             }

@@ -15,32 +15,42 @@ if (!isset($_SESSION['user id'])) {
     }
 
     // Fetch messages for the logged-in user
-    $sql = "SELECT m_body FROM messages WHERE m_ruid = ?";
+    $sql = "SELECT m_body FROM messages WHERE m_ruid = ? OR m_type = 'sample'";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
-
-    // Initialize carousel items
+    
+    // Initialize carousel items and indicators
     $carouselItems = '';
+    $carouselIndicators = '';
     $isActive = true;
-
+    $index = 0;
+    
     while ($row = $result->fetch_assoc()) {
         $message = $row['m_body'];
         $activeClass = $isActive ? 'active' : '';
+        
+        // Carousel items
         $carouselItems .= "
-            <div class='carousel-item $activeClass'>
-                <img src='../img/WhatsApp Image 2024-07-26 at 3.58.21 PM.jpeg' alt=''>
-                <div class='carousel-caption d-none d-md-block'>
-                    <h5 style='color:#ffc67b;'>$message</h5>
-                    <button type='button' class='btn' data-bs-toggle='tab' data-bs-target='#messages' style='background-color:#ff69b4; color:#fff;'>view Message</button>
-                </div>
+        <div class='carousel-item $activeClass'>
+            <img src='../img/WhatsApp Image 2024-07-26 at 3.58.21 PM.jpeg' alt=''>
+            <div class='carousel-caption d-none d-md-block'>
+                <h5 style='color:#ffc67b;'>$message</h5>
+                <button type='button' class='btn' data-bs-toggle='tab' data-bs-target='#messages' style='background-color:#ff69b4; color:#fff;'>View Message</button>
             </div>
-        ";
+        </div>";
+        
+        // Carousel indicators
+        $indicatorActiveClass = $isActive ? 'active' : '';
+        $carouselIndicators .= "<button type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='$index' class='$indicatorActiveClass' aria-label='Slide ".($index + 1)."' style='background-color:#ff69b4'></button>";
+        
         $isActive = false; // Only the first item should be active
+        $index++;
     }
 }
 ?>
+    
 <!doctype html>
 <html lang="en">
   <head>
@@ -186,36 +196,32 @@ if (!isset($_SESSION['user id'])) {
 
         </nav>
 
-        <!-- this is where the gets acces to all the contents of the page and make changes ff69b4-->
+        <!-- this is where the user gets acces to all the contents of the page and make changes ff69b4-->
       
         <div class="tab-content" id="nav-tabContent">
           
-          <!-- this is the landing Section -->
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" >
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="background-color:#ff69b4"></button>
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2" style="background-color:#ff69b4"></button>
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3" style="background-color:#ff69b4"></button>
-                </div>
+ <!-- This is the landing Section -->
+<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <?php echo $carouselIndicators; ?>
+    </div>
+    <div class="carousel-inner">
+      <?php echo $carouselItems; ?>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
 
-                <div class="carousel-inner">
-                  
-                  <?php echo $carouselItems; ?>
 
-              </div>
 
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="prev" >
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="next" >
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            </div>
-          </div>
 
           <!-- this is the messages section -->
           <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -687,7 +693,7 @@ if (!isset($_SESSION['user id'])) {
               
             <label for="messages">
                 Messages:
-                <select  id="messages" name="cmsgid">
+                <select  id="messages" name="cmsgid" class="form-select">
                     <!-- Options loaded dynamically -->
                     <?php
                     require("config.php");
@@ -785,7 +791,7 @@ if (!isset($_SESSION['user id'])) {
                 <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="u_cfname" value="<?php echo $ufirstname?>">
               </div>
               <div class="col-6">
-                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="u_clname" value="<?php echo $ulastname?>">>
+                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="u_clname" value="<?php echo $ulastname?>">
               </div>
               
               <div class="col-4">
@@ -1056,7 +1062,7 @@ if (!isset($_SESSION['user id'])) {
               
               <label for="messages">
                 Messages:
-                <select id="messages" name="u_cmsgid" required>
+                <select id="messages" name="u_cmsgid" class="form-select" required>
                   <!-- Options loaded dynamically -->
                   <?php
                   require("config.php");
