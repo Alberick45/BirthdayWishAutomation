@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"name": "BirthdayWishAutomation",
+			"path": "."
+		},
+		{
+			"name": "vendor",
+			"path": "E:/xampp/htdocs/sms3birthday/vendor"
+		},
+		{
+			"name": "css",
+			"path": "E:/xampp/htdocs/sms3birthday/css"
+		},
+		{
+			"name": "img",
+			"path": "E:/xampp/htdocs/sms3birthday/img"
+		},
+		{
+			"name": "js",
+			"path": "E:/xampp/htdocs/sms3birthday/js"
+		},
+		{
+			"name": "php",
+			"path": "E:/xampp/htdocs/sms3birthday/php"
+		}
+	],
+	"settings": {}
+}
