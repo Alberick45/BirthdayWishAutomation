@@ -71,34 +71,47 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
             'phone' => $recipient_phone,
             'message' => $personalized_message
         ];
-    }
-} else {
-    echo "No contacts have a birthday today.";
-}
 
-/* Send message function */
-// Include Twilio PHP library
 
-/* require_once '../vendor/autoload.php';
-use Twilio\Rest\Client;
 
-// Your Account SID and Auth Token from twilio.com/console
-$sid = '';
-$token = '';
-$client = new Client($sid, $token);
+                // using Mnotify credentials
+                // API Key and Endpoint
+                $apiKey = 'api_key'; // Replace with your actual API key
+                $apiUrl = 'https://apps.mnotify.net/smsapi'; // Endpoint URL
+                
+                // Message details
+                $recipient = $recipient_phone; // Replace with the recipient's phone number
+                $message = $personalized_message;
+                $senderId = 'sender_id'; // Optional: Replace with your sender ID if required
+                
+                // Prepare the URL with query parameters
+                $url = $apiUrl . '?key=' . $apiKey . '&to=' . urlencode($recipient) . '&msg=' . urlencode($message) . '&sender_id=' . urlencode($senderId);
+                
+                // Initialize cURL
+                $ch = curl_init();
+                
+                // Set cURL options
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                
+                // Execute the request and get the response
+                $response = curl_exec($ch);
+                
+                // Check for cURL errors
+                if (curl_errno($ch)) {
+                    echo 'cURL error: ' . curl_error($ch);
+                } else {
+                    echo 'Response: ' . $response;
+                }
+                
+                // Close cURL
+                curl_close($ch);
+                    
+            }
+        } else {
+                echo "No contacts have a birthday today.";
+            }
 
-// Your Twilio phone number and the recipient's phone number
-$from = '+19127375668';
-$to = $recipient_phone;
 
-// Send the SMS
-$client->messages->create(
-    $to,
-    [
-        'from' => $from,
-        'body' => $personalized_message
-    ]
-);
- 
-echo "Message sent!"; 
-*/
+
+?>

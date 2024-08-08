@@ -37,7 +37,7 @@ $con=new mysqli($server_name, $user_name, $password, $db_name,3307);
          description LIKE '%$search_value%'";
          $res=$con->query($sql);
          while($row=$res->fetch_assoc())
-    echo "<strong>ID </strong>".$row['id']." <strong>Title:</strong> ".$row['title']." <strong>Description</strong> ".$row['description']."<br />"; 
+    echo "<br><br><strong>ID </strong>".$row['id']."<br> <strong>Title:</strong> ".$row['title']."<br> <strong>Description</strong> ".$row['description']."<br />"; 
   }?>
 </body>
   </html>

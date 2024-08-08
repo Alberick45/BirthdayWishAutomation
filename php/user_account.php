@@ -37,7 +37,9 @@ if (!isset($_SESSION['user id'])) {
             <img src='../img/WhatsApp Image 2024-07-26 at 3.58.21 PM.jpeg' alt=''>
             <div class='carousel-caption d-none d-md-block'>
                 <h5 style='color:#ffc67b;'>$message</h5>
-                <button type='button' class='btn' data-bs-toggle='tab' data-bs-target='#messages' style='background-color:#ff69b4; color:#fff;'>View Message</button>
+                <div class='nav nav-tabs mb-3 justify-content-center' id='nav-tab' role='tablist'>
+                  <button type='button' class='nav-link btn' id='nav-profile-tab' data-bs-toggle='tab' data-bs-target='#messages' type='button' role='tab' aria-controls='nav-profile' aria-selected='false' style=' background-color:#ff69b4 ; color:#fff;'>View Message</button>
+                </div>
             </div>
         </div>";
         
@@ -100,6 +102,9 @@ if (!isset($_SESSION['user id'])) {
       min-width: 100%;
       height: 50vh;
     }
+
+    
+    
     </style>
 
     <!-- Custom styles for this template -->
@@ -689,11 +694,12 @@ if (!isset($_SESSION['user id'])) {
                 input  date of birth.
                 </div>
               </div>
-              <div class="col-12">
+
+              <div class="col-12 ">
               
             <label for="messages">
                 Messages:
-                <select  id="messages" name="cmsgid" class="form-select">
+                <select  id="messages" name="cmsgid" class="form-select" >
                     <!-- Options loaded dynamically -->
                     <?php
                     require("config.php");
@@ -1058,11 +1064,12 @@ if (!isset($_SESSION['user id'])) {
                 input  date of birth.
                 </div>
               </div>
+
+
               <div class="col-12">
-              
               <label for="messages">
                 Messages:
-                <select id="messages" name="u_cmsgid" class="form-select" required>
+                <select id="messages" name="u_cmsgid" class="form-select form-select-sm" required>
                   <!-- Options loaded dynamically -->
                   <?php
                   require("config.php");
@@ -1084,11 +1091,11 @@ if (!isset($_SESSION['user id'])) {
                   $conn->close();
                   echo $options2;
                   ?>
-                  <option value="add_new">Add new message</option>
+                  <option value="add_new" onclick="add_message()">Add new message</option>
                 </select>
               </label>
-
               </div>
+
             </div>
             <input type="hidden" name="ucid" value="<?php echo $contactid; ?>">    
           </form>
@@ -1103,9 +1110,17 @@ if (!isset($_SESSION['user id'])) {
 
             <!-- script for submitting form -->
             <script>
-                /* function updatecontact(){
-                  document.getElementById('upcontact').submit();
-                } */
+                 document.addEventListener('DOMContentLoaded', function () {
+    var select = document.getElementById('messages');
+
+    select.addEventListener('change', function () {
+      if (this.value === 'add_new') {
+        // Trigger the click event on the "Messages" tab
+        var messagesTab = document.getElementById('nav-profile-tab');
+        messagesTab.click();
+      }
+    });
+  });
              </script>
         </div>
       </div>

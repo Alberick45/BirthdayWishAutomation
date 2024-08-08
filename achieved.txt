@@ -272,3 +272,61 @@ echo "Message sent!";
 
 
  SELECT c_id from contacts where c_dob between curdate() and date_add(curdate(), interval 15 day)
+
+ // Your Hubtel credentials
+            $clientId = 'kcaliqtv';
+            $clientSecret = 'kzaxioop';
+
+            // Message details
+            $from = 'SalemInc';
+            $to = $recipient_phone; // Ensure the number is in international format without the '+'
+            $message = $personalized_message;
+
+            // Prepare the payload
+            $data = array(
+                'From' => $from,
+                'To' => $to,
+                'Content' => $message,
+                'ClientReference' => $registererid // Optional
+            );
+
+            $data_string = json_encode($data);
+
+            // Initialize cURL
+            $ch = curl_init('https://smsc.hubtel.com/v1/messages/send');
+
+            // Set cURL options
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Authorization: Basic ' . base64_encode($clientId . ':' . $clientSecret),
+            ));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+
+            // Execute cURL request
+            $response = curl_exec($ch);
+
+            // Check for cURL errors
+            if ($response === false) {
+                $error = curl_error($ch);
+                curl_close($ch);
+                die('cURL error: ' . $error);
+            }
+
+            // Close cURL
+            curl_close($ch);
+
+            // Decode and handle the response
+            $responseData = json_decode($response, true);
+
+            // Print the full response for debugging
+            // var_dump($responseData); // Uncomment this line if you need to debug the response
+
+            // Check the response status
+            if (isset($responseData['status']) && $responseData['status'] === 0) {
+                echo 'Message sent successfully!';
+            } else {
+                echo 'Failed to send message: ' . (isset($responseData['statusDescription']) ? $responseData['statusDescription'] : 'Unknown error');
+            }
+                
