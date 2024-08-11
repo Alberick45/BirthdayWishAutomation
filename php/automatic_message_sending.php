@@ -76,13 +76,13 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
 
                 // using Mnotify credentials
                 // API Key and Endpoint
-                $apiKey = 'api_key'; // Replace with your actual API key
+                $apiKey = '1Tr9eN1Sxjo2BZvwbKByue5QL'; // Replace with your actual API key
                 $apiUrl = 'https://apps.mnotify.net/smsapi'; // Endpoint URL
                 
                 // Message details
                 $recipient = $recipient_phone; // Replace with the recipient's phone number
                 $message = $personalized_message;
-                $senderId = 'sender_id'; // Optional: Replace with your sender ID if required
+                $senderId = 'Bdaywishers'; // Optional: Replace with your sender ID if required
                 
                 // Prepare the URL with query parameters
                 $url = $apiUrl . '?key=' . $apiKey . '&to=' . urlencode($recipient) . '&msg=' . urlencode($message) . '&sender_id=' . urlencode($senderId);

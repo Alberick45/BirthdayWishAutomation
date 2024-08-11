@@ -107,11 +107,15 @@ if (isset($_POST['contactlist'])) {
             updateContact();
             exit();
         
-    } else {
+    } 
+    else {
         $_SESSION['message'] =  "Invalid function call: " . $_POST['contactlist'];
+        header('Location: user_account.php');
+        
     }
 } else {
    $_SESSION['message'] =  "Form submission error.";
+   header('Location: user_account.php');
 }
 
 
@@ -121,6 +125,10 @@ if (isset($_GET["action"])) {
         $contact = htmlspecialchars($_GET['cid']);
         deleteContact($contact);
         exit();
+    }else {
+        $_SESSION['message'] =  "Invalid function call: " . $_POST['contactlist'];
     }
+} else {
+   $_SESSION['message'] =  "Form submission error.";
 }
 
