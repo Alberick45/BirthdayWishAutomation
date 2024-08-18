@@ -45,8 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare($sqlinsert);
             $stmt->bind_param('sssssis', $firstname, $lastname, $username, $dob, $country_code, $phone, $HashedPassword);
             $stmt->execute();
-            $messageid=2;
-            
+
             if ($stmt->affected_rows > 0) {
                 // $_SESSION['message'] = "Registered successfully";
                 // $_SESSION['']
@@ -59,10 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION["user id"]= $user_id;
                     $_SESSION["username"]= $username;
                     $_SESSION['message'] =  "You are  logged in successfully ".$username;
-                    $sql = "INSERT INTO contacts (cf_name, cl_name, c_dob, c_cntcode, c_pnum, c_mid, c_ruid) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                    $sql->bind_param('ssssiii', $firstname, $lastname, $dob, $countrycode, $phone, $messageid, $user_id);
-                    $stmt->execute();
-
                     header("Location: user_account.php");
                 exit();
             } else {

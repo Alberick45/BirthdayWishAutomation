@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WishMe</title>
-    <!-- <script>
+    <script>
   function automate_birthday() {
       console.log("Function called"); // Check if the function is being executed
 
@@ -36,10 +36,9 @@
       var lastRunDate = localStorage.getItem('last_run_date');
       var todayDate = new Date().toISOString().split('T')[0]; // Get YYYY-MM-DD format
 
-      // if (lastRunDate === todayDate) {
-      //     console.log("Script has already been run today.");
-      // } 
-      if (lastRunDate === todayDate){
+      if (lastRunDate === todayDate) {
+          console.log("Script has already been run today.");
+      } else {
           // Update the last run date in local storage
           localStorage.setItem('last_run_date', todayDate);
           automate_birthday();
@@ -47,7 +46,7 @@
   }
 
   window.onload = checkIfScriptShouldRun;
-</script> -->
+</script>
 
       
   
@@ -82,7 +81,7 @@
   </nav> -->
 
   <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg" id="navbar" style="background-color: blue;">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg" id="navbar" style=" position: relative; background-color: blue;">
       <div class="container-fluid">
         <h1 style="width: 80%; color: antiquewhite; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">WishMe</h1>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,7 +109,7 @@
     
     <!-- This is where the main contents are located -->
     <div class="tab-content" id="nav-tabContent" >
-
+      
       <div class="tab-pane fade show active"  role="tabpanel"  id="landingPage">
           <main class="content ">
             <div class="container-fluid px-3">
@@ -123,7 +122,7 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active" data-interval="2000" data-transiton="slide">
                     <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
-                      <img src="img/img-3.jpg" alt="">
+                      <img src="img/img-3.jpg" alt="b">
                     <!-- <div class="container">
                       <div class="carousel-caption text-start">
                         <h1>Send birthday wishes automatically </h1>
@@ -174,7 +173,7 @@
                       <h2 class="mb-0">'Love'</h2>
                       <div class="mb-1 text-muted">message 1</div>
                       <p class="card-text mb-auto">'.Dear [Name], wishing you a day filled with happiness and a year f.. </p>
-                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#singup-modal'" role="button">Send</a>
+                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#signup-modal" role="button">Send</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                       <img src='img/img-1.jpg' width="200" height="250">
@@ -204,7 +203,7 @@
                       <h2 class="mb-0">Customize</h2>
                       <div class="mb-1 text-muted">message 3</div>
                       <p class="card-text mb-auto">Dear [Name], as you turn [Age], may your birthday be the start of a year filled with good luck, good...</p>
-                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#signup-modal'" role="button">Send</a>
+                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#signup-modal" role="button">Send</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                       <img src='img/img-3.jpg' width="200" height="250">
@@ -218,7 +217,7 @@
                       <h2 class="mb-0">love</h2>
                       <div class="mb-1 text-muted">message 4</div>
                       <p class="card-text mb-auto">It's your [Age]th birthday, [Name]! Time to celebrate, make memories, and have an amazing time....</p>
-                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#send-modal" role="button">Send</a>
+                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#signup-modal" role="button">Send</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                       <img src='img/img-4.jpg' width="200" height="250">
@@ -242,13 +241,112 @@
                     <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
                   </div>
                 </div>
+                
               
-                <div class="row row-md-6  p-1"style="border: 2px solid; height: 20vw;overflow-X:scroll; overflow-Y:none;">
-                    
-                </div>  
+                 
               </main>
         </section>
         <!-- Add more sections as needed -->
+         <section class="aboutUs" id="about">
+            <main class="container">
+                
+                
+                <div id="myCarousel-2 " class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators ">
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                  </div>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active" data-interval="2000" data-transiton="slide">
+                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
+                        <div class="col-lg-4">
+                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/img-1.jpg" alt="Name">
+                          <h2>MESSAGE 1</h2>
+                          <p>ANYTHING NICE FOR A BIRTHDAY WISH WILL DO.</p>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Send Wish &raquo;</button>
+                        </div>
+                        <div class="col-lg-4">
+                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/img-1.jpg" alt="Name">
+                          
+                          <h2>MESSAGE 1</h2>
+                          <p>ANYTHING NICE FOR A BIRTHDAY WISH WILL DO.</p>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Send Wish &raquo;</button>
+                        </div>
+                        <div class="col-lg-4">
+                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/img-1.jpg" alt="Name">
+                          
+                          <h2>MESSAGE 1</h2>
+                          <p>ANYTHING NICE FOR A BIRTHDAY WISH WILL DO.</p>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Send Wish &raquo;</button>
+                        </div>
+                        
+                      </div> 
+                    </div>
+                    <div class="carousel-item"data-interval="3000" data-transiton="fade">
+                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
+                        <div class="col-lg-4">
+                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/img-1.jpg" alt="Name">
+                          <h2>MESSAGE 1</h2>
+                          <p>ANYTHING NICE FOR A BIRTHDAY WISH WILL DO.</p>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Send Wish &raquo;</button>
+                        </div>
+                        <div class="col-lg-4">
+                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/img-1.jpg" alt="Name">
+                          
+                          <h2>MESSAGE 1</h2>
+                          <p>ANYTHING NICE FOR A BIRTHDAY WISH WILL DO.</p>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Send Wish &raquo;</button>
+                        </div>
+                        <div class="col-lg-4">
+                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/img-1.jpg" alt="Name">
+                          
+                          <h2>MESSAGE 1</h2>
+                          <p>ANYTHING NICE FOR A BIRTHDAY WISH WILL DO.</p>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Send Wish &raquo;</button>
+                        </div>
+                        
+                      </div> 
+                    
+                    </div>
+                    <div class="carousel-item"data-interval="2500" data-transiton="zoom">
+                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
+                        <div class="col-lg-4">
+                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/img-1.jpg" alt="Name">
+                          <h2>MESSAGE 1</h2>
+                          <p>ANYTHING NICE FOR A BIRTHDAY WISH WILL DO.</p>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Send Wish &raquo;</button>
+                        </div>
+                        <div class="col-lg-4">
+                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/img-1.jpg" alt="Name">
+                          
+                          <h2>MESSAGE 1</h2>
+                          <p>ANYTHING NICE FOR A BIRTHDAY WISH WILL DO.</p>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Send Wish &raquo;</button>
+                        </div>
+                        <div class="col-lg-4">
+                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/img-1.jpg" alt="Name">
+                          
+                          <h2>MESSAGE 1</h2>
+                          <p>ANYTHING NICE FOR A BIRTHDAY WISH WILL DO.</p>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Send Wish &raquo;</button>
+                        </div>
+                        
+                      </div> 
+                    </div>
+                  </div>
+                 <!--  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel-2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button> -->
+                </div>
+                 
+              </main>
+        </section>
       </div>
 
     </div>
@@ -288,6 +386,8 @@
               <button class="w-100 btn btn-primary btn-lg" name="sign_in" >Signin</button>
             </div>    
           </form>
+          
+          DOn't have an account?<a data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signup-modal" role="button" class="text-primary"> Signup here</a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
@@ -585,6 +685,7 @@
               <button class="w-100 btn btn-primary btn-lg"  name="sign_up">signup</button>
             </div>    
           </form>
+          Already have an account?<a data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signin-modal" role="button" class="text-primary"> Register here</a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
