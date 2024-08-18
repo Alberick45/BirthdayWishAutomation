@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Landing Page</title>
+    <script>
+        function runScript() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "php/setup.php", true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log("Script executed: " + xhr.responseText);
+                    // Redirect to main page after 3 seconds
+                    setTimeout(function() {
+                        window.location.href = "index.html"; // Replace with your main page URL
+                    }, 3000);
+                } else {
+                    console.error("Failed to run script");
+                }
+            };
+            xhr.send();
+        }
+        
+        window.onload = runScript;
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Landing Page</h1>
+    <p>Setting things up...</p>
+</body>
+</html>

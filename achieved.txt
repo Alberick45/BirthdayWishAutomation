@@ -799,17 +799,4 @@ $selected = ($code == $ucountrycode) ? 'selected' : '';
           
         </div>
       </div>
-    </div>  <!--  script for submitting form
-            <script>
-                 document.addEventListener('DOMContentLoaded', function () {
-    var select = document.getElementById('messages');
-
-    select.addEventListener('change', function () {
-      if (this.value === 'add_new') {
-        // Trigger the click event on the "Messages" tab
-        var messagesTab = document.getElementById('nav-profile-tab');
-        messagesTab.click();
-      }
-    });
-  });
-             </script> -->
+    </div> 
