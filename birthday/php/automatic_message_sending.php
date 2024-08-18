@@ -2,7 +2,6 @@
 <?php
 require("config.php");
 
-
 // Initialize variables
 $recipient_name = "";
 $recipient_dob = "";
@@ -12,9 +11,9 @@ $message = "";
 $recipients = [];
 
 // Fetch contacts whose date of birth matches today's day and month
-$sql = "SELECT cf_name, c_ruid, cl_name, c_dob, c_mid, CONCAT(c_cntcode, c_pnum) AS phone 
+$sql = "SELECT *, CONCAT(c_cntcode, c_pnum) AS phone 
         FROM contacts 
-        WHERE MONTH(c_dob) = MONTH(CURDATE()) AND DAY(c_dob) = DAY(CURDATE())";
+        WHERE MONTH(c_dob) = MONTH(CURDATE()) AND DAY(c_dob) = DAY(CURDATE()) AND m_stat = 0";
 
 $recipient_result = $conn->query($sql);
 
@@ -22,10 +21,11 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
     while ($recipient_row = $recipient_result->fetch_assoc()) {
         $recipient_name = $recipient_row['cf_name'] . ' ' . $recipient_row['cl_name'];
         $recipient_dob = $recipient_row['c_dob'];
+        $recipient_id = $recipient_row['c_id'];
         $recipient_phone = $recipient_row['phone'];
         $registererid = $recipient_row['c_ruid'];
         $recipient_messageid = $recipient_row['c_mid'];
-
+        $message_status = $recipient_row['m_stat'];
         // Fetch the message creator using registererid
         $stmt = $conn->prepare("SELECT ruf_name FROM registered_users WHERE ru_id = ?");
         $stmt->bind_param("i", $registererid);
@@ -45,7 +45,7 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
         $msg_body = "";
         if ($msg_result && $msg_result->num_rows > 0) {
             $msg_row = $msg_result->fetch_assoc();
-            $msg_body = $msg_row['m_body'];
+            $msg_body = $msg_row['m_body'].' visit us: http://localhost/final/birthday/index.html';
         }
         $stmt->close();
 
@@ -89,7 +89,6 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
                 
                 // Initialize cURL
                 $ch = curl_init();
-                
                 // Set cURL options
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -99,19 +98,30 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
                 
                 // Check for cURL errors
                 if (curl_errno($ch)) {
-                    echo 'cURL error: ' . curl_error($ch);
+                    echo '<p>cURL error: ' . curl_error($ch).'</p>';
+                   
                 } else {
-                    echo 'Response: ' . $response;
+                    echo '<p>Response: ' . $response.'</p>';
+                    $sql = "UPDATE contacts set m_stat = 1 where c_id = $recipient_id";
+                    $results= mysqli_query($conn,$sql);
+                    if ($results){
+                        echo 'successful';
+                    }
+                    else{
+                        echo 'not successful'.$results;
+                    }
+                    
                 }
                 
                 // Close cURL
                 curl_close($ch);
+
                     
             }
         } else {
-                echo "No contacts have a birthday today.";
+                echo "<p>NO more wish in the database to be sent.</p>";
             }
-
+        header('refresh:3 automatic_message_sending.php');
 
 
 ?>

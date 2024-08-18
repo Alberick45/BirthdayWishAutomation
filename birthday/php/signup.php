@@ -47,15 +47,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute();
 
             if ($stmt->affected_rows > 0) {
-                $_SESSION['message'] = "Registered successfully";
-                header("Location: ../index.html");
+                // $_SESSION['message'] = "Registered successfully";
+                // $_SESSION['']
+                // header("Location: ../index.html");
+                $passretrieval = "SELECT ru_id FROM registered_users WHERE ru_name = '$username'";
+                $result = $conn -> query($passretrieval);
+                if($result && $result -> num_rows > 0){
+                    $row = $result -> fetch_assoc();
+                    $user_id = $row["ru_id"];
+                    $_SESSION["user id"]= $user_id;
+                    $_SESSION["username"]= $username;
+                    $_SESSION['message'] =  "You are  logged in successfully ".$username;
+                    header("Location: user_account.php");
                 exit();
             } else {
                 echo "Problem with code: " . $conn->error;
             }
         }
-    } else {
-        echo "Enter a value";
-    }
+    } 
+}
 }
 ?>

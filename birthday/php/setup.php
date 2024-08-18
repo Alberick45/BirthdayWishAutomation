@@ -39,7 +39,7 @@ $SQL_createm_tb = "CREATE TABLE IF NOT EXISTS messages(
     m_id INT PRIMARY KEY AUTO_INCREMENT,
     m_body LONGTEXT,
     m_ruid INT,
-    m_type ENUM('custom', 'sample'),
+    m_type ENUM('custom','love','important','special'),
 
     CONSTRAINT creator_id FOREIGN KEY (m_ruid) REFERENCES registered_users(ru_id)
 )";
@@ -54,7 +54,7 @@ $SQL_createc_tb = "CREATE TABLE IF NOT EXISTS contacts(
     c_pnum BIGINT,
     c_mid INT,
     c_ruid INT,
-
+    m_stat TINYINT(1) set default = 0,
     CONSTRAINT messagecreator_id FOREIGN KEY (c_mid) REFERENCES messages(m_id),
     CONSTRAINT messagecreated_id FOREIGN KEY (c_ruid) REFERENCES registered_users(ru_id)
 )";
