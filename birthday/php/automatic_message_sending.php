@@ -121,7 +121,7 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
         } else {
                 echo "<p>NO more wish in the database to be sent.</p>";
             }
-        header('refresh:3 automatic_message_sending.php');
+        header('refresh:3 automatic_message_sending.php');/* header('refresh:86400 automatic_message_sending.php'); */
 
 
 ?>

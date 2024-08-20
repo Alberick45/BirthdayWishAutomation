@@ -39,7 +39,7 @@ $SQL_createm_tb = "CREATE TABLE IF NOT EXISTS messages(
     m_id INT PRIMARY KEY AUTO_INCREMENT,
     m_body LONGTEXT,
     m_ruid INT,
-    m_type ENUM('custom','love','important','special'),
+    m_type ENUM('custom', 'sample'),
 
     CONSTRAINT creator_id FOREIGN KEY (m_ruid) REFERENCES registered_users(ru_id)
 )";
@@ -54,7 +54,7 @@ $SQL_createc_tb = "CREATE TABLE IF NOT EXISTS contacts(
     c_pnum BIGINT,
     c_mid INT,
     c_ruid INT,
-    m_stat TINYINT(1)  default  0,
+
     CONSTRAINT messagecreator_id FOREIGN KEY (c_mid) REFERENCES messages(m_id),
     CONSTRAINT messagecreated_id FOREIGN KEY (c_ruid) REFERENCES registered_users(ru_id)
 )";
@@ -75,11 +75,11 @@ $SQL_r_init_insert = "INSERT INTO registered_users (ruf_name, rul_name, ru_name,
 
 $SQL_m_init_insert = "INSERT INTO messages (m_body,m_ruid,m_type) VALUES 
 ('None',1,'sample'),
-('Dear [Name], wishing you a day filled with happiness and a year filled with joy as you turn [Age] today. Happy Birthday! - [Your Name]',1,'special'),
-('Happy [Age]th Birthday, [Name]! May your birthday be as special and wonderful as you are. Have a fantastic day! - [Your Name]',1,'special'),
-('It\'s your [Age]th birthday, [Name]! Time to celebrate, make memories, and have an amazing time. Cheers to you! - [Your Name]',1,'love'),
-('On your special day, [Name], as you celebrate turning [Age], I just want to let you know how much you mean to me. Happy Birthday! - [Your Name]',1,'love'),
-('Dear [Name], as you turn [Age], may your birthday be the start of a year filled with good luck, good health, and much happiness. Happy Birthday! - [Your Name]',1,'important')";
+('Dear [Name], wishing you a day filled with happiness and a year filled with joy as you turn [Age] today. Happy Birthday! - [Your Name]',1,'sample'),
+('Happy [Age]th Birthday, [Name]! May your birthday be as special and wonderful as you are. Have a fantastic day! - [Your Name]',1,'sample'),
+('It\'s your [Age]th birthday, [Name]! Time to celebrate, make memories, and have an amazing time. Cheers to you! - [Your Name]',1,'sample'),
+('On your special day, [Name], as you celebrate turning [Age], I just want to let you know how much you mean to me. Happy Birthday! - [Your Name]',1,'sample'),
+('Dear [Name], as you turn [Age], may your birthday be the start of a year filled with good luck, good health, and much happiness. Happy Birthday! - [Your Name]',1,'sample')";
 
 $SQL_c_init_insert = "INSERT INTO contacts (cf_name, cl_name, c_dob, c_cntcode, c_pnum,c_mid,c_ruid) VALUES 
 ('John', 'Doe', '1990-01-01', '+233', 1234567890,2,1)"; 

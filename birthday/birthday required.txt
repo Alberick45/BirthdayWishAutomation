@@ -1,29 +1,22 @@
 
 8.on signup form user has chance to add profile pic else choose default in  jpeg
 the front page
-images in carousel background
-2.sample messages populated in features cards
-3.change blogs to about
-and add all the divs for the pictures well be taking
-10.and a group picture at the top container background 
-
-7.the cards an individual picture of everyone and their works
-9.and color of front page
 
 
 
 
 user account page
-11background picture or color in carousel.
+
 delete in messages tab:
 6.on clicking the first delete check if message has already been used in a contact 
 if yes modal that pops up should be message has been used in a contact please update contact with a new message and the button should be update contact
 else normal modal
-delay of modal extended with animations
-4.add sample messages to sample messages part.
-
-5.resizing of contacts tab.
 
 
 
 
+create an admin page where admin can upload bulk contacts using csv to your database 
+so all it needs are contacts first name last name date of birth and phone number with country code being set default to Ghana
+
+so in the automation before that we have it automatically andomly ssigned a message in the database
+so mostly sample messages

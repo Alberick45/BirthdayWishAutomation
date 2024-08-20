@@ -4,30 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WishMe</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+<link rel="stylesheet" href="css/styles.css">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
-    </style>
+    }
+  </style>
 </head>
 
 
 <body style=" background-color:#e2e0e0">
 
-  <header class="fixed-top">
-    <nav class="navbar navbar-expand-md navbar-dark  bg" id="navbar" style=" position: relative; background-color: blue;">
+  <header >
+    <nav class="navbar navbar-expand-md  navbar-fixed-top bg" id="navbar" style="background-color: blue;">
       <div class="container-fluid">
         <h1 style="width: 80%; color: antiquewhite; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">WishMe</h1>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,23 +36,30 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Signin</button>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup-modal" style="margin-right: 10px;">Signup</button>
+          <form class="d-flex" action="search.php">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="search" id="search">
+            <button class="btn btn-success" type="submit">Search</button>
+          </form>
         </div>
       </div>
     </nav>
   </header>
 
-  <main class="body  px-5 rounded shadow-lg " style="padding-top: 80px; position: relative; ">
-    <!-- This is where the main contents are located -->
-    <div class="tab-content bg-white" id="nav-tabContent" >
-    <div class="nav nav-tabs " id="nav-tab" role="tablist">
-      <button class="nav-link btn-primary active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#landingPage" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-      <button class="nav-link btn-primary" id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="nav-about" aria-selected="false">About Us</button>
-    </div><br>
+  <main class="body my-3 " style=" position: relative; box-shadow: 0px 0px 20px rgba(140, 133, 133, 0.5);">
 
-      <div class="tab-pane fade show  active"  role="tabpanel"  id="landingPage">
+    <!-- This is where content nevigations are located -->
+    <div class="nav nav-tabs " id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#landingPage" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+      <button class="nav-link" id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="nav-about" aria-selected="false">About Us</button>
+    </div><br>
+    
+    <!-- This is where the main contents are located -->
+    <div class="tab-content" id="nav-tabContent" >
+
+      <div class="tab-pane fade show active"  role="tabpanel"  id="landingPage">
           <main class="content ">
             <div class="container-fluid px-3">
-              <div id="myCarousel" class="carousel p-2 slide" data-bs-ride="carousel" style="border-top:1px solid ;">
+              <div id="myCarousel " class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                   <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                   <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -60,37 +67,36 @@
                 </div>
                 <div class="carousel-inner">
                   <div class="carousel-item active" data-interval="2000" data-transiton="slide">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                      <img src="img/img-3.jpg" class="rounded" alt="b">
-                    <div class="container">
-                      <div class="carousel-caption  text-start">
-                        <h1 style=' text-align:center;font-style: oblique; font-family: fantasy; font-size:5vw; color:white;'>Send birthday wishes automatically </h1>
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 2rem;">Tired of Forgetting the birthdays of your loved ones?<br>Then WisheME is here for you</p>
-                        <p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup-modal" style="margin-right: 10px;">Signup Now</button></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="carousel-item"data-interval="2500" data-transiton="zoom">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                      <img src="img/im2.jpg" alt="">
-                    <div class="container">
-                      <div class="carousel-caption text-end">
-                        <h1 style=' text-align:center;font-style: oblique; font-family: fantasy; font-size:5vw; color:blue;'>Make sure to signup </h1>
+                    <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+                      <img src="img/img-3.jpg" alt="">
+                    <!-- <div class="container">
+                      <div class="carousel-caption text-start">
+                        <h1>Send birthday wishes automatically </h1>
                         <p>Skip the explanations and Get It done for you at EASE!!!!!</p>
                         <p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup-modal" style="margin-right: 10px;">Signup Now</button></p>
                       </div>
-                    </div>
+                    </div> -->
+                  </div>
+                  <div class="carousel-item"data-interval="3000" data-transiton="fade">
+                    <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+                      <img src="img/img-2.jpg" alt="">
+                    <!-- <div class="container">
+                      <div>Have no special message?</h1>
+                        <p>Skip the explanations and Get It done for you at EASE!!!!!</p>
+                        <p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup-modal" style="margin-right: 10px;">Signup Now</button></p>
+                      </div>
+                    </div> -->
                   </div>
                   <div class="carousel-item"data-interval="2500" data-transiton="zoom">
-                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                      <img src="img/im4.jpg" alt="">
-                    <div class="container">
+                    <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+                      <img src="img/img-1.jpg" alt="">
+                    <!-- <div class="container">
                       <div class="carousel-caption text-end">
                         <h1>Make sure to signup </h1>
                         <p>Skip the explanations and Get It done for you at EASE!!!!!</p>
                         <p><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup-modal" style="margin-right: 10px;">Signup Now</button></p>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
@@ -113,7 +119,7 @@
                       <h2 class="mb-0">'Love'</h2>
                       <div class="mb-1 text-muted">message 1</div>
                       <p class="card-text mb-auto">'.Dear [Name], wishing you a day filled with happiness and a year f.. </p>
-                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#signup-modal" role="button">Send</a>
+                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#singup-modal'" role="button">Send</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                       <img src='img/img-1.jpg' width="200" height="250">
@@ -143,7 +149,7 @@
                       <h2 class="mb-0">Customize</h2>
                       <div class="mb-1 text-muted">message 3</div>
                       <p class="card-text mb-auto">Dear [Name], as you turn [Age], may your birthday be the start of a year filled with good luck, good...</p>
-                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#signup-modal" role="button">Send</a>
+                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#signup-modal'" role="button">Send</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                       <img src='img/img-3.jpg' width="200" height="250">
@@ -157,7 +163,7 @@
                       <h2 class="mb-0">love</h2>
                       <div class="mb-1 text-muted">message 4</div>
                       <p class="card-text mb-auto">It's your [Age]th birthday, [Name]! Time to celebrate, make memories, and have an amazing time....</p>
-                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#signup-modal" role="button">Send</a>
+                      <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#send-modal" role="button">Send</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                       <img src='img/img-4.jpg' width="200" height="250">
@@ -172,233 +178,22 @@
       </div>  
 
       <div class="tab-pane fade" id="about"  role="tabpanel" aria-labelledby="nav-about-tab">
-        <section class="aboutUs" id="about" style="background: url(img/im2.jpg);">
+        <section class="aboutUs" id="about">
             <main class="container">
                 <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
                   <div class="col-md-6 px-0">
-                    <h1 class="display-4 fst-italic">About Us</h1>
-                    <p class="lead my-3">Welcome to our birthday wishes project! 🎉 We are a passionate team of web programming enthusiasts dedicated to making every birthday special with automated, heartfelt messages. 
-                      Our innovative system ensures that no birthday is ever forgotten, delivering personalized wishes straight to your inbox. Join us in celebrating life's milestones with joy and technology!
-                    </p>
+                    <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
+                    <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+                    <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
                   </div>
                 </div>
+              
+                <div class="row row-md-6  p-1"style="border: 2px solid; height: 20vw;overflow-X:scroll; overflow-Y:none;">
+                    
+                </div>  
               </main>
         </section>
         <!-- Add more sections as needed -->
-         <section class="aboutUs" id="about">
-            <main class="container rounded p-4" style="border: 1px solid; height: 30vw;">
-                
-                <div id="myCarousel-2" class="carousel slide" data-bs-ride="carousel" >
-                  <div class="carousel-inner" >
-                    <div class="carousel-item active" data-interval="2000">
-                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
-                        <div class="col-lg-4 rounded shadow-lg position-relative">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Albert.jpg" alt="Albert">
-                          <h3>Albert Baiden-Amissah</h3>
-                          <p>Supervised and guided the development of backend aspects to achieve project objectives.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                        <div class="col-lg-4 rounded shadow-lg position-relative">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Isabel.jpg" alt="Isabel">
-                          
-                          <h3>Isabel Anane</h3>
-                          <p>Contributed to the creation and optimization of user-facing components for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 rounded shadow-lg position-relative">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Thomas.jpg" alt="Thomas">
-                          
-                          <h3>Thomas Twene Appiah</h3>
-                          <p>Oversaw the comprehensive development of frontend components for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                        
-                      </div> 
-                    </div>
-                    <div class="carousel-item"data-interval="3000" >
-                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
-                        <div class="col-lg-4 rounded shadow-lg position-relative">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Daniel.jpg" alt="Daniel">
-                          
-                          <h3>Daniel Amemo</h3>
-                          <p>Contributed to the creation and optimization of user-facing components for this project</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 rounded shadow-lg position-relative">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/serwaah.jpg" alt="serwaah">
-                          
-                          <h3>Serwaah Acheampong Lydia</h3>
-                          <p>Collaborated on the backend development and maintenance of this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 rounded shadow-lg position-relative">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Forster.jpg" alt="forster">
-                          
-                          <h3>Forster Boadu Abboah</h3>
-                          <p>Designed and implemented frontend interfaces for this project</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                        
-                        
-                      </div> 
-                    
-                    </div>
-                    <div class="carousel-item"data-interval="2500" >
-                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
-                        <div class="col-lg-4 rounded shadow-lg position-relative">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Danny.jpg" alt="Danny">
-                          <h3>Daniel Kwabena Onwosi</h3>
-                          <p>Helped work on the backend of this project</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Rita.jpg" alt="Rita">
-                          
-                          <h3>Rita Johnson</h3>
-                          <p>Assisted in developing responsive and interactive frontend elements for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/George.jpg" alt="George">
-                          <h3>George Kpodo</h3>
-                          <p>Focused on backend architecture and coding to enhance the project’s functionality.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                      </div> 
-                    </div>
-                    <div class="carousel-item" data-interval="2000" >
-                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
-                        
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Mark.jpg" alt="Mark">
-                          
-                          <h3>Mark Afedi</h3>
-                          <p>Assisted in optimizing and maintaining backend systems for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Erica.jpg" alt="Erica">
-                          
-                          <h3>Erica</h3>
-                          <p>Played a key role in designing and implementing backend solutions for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 shadow-lg rounded">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Saeed.jpg" alt="Saeed">
-                          <h3>Saeed Rashid</h3>
-                          <p>Assisted in optimizing and maintaining backend systems for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                      </div> 
-                    </div>
-                    <div class="carousel-item"data-interval="2500" >
-                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Obed.jpg" alt="Obed">
-                          
-                          <h3>Frimpong Obed Ebo</h3>
-                          <p>Contributed to the creation and optimization of user-facing components for this project</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Kelvin.jpg" alt="Kelvin">
-                          
-                          <h3>Nana Kofi kelvin</h3>
-                          <p>Contributed to the backend development and system integration for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Derrick.jpg" alt="Derrick">
-                          
-                          <h3>Derick Daffour</h3>
-                          <p>Designed and implemented frontend interfaces for this project</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                      </div> 
-                    </div>
-                    <div class="carousel-item"data-interval="3000" >
-                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Gilbert.jpg" alt="Gilbert">
-                          <h3>Gilbert Adjaho</h3>
-                          <p>Focused on backend architecture and coding to enhance the project’s functionality.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/bismark.jpg" alt="bismark">
-                          
-                          <h3>Bismark Osei tutu berchie</h3>
-                          <p>Played a key role in frontend design and development, ensuring a seamless user experience.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/hamza.jpg" alt="hamza">
-                          
-                          <h3>Hamza Habib</h3>
-                          <p>Assisted in optimizing and maintaining backend systems for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                      </div> 
-                    </div>
-                    <div class="carousel-item " data-interval="2000" >
-                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
-                        
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Benjamin.jpg" alt="Benjamin">
-                          
-                          <h3>Benjamin Agyabeng</h3>
-                          <p>Participated in the development and refinement of the backend infrastructure for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/aikins.jpg" alt="Aikins">
-                          
-                          <h3>Nana Aikins</h3>
-                          <p>Supported the implementation and optimization of backend systems for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        <div class="col-lg-4 rounded shadow-lg">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Kwame.jpg" alt="nana kwame">
-                          <h3>Nana Kwame</h3>
-                          <p>Involved in backend programming and system enhancements for this project.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                        
-                      </div> 
-                    </div>
-                    <div class="carousel-item " data-interval="2000" >
-                      <div class="row row-md-6  p-1"style=" height: 20vw; ">
-                        <div class="col-lg-4 rounded shadow-lg position-relative">
-                          <img class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" src="img/Molokwu.jpg" alt="Molokwu">
-                          <h3>Molokwu Emmanuel</h3>
-                          <p>Supervised and guided the development of backend aspects to achieve project objectives.</p>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signin-modal" style="margin-right: 10px;">Join Us &raquo;</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel-2" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel-2" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </button>
-                </div>
-                 
-              </main>
-        </section>
       </div>
 
     </div>
@@ -438,8 +233,6 @@
               <button class="w-100 btn btn-primary btn-lg" name="sign_in" >Signin</button>
             </div>    
           </form>
-          
-          DOn't have an account?<a data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signup-modal" role="button" class="text-primary"> Signup here</a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
@@ -723,10 +516,7 @@
                   </div>
               </div>
               <div class="col-12">
-                <div class="input-group ">
-                <span class="input-group-text">Enter Birthdate</span>
-                <input type="date" class="form-control" id="date_of_birth" name="dob" required >
-              </div>
+                <input type="date" class="form-control" id="date_of_birth" name="dob" required>
                 <div class="invalid-feedback">
                 input your date of birth.
                 </div>
@@ -740,7 +530,6 @@
               <button class="w-100 btn btn-primary btn-lg"  name="sign_up">signup</button>
             </div>    
           </form>
-          Already have an account?<a data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signin-modal" role="button" class="text-primary"> Login here</a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -748,6 +537,7 @@
       </div>
     </div>
   </div>
+    </main>
 
     <footer class="container">
         <p class="float-end"><a href="#">Back to top</a></p>

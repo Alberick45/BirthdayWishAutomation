@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            // User already exists
+            // User already exists 
             echo "<script>
                     alert('Username already taken');
                     window.location.href = '../index.html';

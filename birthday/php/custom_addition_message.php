@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
     } else {
         $_SESSION['message'] =  "No message provided.";
+        header("refresh:2 user_account.php"); // Redirect back to the form page
     }
 }
 

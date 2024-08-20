@@ -16,6 +16,242 @@ else {
         echo $_SESSION['message'];
         unset($_SESSION['message']);
     }
+    $countryCodes = [
+      "+233" => "Ghana (+233)",
+      "93" => "Afghanistan (+93)",
+      "355" => "Albania (+355)",
+      "213" => "Algeria (+213)",
+      "1684" => "American Samoa (+1684)",
+      "376" => "Andorra (+376)",
+      "244" => "Angola (+244)",
+      "1264" => "Anguilla (+1264)",
+      "672" => "Antarctica (+672)",
+      "1268" => "Antigua and Barbuda (+1268)",
+      "54" => "Argentina (+54)",
+      "374" => "Armenia (+374)",
+      "297" => "Aruba (+297)",
+      "61" => "Australia (+61)",
+      "43" => "Austria (+43)",
+      "994" => "Azerbaijan (+994)",
+      "1242" => "Bahamas (+1242)",
+      "973" => "Bahrain (+973)",
+      "880" => "Bangladesh (+880)",
+      "1246" => "Barbados (+1246)",
+      "375" => "Belarus (+375)",
+      "32" => "Belgium (+32)",
+      "501" => "Belize (+501)",
+      "229" => "Benin (+229)",
+      "1441" => "Bermuda (+1441)",
+      "975" => "Bhutan (+975)",
+      "591" => "Bolivia (+591)",
+      "387" => "Bosnia and Herzegovina (+387)",
+      "267" => "Botswana (+267)",
+      "55" => "Brazil (+55)",
+      "246" => "British Indian Ocean Territory (+246)",
+      "1284" => "British Virgin Islands (+1284)",
+      "673" => "Brunei (+673)",
+      "359" => "Bulgaria (+359)",
+      "226" => "Burkina Faso (+226)",
+      "257" => "Burundi (+257)",
+      "855" => "Cambodia (+855)",
+      "237" => "Cameroon (+237)",
+      "1" => "Canada (+1)",
+      "238" => "Cape Verde (+238)",
+      "1345" => "Cayman Islands (+1345)",
+      "236" => "Central African Republic (+236)",
+      "235" => "Chad (+235)",
+      "56" => "Chile (+56)",
+      "86" => "China (+86)",
+      "+61" => "Christmas Island (+61)",
+      /* "+61" => "Cocos Islands (+61)", */
+      "57" => "Colombia (+57)",
+      "269" => "Comoros (+269)",
+      "682" => "Cook Islands (+682)",
+      "506" => "Costa Rica (+506)",
+      "385" => "Croatia (+385)",
+      "53" => "Cuba (+53)",
+      "599" => "Curacao (+599)",
+      "357" => "Cyprus (+357)",
+      "420" => "Czech Republic (+420)",
+      "45" => "Denmark (+45)",
+      "253" => "Djibouti (+253)",
+      "1767" => "Dominica (+1767)",
+      "1849" => "Dominican Republic (+1849)",
+      "593" => "Ecuador (+593)",
+      "20" => "Egypt (+20)",
+      "503" => "El Salvador (+503)",
+      "240" => "Equatorial Guinea (+240)",
+      "291" => "Eritrea (+291)",
+      "372" => "Estonia (+372)",
+      "251" => "Ethiopia (+251)",
+      "500" => "Falkland Islands (+500)",
+      "298" => "Faroe Islands (+298)",
+      "679" => "Fiji (+679)",
+      "358" => "Finland (+358)",
+      "33" => "France (+33)",
+      "594" => "French Guiana (+594)",
+      "689" => "French Polynesia (+689)",
+      "241" => "Gabon (+241)",
+      "220" => "Gambia (+220)",
+      "995" => "Georgia (+995)",
+      "49" => "Germany (+49)",
+      "350" => "Gibraltar (+350)",
+      "30" => "Greece (+30)",
+      "299" => "Greenland (+299)",
+      "1473" => "Grenada (+1473)",
+      "590" => "Guadeloupe (+590)",
+      "1671" => "Guam (+1671)",
+      "502" => "Guatemala (+502)",
+      "224" => "Guinea (+224)",
+      "245" => "Guinea-Bissau (+245)",
+      "592" => "Guyana (+592)",
+      "509" => "Haiti (+509)",
+      "504" => "Honduras (+504)",
+      "852" => "Hong Kong (+852)",
+      "36" => "Hungary (+36)",
+      "354" => "Iceland (+354)",
+      "91" => "India (+91)",
+      "62" => "Indonesia (+62)",
+      "98" => "Iran (+98)",
+      "964" => "Iraq (+964)",
+      "353" => "Ireland (+353)",
+      "972" => "Israel (+972)",
+      "39" => "Italy (+39)",
+      "225" => "Ivory Coast (+225)",
+      "1876" => "Jamaica (+1876)",
+      "81" => "Japan (+81)",
+      "962" => "Jordan (+962)",
+      "7" => "Kazakhstan (+7)",
+      "254" => "Kenya (+254)",
+      "686" => "Kiribati (+686)",
+      "383" => "Kosovo (+383)",
+      "965" => "Kuwait (+965)",
+      "996" => "Kyrgyzstan (+996)",
+      "856" => "Laos (+856)",
+      "371" => "Latvia (+371)",
+      "961" => "Lebanon (+961)",
+      "266" => "Lesotho (+266)",
+      "231" => "Liberia (+231)",
+      "218" => "Libya (+218)",
+      "423" => "Liechtenstein (+423)",
+      "370" => "Lithuania (+370)",
+      "352" => "Luxembourg (+352)",
+      "853" => "Macau (+853)",
+      "389" => "Macedonia (+389)",
+      "261" => "Madagascar (+261)",
+      "265" => "Malawi (+265)",
+      "60" => "Malaysia (+60)",
+      "960" => "Maldives (+960)",
+      "223" => "Mali (+223)",
+      "356" => "Malta (+356)",
+      "692" => "Marshall Islands (+692)",
+      "596" => "Martinique (+596)",
+      "222" => "Mauritania (+222)",
+      "230" => "Mauritius (+230)",
+      "262" => "Mayotte (+262)",
+      "52" => "Mexico (+52)",
+      "691" => "Micronesia (+691)",
+      "373" => "Moldova (+373)",
+      "377" => "Monaco (+377)",
+      "976" => "Mongolia (+976)",
+      "382" => "Montenegro (+382)",
+      "1664" => "Montserrat (+1664)",
+      "212" => "Morocco (+212)",
+      "258" => "Mozambique (+258)",
+      "95" => "Myanmar (+95)",
+      "264" => "Namibia (+264)",
+      "674" => "Nauru (+674)",
+      "977" => "Nepal (+977)",
+      "31" => "Netherlands (+31)",
+      "687" => "New Caledonia (+687)",
+      "64" => "New Zealand (+64)",
+      "505" => "Nicaragua (+505)",
+      "227" => "Niger (+227)",
+      "234" => "Nigeria (+234)",
+      "683" => "Niue (+683)",
+      "850" => "North Korea (+850)",
+      "1670" => "Northern Mariana Islands (+1670)",
+      "47" => "Norway (+47)",
+      "968" => "Oman (+968)",
+      "92" => "Pakistan (+92)",
+      "680" => "Palau (+680)",
+      "970" => "Palestine (+970)",
+      "507" => "Panama (+507)",
+      "675" => "Papua New Guinea (+675)",
+      "595" => "Paraguay (+595)",
+      "51" => "Peru (+51)",
+      "63" => "Philippines (+63)",
+      "48" => "Poland (+48)",
+      "351" => "Portugal (+351)",
+      "1787" => "Puerto Rico (+1787)",
+      "974" => "Qatar (+974)",
+      "242" => "Republic of the Congo (+242)",
+      "+262" => "Reunion (+262)",
+      "40" => "Romania (+40)",
+      "+7" => "Russia (+7)",
+      "250" => "Rwanda (+250)",
+      "290" => "Saint Helena (+290)",
+      "1869" => "Saint Kitts and Nevis (+1869)",
+      "1758" => "Saint Lucia (+1758)",
+      "508" => "Saint Pierre and Miquelon (+508)",
+      "1784" => "Saint Vincent and the Grenadines (+1784)",
+      "685" => "Samoa (+685)",
+      "378" => "San Marino (+378)",
+      "239" => "Sao Tome and Principe (+239)",
+      "966" => "Saudi Arabia (+966)",
+      "221" => "Senegal (+221)",
+      "381" => "Serbia (+381)",
+      "248" => "Seychelles (+248)",
+      "232" => "Sierra Leone (+232)",
+      "65" => "Singapore (+65)",
+      "1721" => "Sint Maarten (+1721)",
+      "421" => "Slovakia (+421)",
+      "386" => "Slovenia (+386)",
+      "677" => "Solomon Islands (+677)",
+      "252" => "Somalia (+252)",
+      "27" => "South Africa (+27)",
+      "82" => "South Korea (+82)",
+      "211" => "South Sudan (+211)",
+      "34" => "Spain (+34)",
+      "94" => "Sri Lanka (+94)",
+      "249" => "Sudan (+249)",
+      "597" => "Suriname (+597)",
+      "268" => "Swaziland (+268)",
+      "46" => "Sweden (+46)",
+      "41" => "Switzerland (+41)",
+      "963" => "Syria (+963)",
+      "886" => "Taiwan (+886)",
+      "992" => "Tajikistan (+992)",
+      "255" => "Tanzania (+255)",
+      "66" => "Thailand (+66)",
+      "228" => "Togo (+228)",
+      "690" => "Tokelau (+690)",
+      "676" => "Tonga (+676)",
+      "1868" => "Trinidad and Tobago (+1868)",
+      "216" => "Tunisia (+216)",
+      "90" => "Turkey (+90)",
+      "993" => "Turkmenistan (+993)",
+      "1649" => "Turks and Caicos Islands (+1649)",
+      "688" => "Tuvalu (+688)",
+      "256" => "Uganda (+256)",
+      "380" => "Ukraine (+380)",
+      "971" => "United Arab Emirates (+971)",
+      "44" => "United Kingdom (+44)",
+      "+1" => "United States (+1)",
+      "598" => "Uruguay (+598)",
+      "998" => "Uzbekistan (+998)",
+      "678" => "Vanuatu (+678)",
+      "379" => "Vatican (+379)",
+      "58" => "Venezuela (+58)",
+      "84" => "Vietnam (+84)",
+      "+1284" => "British Virgin Islands (+1284)",
+      "1340" => "U.S. Virgin Islands (+1340)",
+      "681" => "Wallis and Futuna (+681)",
+      "+212" => "Western Sahara (+212)",
+      "967" => "Yemen (+967)",
+      "260" => "Zambia (+260)",
+      "263" => "Zimbabwe (+263)"
+    ];
 
     // Fetch messages for the logged-in user
     $recipient_name = "";
@@ -33,7 +269,7 @@ else {
     // Fetch contacts whose date of birth matches today's day and month
     $sql = "SELECT cf_name, c_ruid, cl_name, c_dob, c_mid, CONCAT(c_cntcode, c_pnum) AS phone 
             FROM contacts 
-            WHERE MONTH(c_dob) >= MONTH(CURDATE()) AND DAY(c_dob) >= DAY(CURDATE()) and c_ruid = $user_id";
+            WHERE MONTH(c_dob) >= MONTH(CURDATE()) and c_ruid = $user_id and m_stat =0";
     
     $recipient_result = $conn->query($sql);
     
@@ -44,6 +280,7 @@ else {
         $recipient_phone = $recipient_row['phone'];
         $registererid = $recipient_row['c_ruid'];
         $recipient_messageid = $recipient_row['c_mid'];
+        $days_left = 
 
         // Fetch the message body using message_id
         $stmt = $conn->prepare("SELECT m_body FROM messages WHERE m_id = ?");
@@ -78,43 +315,37 @@ else {
               $personalized_message = str_ireplace("[Age]", htmlspecialchars($recipient_age),$personalized_message);
               $personalized_message = str_ireplace("[Your Name]", htmlspecialchars($sender), $personalized_message);
             }
-        }
-        // Replace placeholders with actual values in the message
-        // $personalized_message = str_ireplace("[Name]", htmlspecialchars($recipient_name), $msg_body);
-        // $personalized_message = str_ireplace("[Age]", htmlspecialchars($recipient_age), $personalized_message);
-        // $personalized_message = str_ireplace("[Your Name]", htmlspecialchars($sender), $personalized_message);
-        $activeClass = $isActive ? 'active' : '';
-        $carouselItems .= "
+
+          $activeClass = $isActive ? 'active' : '';
+          $carouselItems .= "
           <div class='carousel-item rounded $activeClass'>
             <div class='carousel-caption py-0'>
               <h6 style='color:#ffffff;'>".$personalized_message."</h2>
               <small style='color:#ffffff;'>Celebrant phone number:".$recipient_phone."<br>Celebrant date of birth: (".$recipient_dob.")</small>
               <div class='nav nav-btn  justify-content-center' id='nav-tab' role='tablist'>
-                <button type='button' class=' btn btn-outline-light' id='nav-profile-tab' style='font-size:0.8vw;' data-bs-toggle='tab' data-bs-target='#messages' type='button' role='tab' aria-controls='nav-profile' aria-selected='false' style=' '>View Message >></button>
+                <button type='button' class=' btn btn-outline-light' id='nav-profile-tab' style='font-size:0.8vw;' data-bs-toggle='tab' data-bs-target='#contacts' type='button' role='tab' aria-controls='nav-profile' aria-selected='false' style=' '>Go to Contacts >></button>
               </div>
             </div>
           </div>";
           $indicatorActiveClass = $isActive ? 'active' : '';
           $carouselIndicators .= "<button type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to='$index' class='$indicatorActiveClass' aria-label='Slide ".($index + 1)."' style='background-color:#ffffff'></button>";
+        }
           
           $isActive = false; // Only the first item should be active
           $index++;}}
-        // Display the final message
-        // echo htmlspecialchars($personalized_message) . "<br>";
-        // echo htmlspecialchars($recipient_phone) . "<br>";
 
-    // else {
-    //   $carouselItems .= "
-    //   <div class='carousel-item rounded $activeClass' style='min-height:200px;background-color:;'>
-    //     <div class='carousel-caption '>
-    //       <h2 style='color:#ffffff;'>".$personalized_message."</h2>
-    //       <h5 style='color:#ffffff;'>".$recipient_phone."</h5>
-    //       <div class='nav  justify-content-center' id='nav-tab' role='tablist'>
-    //         <button type='button' class=' btn btn-sm btn-outline-light' id='nav-profile-tab' data-bs-toggle='tab' data-bs-target='#messages' type='button' role='tab' aria-controls='nav-profile' aria-selected='false' style=' '>View Message >></button>
-    //       </div>
-    //     </div>
-    //   </div>";
-    //     }    
+    else {
+      $carouselItems .= "
+      <div class='carousel-item rounded active' style='min-height:200px;background-color:;'>
+        <div class='carousel-caption '>
+          <h2 style='color:#ffffff;'>No wish or contact to display</h2>
+          <div class='nav  justify-content-center' id='nav-tab' role='tablist'>
+            <button type='button' class=' btn btn-sm btn-outline-light' id='nav-profile-tab' data-bs-toggle='tab' data-bs-target='#contacts' type='button' role='tab' aria-controls='nav-profile' aria-selected='false' style=' '>Create one >></button>
+          </div>
+        </div>
+      </div>";
+        }    
+    $favicon='img-6.ico';
     }
 ?>
     
@@ -126,8 +357,8 @@ else {
     <meta name="description" content="For sendig Birth Wishes Automatically">
     <meta name="author" content="Thomas">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>WishMe</title>
-    
+    <title>WishMe | <?php echo $user_name?> </title>
+    <link rel="shortcut icon" href="<?php echo $favicon?> " type="image/x-icon">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
 
     <!-- Bootstrap core CSS -->
@@ -222,10 +453,10 @@ else {
           </button>
           <div class="collapse navbar-collapse content-start justify-content-center" id="navbarsExample01">
             <div class="nav" id="nav-tab" role="tablist">
-              <button class=" nav-item bg-warning text-white  rounded my-2 active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"  style="border:0px; margin-right:5vw;">Home</button>
-              <button class="nav-item bg-warning  my-2 rounded text-white " id="nav-messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" style="border:0px; margin-right:5vw;">Messages</button>
-              <button class="nav-item bg-warning my-2 rounded text-white" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"style="border:0px; margin-right:5vw;">Contact</button>
-              <button type="button" class="btn -white my-2" data-bs-toggle="modal" data-bs-target="#logout-modal" style="background:indigo;">Logout</button>
+              <button class=" nav-item btn-success text-white  rounded my-2 active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"  style="border:0px; margin-right:5vw;">Home</button>
+              <button class="nav-item btn-danger  my-2 rounded text-white " id="nav-messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" style="border:0px; margin-right:5vw;">Messages</button>
+              <button class="nav-item btn-warning my-2 rounded text-white" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"style="border:0px; margin-right:5vw;">Contact</button>
+              <button type="button" class="btn btn-outline-primary my-2" data-bs-toggle="modal" data-bs-target="#logout-modal" style="">Logout</button>
             </div>
           </div>
         </div>
@@ -243,7 +474,7 @@ else {
           
           <!-- This is the landing page -->
           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="row bg-info mx-2 my-2 px-2" style=''>
+            <div class="row bg-info mx-2 my-2 px-2" id='' style=''>
               <div class="col py-1" style=" align-items:center;">
               <h1 style=' text-align:center;font-style: oblique; font-family: fantasy; font-size:5vw'>upcoming birthdays</h1>
               <div class="col">
@@ -284,16 +515,17 @@ else {
                       $messageType = $row['m_type'];
                       $message_id =$row['m_id'];
                       echo ' 
-                        <div class="col-md-6 rounded mx-2"style="display:inline-block;min-width:40%;font-size:80%;">
+                        <div class="col-md-6 rounded mx-2"style="display:inline-block;font-size:80%;">
                           <div class="row g-0 border shadow-lg bg-light overflow-hidden flex-md-row mb-4  h-md-250 position-relative"style="border-radius:2rem; ">
-                            <div class="col p-4 d-flex flex-column ">
+                            <div class="col p-4 d-flex flex-column "style="width:50px">
                               <strong class="d-inline-block mb-2 text-primary">FREE</strong>
                               <h2 class="mb-0">'.$messageType.'</h2>
                               <div class="mb-1 text-muted">message '.$message_id.'</div>
                               <p class="card-text mb-auto">'.substr($message,0,30).'</p>
-                              <p class="card-text mb-auto">'.substr($message,30,40).'</p>
-                              <p class="card-text mb-auto">'.substr($message,71,40).'</p>
-                              <p class="card-text mb-auto">'.substr($message,109,40).'</p>
+                              <p class="card-text mb-auto">'.substr($message,30,30).'</p>
+                              <p class="card-text mb-auto">'.substr($message,60,30).'</p>
+                              <p class="card-text mb-auto">'.substr($message,90,30).'</p>
+                              <p class="card-text mb-auto">'.substr($message,120,30).'</p>
                               <a class="stretched-link" data-bs-toggle="modal" data-bs-target="#contact-modal-'.$message_id.'" role="button">Send</a>
                             </div>
                             <div class="col-auto d-none d-lg-block">
@@ -308,8 +540,30 @@ else {
                               <h5 class="modal-title" id="contact-modal-title">Sending "'.$messageType.'" Birthday Wish to🤷‍♀️🤷‍♂️🎂</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                              <div class="container p-3" >You have selected "'.$message.'" wish <br> <h3 class="my-1"> Fill out this form 👇</h3></div>
+                            <div class="modal-body ">
+                              <div class="container p-3" >
+                                You have selected 
+                              </div>
+                              <div class="row-md-6 rounded mx-2"style="display:inline-block;min-width:40%;font-size:80%;">
+                                <div class="row g-0 border shadow-lg bg-light overflow-hidden flex-md-row mb-4  h-md-250 position-relative"style="border-radius:2rem; ">
+                                  <div class="col p-4 d-flex flex-column ">
+                                    <strong class="d-inline-block mb-2 text-primary">FREE</strong>
+                                    <h2 class="mb-0">'.$messageType.'</h2>
+                                    <div class="mb-1 text-muted">message '.$message_id.'</div>
+                                    <p class="card-text mb-auto">'.substr($message,0,30).'</p>
+                                    <p class="card-text mb-auto">'.substr($message,30,30).'</p>
+                                    <p class="card-text mb-auto">'.substr($message,60,30).'</p>
+                                    <p class="card-text mb-auto">'.substr($message,90,30).'</p>
+                                    <p class="card-text mb-auto">'.substr($message,120,30).'</p>
+                                  </div>
+                                  <div class="col-auto d-none d-lg-block">
+                                    <img src='.htmlspecialchars($pics[$i]).' width="200" height="250">
+                                  </div>
+                                </div>
+                              </div>
+                              <h3 class="my-2"> Fill in this form 👇 </h3>
+                              <div class="mb-1 text-muted">What ever info you add will be replaced in the message boby</div>
+                              <hr>
                               <form action="contacts.php" method = "POST" id="contact" class="needs-validation" novalidate>
                                 <input type="hidden" name="contactlist" value="Add">
                                 <div class="row g-3">
@@ -569,7 +823,10 @@ else {
                                       </div>
                                   </div>
                                   <div class="col-12">
+                                  <div class="input-group ">
+                                    <span class="input-group-text">Enter Birthdate</span>
                                     <input type="date" class="form-control" id="date_of_birth" name="cdob" required>
+                                   </div>
                                     <div class="invalid-feedback">
                                     input  date of birth.
                                     </div>
@@ -593,7 +850,7 @@ else {
                             </form>
                           </div>
                         </div>
-                      </div>
+                        </div>
                         '
                       ;
                     }
@@ -607,22 +864,12 @@ else {
           </div>
 
           <!-- this is the messages section -->
-          <div class="tab-pane px-5 fade" id="messages" role="tabpanel" aria-labelledby="nav-messages-tab"style="">
-            
-
-            <!-- this is the sample messages section that displays messages stored in the database-->
-            <!-- <div class='container'>
-              <div class='row'>
-                <?php
-                  echo 'samle messages'
-                ?>
-              </div>
-            </div> -->
+          <div class="tab-pane px-5 fade" id="messages" role="tabpanel" aria-labelledby="nav-messages-tab" style='min-height:50vh;'>
 
             <!-- this is the custom messages table  -->
             <div class="container py-3p x-3">
             
-             <h2>Your Costumized Messages</h2>
+             <h2>Your Customized Messages</h2>
              <hr>
              <table class="table  table-borderless table-hover">
              
@@ -743,24 +990,28 @@ else {
 
                     $sql_options = "SELECT * FROM contacts WHERE c_ruid = $userid";
                     $result = $conn->query($sql_options);
-
+                  
                     if ($result->num_rows > 0) {
-                      while ($row = $result->fetch_assoc()) {
+                        $table_num = 1;
+                        while ($row = $result->fetch_assoc()) {
                         $contactid = htmlspecialchars($row["c_id"]);
                         $ufirstname = htmlspecialchars($row["cf_name"]);
                         $ulastname = htmlspecialchars($row["cl_name"]);
                         $udob = htmlspecialchars($row["c_dob"]);
                         $uphonenumber = htmlspecialchars($row["c_pnum"]);
                         $ucountrycode = htmlspecialchars($row["c_cntcode"]);
+                        $message_stat = htmlspecialchars($row["m_stat"]);
                         $ucmessageid = htmlspecialchars($row["c_mid"]);
+                        if(!$message_stat<1){
                       ?>
-                      <tr class="table-success"> 
-                        <td class="" style="font-size:1.5vw"><?php echo $ufirstname; ?></td>
-                        <td>
-                          <div class="dropstart" style="font-size:1.5vw">
+                      <tr class="table-primary"> 
+                        <td class="table-info" style="font-size:1.5vw; width:5%;"><?php echo $table_num; ?></td>
+                        <td class="" style="font-size:1.5vw;"><?php echo $ufirstname; ?></td>
+                        <td style="">
+                          <div class="dropstart" style="font-size:1.5vw;">
                             <nav class="nav" type="button" id="dropdownMenuButtonSM" data-bs-toggle="dropdown" aria-expanded="false">⁝</nav>
                             <ul class="dropdown-menu" style="min-width:5%;font-size:1.5vw;" aria-labelledby="dropdownMenuButtonSM">
-                              <li><h3 class="dropdown-header">option</h3></li>
+                              <li><h3 class="dropdown-header">Sent ✅</h3></li>
                               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-contact-modal-<?php echo $contactid?>" role="button">Delete</a></li>
                               <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target='#update-contact-modal-<?php echo $contactid?>' role="button">Update</a></li>
                             </ul>
@@ -813,242 +1064,7 @@ else {
                                       <option selected >Country code</option>
                                       <!-- Populate country codes here -->
                                       <?php
-                                      $countryCodes = [
-                                        "+233" => "Ghana (+233)",
-                                        "93" => "Afghanistan (+93)",
-                                        "355" => "Albania (+355)",
-                                        "213" => "Algeria (+213)",
-                                        "1684" => "American Samoa (+1684)",
-                                        "376" => "Andorra (+376)",
-                                        "244" => "Angola (+244)",
-                                        "1264" => "Anguilla (+1264)",
-                                        "672" => "Antarctica (+672)",
-                                        "1268" => "Antigua and Barbuda (+1268)",
-                                        "54" => "Argentina (+54)",
-                                        "374" => "Armenia (+374)",
-                                        "297" => "Aruba (+297)",
-                                        "61" => "Australia (+61)",
-                                        "43" => "Austria (+43)",
-                                        "994" => "Azerbaijan (+994)",
-                                        "1242" => "Bahamas (+1242)",
-                                        "973" => "Bahrain (+973)",
-                                        "880" => "Bangladesh (+880)",
-                                        "1246" => "Barbados (+1246)",
-                                        "375" => "Belarus (+375)",
-                                        "32" => "Belgium (+32)",
-                                        "501" => "Belize (+501)",
-                                        "229" => "Benin (+229)",
-                                        "1441" => "Bermuda (+1441)",
-                                        "975" => "Bhutan (+975)",
-                                        "591" => "Bolivia (+591)",
-                                        "387" => "Bosnia and Herzegovina (+387)",
-                                        "267" => "Botswana (+267)",
-                                        "55" => "Brazil (+55)",
-                                        "246" => "British Indian Ocean Territory (+246)",
-                                        "1284" => "British Virgin Islands (+1284)",
-                                        "673" => "Brunei (+673)",
-                                        "359" => "Bulgaria (+359)",
-                                        "226" => "Burkina Faso (+226)",
-                                        "257" => "Burundi (+257)",
-                                        "855" => "Cambodia (+855)",
-                                        "237" => "Cameroon (+237)",
-                                        "1" => "Canada (+1)",
-                                        "238" => "Cape Verde (+238)",
-                                        "1345" => "Cayman Islands (+1345)",
-                                        "236" => "Central African Republic (+236)",
-                                        "235" => "Chad (+235)",
-                                        "56" => "Chile (+56)",
-                                        "86" => "China (+86)",
-                                        "+61" => "Christmas Island (+61)",
-                                        /* "+61" => "Cocos Islands (+61)", */
-                                        "57" => "Colombia (+57)",
-                                        "269" => "Comoros (+269)",
-                                        "682" => "Cook Islands (+682)",
-                                        "506" => "Costa Rica (+506)",
-                                        "385" => "Croatia (+385)",
-                                        "53" => "Cuba (+53)",
-                                        "599" => "Curacao (+599)",
-                                        "357" => "Cyprus (+357)",
-                                        "420" => "Czech Republic (+420)",
-                                        "45" => "Denmark (+45)",
-                                        "253" => "Djibouti (+253)",
-                                        "1767" => "Dominica (+1767)",
-                                        "1849" => "Dominican Republic (+1849)",
-                                        "593" => "Ecuador (+593)",
-                                        "20" => "Egypt (+20)",
-                                        "503" => "El Salvador (+503)",
-                                        "240" => "Equatorial Guinea (+240)",
-                                        "291" => "Eritrea (+291)",
-                                        "372" => "Estonia (+372)",
-                                        "251" => "Ethiopia (+251)",
-                                        "500" => "Falkland Islands (+500)",
-                                        "298" => "Faroe Islands (+298)",
-                                        "679" => "Fiji (+679)",
-                                        "358" => "Finland (+358)",
-                                        "33" => "France (+33)",
-                                        "594" => "French Guiana (+594)",
-                                        "689" => "French Polynesia (+689)",
-                                        "241" => "Gabon (+241)",
-                                        "220" => "Gambia (+220)",
-                                        "995" => "Georgia (+995)",
-                                        "49" => "Germany (+49)",
-                                        "350" => "Gibraltar (+350)",
-                                        "30" => "Greece (+30)",
-                                        "299" => "Greenland (+299)",
-                                        "1473" => "Grenada (+1473)",
-                                        "590" => "Guadeloupe (+590)",
-                                        "1671" => "Guam (+1671)",
-                                        "502" => "Guatemala (+502)",
-                                        "224" => "Guinea (+224)",
-                                        "245" => "Guinea-Bissau (+245)",
-                                        "592" => "Guyana (+592)",
-                                        "509" => "Haiti (+509)",
-                                        "504" => "Honduras (+504)",
-                                        "852" => "Hong Kong (+852)",
-                                        "36" => "Hungary (+36)",
-                                        "354" => "Iceland (+354)",
-                                        "91" => "India (+91)",
-                                        "62" => "Indonesia (+62)",
-                                        "98" => "Iran (+98)",
-                                        "964" => "Iraq (+964)",
-                                        "353" => "Ireland (+353)",
-                                        "972" => "Israel (+972)",
-                                        "39" => "Italy (+39)",
-                                        "225" => "Ivory Coast (+225)",
-                                        "1876" => "Jamaica (+1876)",
-                                        "81" => "Japan (+81)",
-                                        "962" => "Jordan (+962)",
-                                        "7" => "Kazakhstan (+7)",
-                                        "254" => "Kenya (+254)",
-                                        "686" => "Kiribati (+686)",
-                                        "383" => "Kosovo (+383)",
-                                        "965" => "Kuwait (+965)",
-                                        "996" => "Kyrgyzstan (+996)",
-                                        "856" => "Laos (+856)",
-                                        "371" => "Latvia (+371)",
-                                        "961" => "Lebanon (+961)",
-                                        "266" => "Lesotho (+266)",
-                                        "231" => "Liberia (+231)",
-                                        "218" => "Libya (+218)",
-                                        "423" => "Liechtenstein (+423)",
-                                        "370" => "Lithuania (+370)",
-                                        "352" => "Luxembourg (+352)",
-                                        "853" => "Macau (+853)",
-                                        "389" => "Macedonia (+389)",
-                                        "261" => "Madagascar (+261)",
-                                        "265" => "Malawi (+265)",
-                                        "60" => "Malaysia (+60)",
-                                        "960" => "Maldives (+960)",
-                                        "223" => "Mali (+223)",
-                                        "356" => "Malta (+356)",
-                                        "692" => "Marshall Islands (+692)",
-                                        "596" => "Martinique (+596)",
-                                        "222" => "Mauritania (+222)",
-                                        "230" => "Mauritius (+230)",
-                                        "262" => "Mayotte (+262)",
-                                        "52" => "Mexico (+52)",
-                                        "691" => "Micronesia (+691)",
-                                        "373" => "Moldova (+373)",
-                                        "377" => "Monaco (+377)",
-                                        "976" => "Mongolia (+976)",
-                                        "382" => "Montenegro (+382)",
-                                        "1664" => "Montserrat (+1664)",
-                                        "212" => "Morocco (+212)",
-                                        "258" => "Mozambique (+258)",
-                                        "95" => "Myanmar (+95)",
-                                        "264" => "Namibia (+264)",
-                                        "674" => "Nauru (+674)",
-                                        "977" => "Nepal (+977)",
-                                        "31" => "Netherlands (+31)",
-                                        "687" => "New Caledonia (+687)",
-                                        "64" => "New Zealand (+64)",
-                                        "505" => "Nicaragua (+505)",
-                                        "227" => "Niger (+227)",
-                                        "234" => "Nigeria (+234)",
-                                        "683" => "Niue (+683)",
-                                        "850" => "North Korea (+850)",
-                                        "1670" => "Northern Mariana Islands (+1670)",
-                                        "47" => "Norway (+47)",
-                                        "968" => "Oman (+968)",
-                                        "92" => "Pakistan (+92)",
-                                        "680" => "Palau (+680)",
-                                        "970" => "Palestine (+970)",
-                                        "507" => "Panama (+507)",
-                                        "675" => "Papua New Guinea (+675)",
-                                        "595" => "Paraguay (+595)",
-                                        "51" => "Peru (+51)",
-                                        "63" => "Philippines (+63)",
-                                        "48" => "Poland (+48)",
-                                        "351" => "Portugal (+351)",
-                                        "1787" => "Puerto Rico (+1787)",
-                                        "974" => "Qatar (+974)",
-                                        "242" => "Republic of the Congo (+242)",
-                                        "+262" => "Reunion (+262)",
-                                        "40" => "Romania (+40)",
-                                        "+7" => "Russia (+7)",
-                                        "250" => "Rwanda (+250)",
-                                        "290" => "Saint Helena (+290)",
-                                        "1869" => "Saint Kitts and Nevis (+1869)",
-                                        "1758" => "Saint Lucia (+1758)",
-                                        "508" => "Saint Pierre and Miquelon (+508)",
-                                        "1784" => "Saint Vincent and the Grenadines (+1784)",
-                                        "685" => "Samoa (+685)",
-                                        "378" => "San Marino (+378)",
-                                        "239" => "Sao Tome and Principe (+239)",
-                                        "966" => "Saudi Arabia (+966)",
-                                        "221" => "Senegal (+221)",
-                                        "381" => "Serbia (+381)",
-                                        "248" => "Seychelles (+248)",
-                                        "232" => "Sierra Leone (+232)",
-                                        "65" => "Singapore (+65)",
-                                        "1721" => "Sint Maarten (+1721)",
-                                        "421" => "Slovakia (+421)",
-                                        "386" => "Slovenia (+386)",
-                                        "677" => "Solomon Islands (+677)",
-                                        "252" => "Somalia (+252)",
-                                        "27" => "South Africa (+27)",
-                                        "82" => "South Korea (+82)",
-                                        "211" => "South Sudan (+211)",
-                                        "34" => "Spain (+34)",
-                                        "94" => "Sri Lanka (+94)",
-                                        "249" => "Sudan (+249)",
-                                        "597" => "Suriname (+597)",
-                                        "268" => "Swaziland (+268)",
-                                        "46" => "Sweden (+46)",
-                                        "41" => "Switzerland (+41)",
-                                        "963" => "Syria (+963)",
-                                        "886" => "Taiwan (+886)",
-                                        "992" => "Tajikistan (+992)",
-                                        "255" => "Tanzania (+255)",
-                                        "66" => "Thailand (+66)",
-                                        "228" => "Togo (+228)",
-                                        "690" => "Tokelau (+690)",
-                                        "676" => "Tonga (+676)",
-                                        "1868" => "Trinidad and Tobago (+1868)",
-                                        "216" => "Tunisia (+216)",
-                                        "90" => "Turkey (+90)",
-                                        "993" => "Turkmenistan (+993)",
-                                        "1649" => "Turks and Caicos Islands (+1649)",
-                                        "688" => "Tuvalu (+688)",
-                                        "256" => "Uganda (+256)",
-                                        "380" => "Ukraine (+380)",
-                                        "971" => "United Arab Emirates (+971)",
-                                        "44" => "United Kingdom (+44)",
-                                        "+1" => "United States (+1)",
-                                        "598" => "Uruguay (+598)",
-                                        "998" => "Uzbekistan (+998)",
-                                        "678" => "Vanuatu (+678)",
-                                        "379" => "Vatican (+379)",
-                                        "58" => "Venezuela (+58)",
-                                        "84" => "Vietnam (+84)",
-                                        "+1284" => "British Virgin Islands (+1284)",
-                                        "1340" => "U.S. Virgin Islands (+1340)",
-                                        "681" => "Wallis and Futuna (+681)",
-                                        "+212" => "Western Sahara (+212)",
-                                        "967" => "Yemen (+967)",
-                                        "260" => "Zambia (+260)",
-                                        "263" => "Zimbabwe (+263)"
-                                      ];
+                                     
                         
                                       foreach ($countryCodes as $code => $name) {
                                           $selected = ($code == $ucountrycode) ? 'selected' : '';
@@ -1062,7 +1078,10 @@ else {
                                     <div class="invalid-feedback">Please enter person's phone number.</div>
                                   </div>
                                   <div class="col-12">
+                                  <div class="input-group ">
+                                  <span class="input-group-text">Enter Birthdate</span>
                                     <input type="date" class="form-control" id="date_of_birth" name="u_cdob" required value="<?php echo $udob?>">
+                                  </div>
                                     <div class="invalid-feedback">Input date of birth.</div>
                                   </div>
                                   <div class="col-12">
@@ -1112,6 +1131,140 @@ else {
                       </div>
                       </div>
                       <?php
+                        }
+                        else{
+                          ?>
+
+                        <tr class="table-primary"> 
+                        <td class="table-info" style="font-size:1.5vw; width:5%;"><?php echo $table_num; ?></td>
+                        <td class="" style="font-size:1.5vw;"><?php echo $ufirstname; ?></td>
+                        <td style="">
+                          <div class="dropstart" style="font-size:1.5vw;">
+                            <nav class="nav" type="button" id="dropdownMenuButtonSM" data-bs-toggle="dropdown" aria-expanded="false">⁝</nav>
+                            <ul class="dropdown-menu" style="min-width:5%;font-size:1.5vw;" aria-labelledby="dropdownMenuButtonSM">
+                              <li><h3 class="dropdown-header">Pending.... 🔒</h3></li>
+                              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-contact-modal-<?php echo $contactid?>" role="button">Delete</a></li>
+                              <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target='#update-contact-modal-<?php echo $contactid?>' role="button">Update</a></li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <!-- Delete contact modal -->
+                      <div class="modal fade" id="delete-contact-modal-<?php echo $contactid?>" tabindex="-1" aria-labelledby="logout-modal-title" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="Message-title-<?php echo $contactid;?>"><?php echo $ufirstname; echo $ulastname?></h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <p>This will delete "<?php echo $ufirstname?>" from your contact list. Do you want to continue?</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                              <form action="contacts.php" method="post">
+                                <input name="contact_id" type="hidden" value="<?php echo $contactid;?>">
+                                <button type="submit" name="delete_contact" class="btn btn-danger">Delete</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal for updating contacts -->
+                      <div class="modal fade" id="update-contact-modal-<?php echo $contactid?>" tabindex="-1" aria-labelledby="update-contact-modal-title-<?php echo $contactid?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="update-contact-modal-title-<?php echo $contactid?>">Update Contact</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form action="contacts.php" method="POST" id="update-contact" class="needs-validation" novalidate>
+                                <input type="hidden" name="contactlist" value="Update">
+                                <div class="row g-3">
+                                  <div class="col-6">
+                                    <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="u_cfname" value="<?php echo $ufirstname?>">
+                                  </div>
+                                  <div class="col-6">
+                                      <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="u_clname" value="<?php echo $ulastname?>">
+                                  </div>
+                                  <div class="col-4">
+                                    <select id="country_code" required class="form-select" name="u_ccntcd">
+                                      <option selected >Country code</option>
+                                      <!-- Populate country codes here -->
+                                      <?php
+                                     
+                        
+                                      foreach ($countryCodes as $code => $name) {
+                                          $selected = ($code == $ucountrycode) ? 'selected' : '';
+                                          echo "<option value=\"$code\" $selected>$name</option>";
+                                      }
+                                      ?>
+                                    </select>
+                                  </div>
+                                  <div class="col-8">
+                                    <input type="text" class="form-control" placeholder="Phone" id="phone" name="u_cphone" required value="<?php echo $uphonenumber?>">
+                                    <div class="invalid-feedback">Please enter person's phone number.</div>
+                                  </div>
+                                  <div class="col-12">
+                                    <div class="input-group ">
+                                      <span class="input-group-text">Update Birthdate</span>
+                                      <input type="date" class="form-control" id="date_of_birth" name="u_cdob" required value="<?php echo $udob?>">
+                                    </div>
+                                    <div class="invalid-feedback">Input date of birth.</div>
+                                  </div>
+                                  <div class="col-12">
+                                    <label for="messages">Messages:</label>
+                                    <select id="messages" name="u_cmsgid" class="form-select form-select-sm" required>
+                                      <!-- Options loaded dynamically -->
+                                      <?php
+                                        require("config.php");
+
+                                        // Fetch messages that are either 'sample' type or associated with the current user
+                                        $sql_msg_options = "SELECT m_id, m_body FROM messages WHERE m_type='love' OR m_type = 'special' OR m_type = 'important' OR m_ruid = '$userid'";
+                                        $msg_result = $conn->query($sql_msg_options);
+
+                                        if ($msg_result->num_rows > 0) {
+                                          while ($msg_row = $msg_result->fetch_assoc()) {
+                                            $messageid = htmlspecialchars($msg_row["m_id"]);
+                                            $messagebody = substr(htmlspecialchars($msg_row["m_body"]),0,20);
+
+                                            // Check if this option should be selected
+                                            $selected = ($messageid == $ucmessageid) ? 'selected' : '';
+
+                                            echo "<option value=\"$messageid\" $selected>$messagebody...</option>";
+                                          }
+                                        }
+                                        else {
+                                          // Optionally, you can add a placeholder option if no messages are found
+                                          echo "<option value=\"\">No messages available</option>";
+                                        }
+                                        ?>
+
+                                    </select>
+                                  </div>
+                                  <input type="hidden" name="ucid" value="<?php echo $contactid; ?>">    
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-outline-danger">Update</button>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                        <!-- script for checking if all entriws are being entered form -->
+                        
+                      </div>
+                      </div>
+                      </div>
+
+                          <?php
+                        }
+                      $table_num++;
+                      
                       }
                     } 
                     else {
@@ -1143,24 +1296,24 @@ else {
                   <h5 class="modal-title" id="message-modal-title">Add Message</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form action="custom_addition_message.php" method="post" id = "custom_message" class="needs-validation">
                 <div class="modal-body">
-                  <form action="custom_addition_message.php" method="post" id = "custom_message">
                     <div class="form-floating">
-                      <textarea class="form-control" placeholder="Type your custom message" id="floatingTextarea" name="new_message"></textarea>
+                      <textarea class="form-control" id="floatingTextarea" name="new_message" required></textarea>
+                      <div class="invalid-feedback">
+                        Must type in something in this box
+                      </div>
                       <label for="floatingTextarea">Message</label>
+                      
                     </div>
-                  </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                  <button type="submit" class="btn btn-outline-danger" name="Add_message"  id="message" onclick="submitmessage()">Add</button>
+                  <button type="submit" class="btn btn-outline-danger" name="Add_message"  id="message" onclick="">Add</button>
                   <!-- script for submitting form -->
-                  <script>
-                    function submitmessage(){
-                      document.getElementById('custom_message').submit();
-                    }
-                  </script>
+                  
                 </div>
+                </form>
               </div>
             </div>
           </div> 
@@ -1433,7 +1586,10 @@ else {
                           </div>
                       </div>
                       <div class="col-12">
-                        <input type="date" class="form-control" id="date_of_birth" name="cdob" required>
+                        <div class="input-group ">
+                          <span class="input-group-text">Enter Birthdate</span>
+                          <input type="date" class="form-control" id="date_of_birth" name="cdob" required>
+                        </div>
                         <div class="invalid-feedback">
                         input  date of birth.
                         </div>
@@ -1465,7 +1621,6 @@ else {
                             $conn->close();
                             echo $options2;
                             ?>
-                            <option value="add_new">Add new message</option>
                         </select>
                     </label>
                       </div>
