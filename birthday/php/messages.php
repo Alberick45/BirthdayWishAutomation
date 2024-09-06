@@ -78,16 +78,19 @@ elseif (isset($_POST['delete_message'])){
     
     if ($stmt ->affected_rows > 0) {
         $_SESSION['message'] = "Message deleted successfully";
-        header('refresh:1 user_account.php'); // Redirect to a specific page after updating
+        header('refresh:1 user_account.php'); // Redirect to a specific page after updating 
+        $stmt -> close();
+        $conn -> close();
         exit();
     } else {
         $_SESSION['message'] =  "Error deleting message: " . $conn -> error;
-        header('refresh:1 user_account.php'); // Redirect to a specific page after updating
+        header('refresh:1 user_account.php'); // Redirect to a specific page after updating 
+        $stmt -> close();
+        $conn -> close();
         exit();
     }
     
-    $stmt -> close();
-    $conn -> close();
+   
 }
 
 else {

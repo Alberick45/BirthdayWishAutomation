@@ -9,7 +9,7 @@ session_destroy();?>
     <title>Logout</title>
     <script type="text/javascript">
         alert("Logged out successfully");
-        window.location.href = "../index.html";
+        window.location.href = "../index.php";
     </script>
 </head>
 <body>

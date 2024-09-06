@@ -29,38 +29,38 @@ $SQL_createru_tb = "CREATE TABLE IF NOT EXISTS registered_users(
     rul_name VARCHAR(20),
     ru_name VARCHAR(20),
     ru_dob DATE,
-    ru_cntcode VARCHAR(5),
+    ru_cntcode VARCHAR(5) default '+233',
     ru_pnum BIGINT,
-    ru_pass VARCHAR(65)
-    check(CHAR_LENGTH(ru_pass) >= 7)
-)";
+    ru_pass VARCHAR(65),
+    ru_pic VARCHAR(100) default 'default-pp.png',
+    ru_status ENUM('User', 'Admin') NOT NULL DEFAULT 'User',
+    CHECK(CHAR_LENGTH(ru_pass) >= 7)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+";
 
 $SQL_createm_tb = "CREATE TABLE IF NOT EXISTS messages(
     m_id INT PRIMARY KEY AUTO_INCREMENT,
     m_body LONGTEXT,
     m_ruid INT,
-    m_type ENUM('custom', 'sample'),
-
-    CONSTRAINT creator_id FOREIGN KEY (m_ruid) REFERENCES registered_users(ru_id)
-)";
-
+    m_type VARCHAR(30),
+    CONSTRAINT creator_id FOREIGN KEY (m_ruid) REFERENCES registered_users(ru_id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+";
 
 $SQL_createc_tb = "CREATE TABLE IF NOT EXISTS contacts(
     c_id INT PRIMARY KEY AUTO_INCREMENT,
-    cf_name VARCHAR(20) ,
+    cf_name VARCHAR(20),
     cl_name VARCHAR(20),
     c_dob DATE,
-    c_cntcode VARCHAR(5),
+    c_cntcode VARCHAR(5) default '+233',
     c_pnum BIGINT,
     c_mid INT,
     c_ruid INT,
-
-    CONSTRAINT messagecreator_id FOREIGN KEY (c_mid) REFERENCES messages(m_id),
-    CONSTRAINT messagecreated_id FOREIGN KEY (c_ruid) REFERENCES registered_users(ru_id)
-)";
-
-
-
+    m_stat TINYINT(1) DEFAULT 0,
+    CONSTRAINT messagecreator_id FOREIGN KEY (c_mid) REFERENCES messages(m_id) ON DELETE CASCADE,
+    CONSTRAINT messagecreated_id FOREIGN KEY (c_ruid) REFERENCES registered_users(ru_id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+";
 
 
 // SQL queries to insert initial data
@@ -68,22 +68,20 @@ $password = 'password'; // The password to be hashed
 
 // Hash the password using PASSWORD_DEFAULT
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-$SQL_r_init_insert = "INSERT INTO registered_users (ruf_name, rul_name, ru_name, ru_dob, ru_cntcode, ru_pnum,ru_pass) VALUES 
-('John', 'Doe', 'root','1990-01-01', '+233', 1234567890,'$hashed_password')"; 
 
+$SQL_r_init_insert = "INSERT INTO registered_users (ruf_name, rul_name, ru_name, ru_dob, ru_pnum, ru_pass) VALUES 
+('John', 'Doe', 'root', '1990-01-01', 1234567890, '$hashed_password')"; 
 
+$SQL_m_init_insert = "INSERT INTO messages (m_body, m_ruid, m_type) VALUES 
+('None', 1, 'sample'),
+('Dear [Name], wishing you a day filled with happiness and a year filled with joy as you turn [Age] today. Happy Birthday! - [Your Name]', 1, 'special'),
+('Happy [Age]th Birthday, [Name]! May your birthday be as special and wonderful as you are. Have a fantastic day! - [Your Name]', 1, 'special'),
+('It\'s your [Age]th birthday, [Name]! Time to celebrate, make memories, and have an amazing time. Cheers to you! - [Your Name]', 1, 'love'),
+('On your special day, [Name], as you celebrate turning [Age], I just want to let you know how much you mean to me. Happy Birthday! - [Your Name]', 1, 'love'),
+('Dear [Name], as you turn [Age], may your birthday be the start of a year filled with good luck, good health, and much happiness. Happy Birthday! - [Your Name]', 1, 'important')";
 
-$SQL_m_init_insert = "INSERT INTO messages (m_body,m_ruid,m_type) VALUES 
-('None',1,'sample'),
-('Dear [Name], wishing you a day filled with happiness and a year filled with joy as you turn [Age] today. Happy Birthday! - [Your Name]',1,'sample'),
-('Happy [Age]th Birthday, [Name]! May your birthday be as special and wonderful as you are. Have a fantastic day! - [Your Name]',1,'sample'),
-('It\'s your [Age]th birthday, [Name]! Time to celebrate, make memories, and have an amazing time. Cheers to you! - [Your Name]',1,'sample'),
-('On your special day, [Name], as you celebrate turning [Age], I just want to let you know how much you mean to me. Happy Birthday! - [Your Name]',1,'sample'),
-('Dear [Name], as you turn [Age], may your birthday be the start of a year filled with good luck, good health, and much happiness. Happy Birthday! - [Your Name]',1,'sample')";
-
-$SQL_c_init_insert = "INSERT INTO contacts (cf_name, cl_name, c_dob, c_cntcode, c_pnum,c_mid,c_ruid) VALUES 
-('John', 'Doe', '1990-01-01', '+233', 1234567890,2,1)"; 
-
+$SQL_c_init_insert = "INSERT INTO contacts (cf_name, cl_name, c_dob, c_pnum, c_mid, c_ruid) VALUES 
+('John', 'Doe', '1990-01-01', 1234567890, 2, 1)"; 
 
 // Execute the table creation queries
 if ($conn->query($SQL_createru_tb) === TRUE) {
@@ -93,11 +91,10 @@ if ($conn->query($SQL_createru_tb) === TRUE) {
 }
 
 if ($conn->query($SQL_createm_tb) === TRUE) {
-    echo "Table 'custom_messages' created successfully<br>";
+    echo "Table 'messages' created successfully<br>";
 } else {
-    echo "Error creating table 'custom_messages': " . $conn->error . "<br>";
+    echo "Error creating table 'messages': " . $conn->error . "<br>";
 }
-
 
 if ($conn->query($SQL_createc_tb) === TRUE) {
     echo "Table 'contacts' created successfully<br>";
@@ -105,21 +102,17 @@ if ($conn->query($SQL_createc_tb) === TRUE) {
     echo "Error creating table 'contacts': " . $conn->error . "<br>";
 }
 
-
-
-
-
 // Insert initial data into the tables
 if ($conn->query($SQL_r_init_insert) === TRUE) {
-    echo "Initial data for 'custom_messages' inserted successfully<br>";
+    echo "Initial data for 'registered_users' inserted successfully<br>";
 } else {
-    echo "Error inserting initial data for 'custom_messages': " . $conn->error . "<br>";
+    echo "Error inserting initial data for 'registered_users': " . $conn->error . "<br>";
 }
 
 if ($conn->query($SQL_m_init_insert) === TRUE) {
-    echo "Initial data for 'custom_messages' inserted successfully<br>";
+    echo "Initial data for 'messages' inserted successfully<br>";
 } else {
-    echo "Error inserting initial data for 'custom_messages': " . $conn->error . "<br>";
+    echo "Error inserting initial data for 'messages': " . $conn->error . "<br>";
 }
 
 if ($conn->query($SQL_c_init_insert) === TRUE) {
@@ -127,8 +120,6 @@ if ($conn->query($SQL_c_init_insert) === TRUE) {
 } else {
     echo "Error inserting initial data for 'contacts': " . $conn->error . "<br>";
 }
-
-
 
 // Close the connection
 $conn->close();

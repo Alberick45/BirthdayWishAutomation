@@ -11,7 +11,7 @@ document.getElementById("signin-btn").addEventListener("submit", function(event)
   // Send an AJAX request to the PHP script
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "login.php", true);
-  xhr.setRequestHeader("Content-Type", "WishMe Project/index.html");
+  xhr.setRequestHeader("Content-Type", "WishMe Project/index.php");
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var response = JSON.parse(xhr.responseText);

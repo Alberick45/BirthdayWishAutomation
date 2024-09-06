@@ -13,10 +13,90 @@ if yes modal that pops up should be message has been used in a contact please up
 else normal modal
 
 
-
+so when you use second form which is join us it automaticall makes you join as an admin 
 
 create an admin page where admin can upload bulk contacts using csv to your database 
 so all it needs are contacts first name last name date of birth and phone number with country code being set default to Ghana
 
-so in the automation before that we have it automatically andomly ssigned a message in the database
+so in the automation before that we have it automatically randomly assigned a message in the database
 so mostly sample messages
+
+
+update terms and conditions and faq's
+Privacy Policy:
+Introduction: Briefly explain the purpose of the privacy policy and your commitment to protecting users' privacy.
+
+Information Collection:
+
+Describe what information you collect (e.g., personal data like name, email, phone number, etc.).
+Explain how you collect this information (e.g., forms, cookies, analytics tools).
+Use of Information:
+
+Describe how you use the collected information (e.g., to provide services, communicate with users, improve your website, etc.).
+Mention if you share data with third parties, and under what circumstances.
+Data Protection:
+
+Explain the measures you take to protect users' data (e.g., encryption, secure servers, etc.).
+Mention any rights users have concerning their data (e.g., the right to access, modify, or delete their data).
+Cookies:
+
+Explain your use of cookies and similar technologies, including their purpose.
+Provide information on how users can manage or opt-out of cookies.
+Third-Party Links:
+
+Mention that your website may contain links to third-party websites, and that you are not responsible for their privacy practices.
+Changes to the Policy:
+
+State that you may update the privacy policy and how users will be informed of changes.
+Contact Information:
+
+Provide contact details for users who have questions or concerns about your privacy practices.
+Terms of Service:
+Introduction: Outline the purpose of the terms and the scope of the agreement between you and the user.
+
+User Responsibilities:
+
+Explain what is expected from users when using your services (e.g., complying with laws, providing accurate information, etc.).
+Account Management:
+
+Discuss how users can create, maintain, and terminate accounts.
+Explain any rules regarding account security and passwords.
+Prohibited Activities:
+
+List activities that are not allowed (e.g., illegal activities, spamming, hacking, etc.).
+Intellectual Property:
+
+Clarify the ownership of content on your site, including user-generated content.
+Describe how users can and cannot use your content.
+Disclaimers:
+
+Include disclaimers regarding warranties, accuracy of information, and limitations of liability.
+Termination of Service:
+
+Explain under what circumstances you can suspend or terminate a user's access to your services.
+Changes to Terms:
+
+State that you may update the terms and how users will be informed of changes.
+Governing Law:
+
+Specify the legal jurisdiction that governs the terms.
+Contact Information:
+
+Provide contact details for users who have questions or concerns about the terms. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+the custom messages side which shows custom messages should show messages from database

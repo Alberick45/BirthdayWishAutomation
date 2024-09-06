@@ -11,7 +11,7 @@
                     console.log("Script executed: " + xhr.responseText);
                     // Redirect to main page after 3 seconds
                     setTimeout(function() {
-                        window.location.href = "index.html"; // Replace with your main page URL
+                        window.location.href = "index.php"; // Replace with your main page URL
                     }, 3000);
                 } else {
                     console.error("Failed to run script");
@@ -22,9 +22,13 @@
         
         window.onload = runScript;
     </script>
+    <link href="../../bootstrap-5.0.2-dist/css/bootstrap.min.css"  rel="stylesheet">
 </head>
 <body>
     <h1>Welcome to the Landing Page</h1>
-    <p>Setting things up...</p>
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Setting things up...</span>
+      </div>
+      <script src="../../bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

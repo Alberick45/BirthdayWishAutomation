@@ -45,7 +45,7 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
         $msg_body = "";
         if ($msg_result && $msg_result->num_rows > 0) {
             $msg_row = $msg_result->fetch_assoc();
-            $msg_body = $msg_row['m_body'].' visit us: http://localhost/final/birthday/index.html';
+            $msg_body = $msg_row['m_body'].' visit us: http://localhost/final/birthday/index.php';
         }
         $stmt->close();
 
@@ -74,54 +74,53 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
 
 
 
-                // using Mnotify credentials
-                // API Key and Endpoint
-                $apiKey = '1Tr9eN1Sxjo2BZvwbKByue5QL'; // Replace with your actual API key
-                $apiUrl = 'https://apps.mnotify.net/smsapi'; // Endpoint URL
-                
-                // Message details
-                $recipient = $recipient_phone; // Replace with the recipient's phone number
-                $message = $personalized_message;
-                $senderId = 'Bdaywishers'; // Optional: Replace with your sender ID if required
-                
-                // Prepare the URL with query parameters
-                $url = $apiUrl . '?key=' . $apiKey . '&to=' . urlencode($recipient) . '&msg=' . urlencode($message) . '&sender_id=' . urlencode($senderId);
-                
-                // Initialize cURL
-                $ch = curl_init();
-                // Set cURL options
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                
-                // Execute the request and get the response
-                $response = curl_exec($ch);
-                
-                // Check for cURL errors
-                if (curl_errno($ch)) {
-                    echo '<p>cURL error: ' . curl_error($ch).'</p>';
-                   
-                } else {
-                    echo '<p>Response: ' . $response.'</p>';
-                    $sql = "UPDATE contacts set m_stat = 1 where c_id = $recipient_id";
-                    $results= mysqli_query($conn,$sql);
-                    if ($results){
-                        echo 'successful';
-                    }
-                    else{
-                        echo 'not successful'.$results;
-                    }
-                    
-                }
-                
+        // using Mnotify credentials
+        // API Key and Endpoint
+        $apiKey = '1Tr9eN1Sxjo2BZvwbKByue5QL'; // Replace with your actual API key
+        $apiUrl = 'https://apps.mnotify.net/smsapi'; // Endpoint URL
+        
+        // Message details
+        $recipient = $recipient_phone; // Replace with the recipient's phone number
+        $message = $personalized_message;
+        $senderId = 'Bdaywishers'; // Optional: Replace with your sender ID if required
+        
+        // Prepare the URL with query parameters
+        $url = $apiUrl . '?key=' . $apiKey . '&to=' . urlencode($recipient) . '&msg=' . urlencode($message) . '&sender_id=' . urlencode($senderId);
+        
+        // Initialize cURL
+        $ch = curl_init();
+        // Set cURL options
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
+        // Execute the request and get the response
+        $response = curl_exec($ch);
+        
+        // Check for cURL errors
+        if (curl_errno($ch)) {
+            echo '<p>cURL error: ' . curl_error($ch).'</p>';
+            header('refresh:10 automatic_message_sending.php'); 
+        } 
+        else {
+            echo '<p>Response: ' . $response.'</p>';
+            $sql = "UPDATE contacts set m_stat = 1 where c_id = $recipient_id";
+            $results= mysqli_query($conn,$sql);
+            if ($results){
                 // Close cURL
                 curl_close($ch);
+                echo 'successful';
+                header('refresh:10 automatic_message_sending.php'); 
 
-                    
             }
-        } else {
-                echo "<p>NO more wish in the database to be sent.</p>";
+            else{
+                echo 'not successful'.$results;
+                header('refresh:10 automatic_message_sending.php'); 
             }
-        header('refresh:3 automatic_message_sending.php');/* header('refresh:86400 automatic_message_sending.php'); */
-
-
+        }
+    }
+} 
+else {
+    echo "<h1>All Wishes for today have being sent successfully✅🥳🥳🥳🎂🎂.</h1>";
+    header('refresh:10 automatic_message_sending.php'); 
+}
 ?>
