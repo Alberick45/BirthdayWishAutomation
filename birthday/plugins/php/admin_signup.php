@@ -3,6 +3,7 @@ require("config.php");
 session_start();
 
 
+
 $countryCodes = [
     "+233" => "Ghana (+233)",
     "93" => "Afghanistan (+93)",
@@ -238,7 +239,8 @@ $countryCodes = [
     "967" => "Yemen (+967)",
     "260" => "Zambia (+260)",
     "263" => "Zimbabwe (+263)"
-];
+];   
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -247,10 +249,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $lastname = $conn->real_escape_string($_POST["lname"]);
         $username = $conn->real_escape_string($_POST["uname"]);
         $dob = $conn->real_escape_string($_POST["dob"]);
-        $country_code = ($_POST["cntcd"]);
+        $country_code = $conn->real_escape_string($_POST["cntcd"]);
         $phone = $conn->real_escape_string($_POST["phone"]);
         $password = $conn->real_escape_string($_POST["password"]);
+        $status = "Admin";
 
+        
         $dob_calc_age = strtotime($dob);
         $age = date("Y") - date("Y",$dob_calc_age);
 
@@ -259,12 +263,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (strlen($password) < 8) {
             // echo "<script>
             //         alert('Password must be at least 8 characters long');
-            //         window.location.href = '../index.php';
+            //         window.location.href = '../../index.php';
             //       </script>";
             // exit();
 
             $em = "Password must be at least 8 characters long";
-               header("Location: ../index.php?error=$em&$data");
+               header("Location: ../../index.php?error=$em&$data");
                exit;
         }
 
@@ -280,46 +284,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // User already exists 
             // echo "<script>
             //         alert('Username already taken');
-            //         window.location.href = '../index.php';
+            //         window.location.href = '../../index.php';
             //       </script>";
             $em = "Username already taken";
-               header("Location: ../index.php?error=$em&$data");
+               header("Location: ../../index.php?error=$em&$data");
                exit;
             }
         if (strlen($phone) != 10) {
             // User already exists 
             // echo "<script>
             //         alert('Username already taken');
-            //         window.location.href = '../index.php';
+            //         window.location.href = '../../index.php';
             //       </script>";
             $em = "Phone number must be 10 digits starting from 0";
-               header("Location: ../index.php?error=$em&$data");
+               header("Location: ../../index.php?error=$em&$data");
                exit;
         } 
         if ($age < 10) {
             // User already exists 
             // echo "<script>
             //         alert('Username already taken');
-            //         window.location.href = '../index.php';
+            //         window.location.href = '../../index.php';
             //       </script>";
             $em = "You are too young";
-               header("Location: ../index.php?error=$em&$data");
+               header("Location: ../../index.php?error=$em&$data");
                exit;
         } else {
             // User does not exist, proceed with registration
             $HashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-            $sqlinsert = "INSERT INTO registered_users (ruf_name, rul_name, ru_name, ru_dob, ru_cntcode, ru_pnum, ru_pass)
-                          VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sqlinsert = "INSERT INTO registered_users (ruf_name, rul_name, ru_name, ru_dob, ru_cntcode, ru_pnum, ru_pass,ru_status)
+                          VALUES (?, ?, ?, ?, ?, ?, ?,?)";
             $stmt = $conn->stmt_init();
             $stmt = $conn->prepare($sqlinsert);
-            $stmt->bind_param('sssssis', $firstname, $lastname, $username, $dob, $country_code, $phone, $HashedPassword);
+            $stmt->bind_param('sssssiss', $firstname, $lastname, $username, $dob, $country_code, $phone, $HashedPassword,$status);
             $stmt->execute();
 
             if ($stmt->affected_rows > 0) {
                 // $_SESSION['message'] = "Registered successfully";
                 // $_SESSION['']
-                // header("Location: ../index.php");
+                // header("Location: ../../index.php");
                 $passretrieval = "SELECT ru_id FROM registered_users WHERE ru_name = '$username'";
                 $result = $conn -> query($passretrieval);
                 if($result && $result -> num_rows > 0){
@@ -328,8 +332,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION["user id"]= $user_id;
                     $_SESSION["username"]= $username;
                     $_SESSION['countrycodes'] = $countryCodes;
-                    $_SESSION['message'] =  "You are  logged in successfully ".$username;
-                    header("Location: user_account.php");
+                    $_SESSION["status"]= $status;
+                    $_SESSION['message'] =  "You are  logged in successfully ".$username ;
+                    header("Location: ../../dashboard.php");
                 exit();
             } else {
                 echo "Problem with code: " . $conn->error;

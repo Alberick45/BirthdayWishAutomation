@@ -3,7 +3,7 @@ require("config.php");
 session_start();
 
 if (!isset($_SESSION['user id'])) {
-    header("Location: ../index.php");
+    header("Location: ../../index.php");
     echo "You are not logged in";
     exit();
 } 
@@ -19,26 +19,25 @@ function addContact() {
             $dateOfBirth = $conn->real_escape_string($_POST['cdob']);
             $countrycode = $conn->real_escape_string($_POST['ccntcd']);
             $contactNumber = $conn->real_escape_string($_POST['cphone']);
-            // $messageid = $conn->real_escape_string($_POST['cmsgid']);
-            $message_ids = [];
+            if(isset($_POST['cmsgid'])){$messageid = $conn->real_escape_string($_POST['cmsgid']);}else{$messageid = NULL;}
+            
+
+            /* $message_ids = [];
             $result = $conn->query("SELECT m_id FROM messages");
             while ($row = $result->fetch_assoc()) {
                 $message_ids[] = $row['m_id'];
             }
-            $data = "fname=".$firstname."&lname=".$lastname."&dob=".$dateOfBirth."&cntcd=".$countrycode."&cphone=".$contactNumber ;
-
+            
             // Check if there are any message IDs available
             if (empty($message_ids)) {
                 die("No messages available to assign.");
             }
 
-            $random_message_id = $message_ids[array_rand($message_ids)];
+            $random_message_id = $message_ids[array_rand($message_ids)]; */
+
+            $data = "fname=".$firstname."&lname=".$lastname."&dob=".$dateOfBirth."&cntcd=".$countrycode."&cphone=".$contactNumber ;
+
             if (strlen($contactNumber ) != 10) {
-                // User already exists 
-                // echo "<script>
-                //         alert('Username already taken');
-                //         window.location.href = '../index.php';
-                //       </script>";
                 $em = "Phone number must be 10 digits starting from 0";
                 header("Location: user_account.php?error=$em&$data");
                 exit;
@@ -47,34 +46,39 @@ function addContact() {
                 $sql = "INSERT INTO contacts (cf_name, cl_name, c_dob, c_cntcode, c_pnum, c_mid, c_ruid) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->stmt_init();
                 if ($stmt->prepare($sql)) {
-                    $stmt->bind_param('ssssiii', $firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber, $random_message_id, $userid);
+                    $stmt->bind_param('ssssiii', $firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber, $messageid, $userid);
                     if ($stmt->execute()) {
+                        $_SESSION['message'] = "Contact added successfully";
                         $em = "Contact added successfully";
                         header("Location: user_account.php?success=$em&$data");
                         exit;// Set session variable for success message
-                        $_SESSION['message'] = "Contact added successfully";
+                        
                         // header('Location: user_account.php');
                         // exit();
                     } else {
+                        $_SESSION['message'] =  "Error executing statement: " . $stmt->error;
                         $em ="Error executing statement: " . $stmt->error;
                         header("Location: user_account.php?success=$em&$data");
                         exit;
-                        $_SESSION['message'] =  "Error executing statement: " . $stmt->error;
+                        
                     }
-                    $stmt->close();
+                    
                 } else {
                     $em ="Error preparing statement: " . $conn->error;
-                    header("Location: user_account.php?success=$em&$data");
-                    exit;
                     $_SESSION['message'] =  "Error preparing statement: " . $conn->error;
+                    header("Location: user_account.php?success=$em&$data");
                 }
+                $stmt->close();
+                exit;
         } else {
             $em ="Please fill all fields.";
-            header("Location: user_account.php?success=$em&$data");
-            exit;
             $_SESSION['message'] =  "Please fill all fields.";
+            header("Location: user_account.php?success= Please fill all fields.");
+            exit;
         }
+        
     }
+    
     $conn->close();
 }
 
@@ -117,7 +121,7 @@ function updateContact() {
             while ($row = $result->fetch_assoc()) {
                 $message_ids[] = $row['m_id'];
             }
-            $data = "u_cfname=".$firstname."&u_clname=".$lastname."&u_cdob=".$dateOfBirth."&u_ccntcd=".$countrycode."&u_cphone=".$contactNumber ;
+            $data = "u_cfname=".$updated_firstname."&u_clname=".$updated_lastname."&u_cdob=".$updated_dateOfBirth."&u_ccntcd=".$updated_countrycode."&u_cphone=".$updated_contactNumber ;
             // Check if there are any message IDs available
             if (empty($message_ids)) {
                 die("No messages available to assign.");
@@ -126,7 +130,7 @@ function updateContact() {
                 // User already exists 
                 // echo "<script>
                 //         alert('Username already taken');
-                //         window.location.href = '../index.php';
+                //         window.location.href = '../../index.php';
                 //       </script>";
                 $em = "Phone number must be 10 digits starting from 0";
                 header("Location: user_account.php?error=$em&$data");
@@ -143,15 +147,16 @@ function updateContact() {
                     $_SESSION['message'] = "Contact updated successfully";
                     $em = "Phone number must be 10 digits starting from 0";
                     header("Location: user_account.php?success=$em&$data");
-                    exit;
+                 
                 } else {
                     $em =  "Error executing statement: " . $stmt->error;
                     header("Location: user_account.php?error=$em&$data");
                     $_SESSION['message'] =  "Error executing statement: " . $stmt->error;
-                    exit;
+                   
                 
                 }
                 $stmt->close();
+                exit;
             } else {
                 $em =  "Error preparing statement: " . $conn->error;
                     header("Location: user_account.php?error=$em&$data");
@@ -159,8 +164,9 @@ function updateContact() {
             }
         } else {
             $em =  "Please fill all fields.";
-            header("Location: user_account.php?error=$em&$data");
             $_SESSION['message'] =  "Please fill all fields.";
+            header("Location: user_account.php?error= Please fill all fields.");
+           
         }
     }
     $conn->close();
@@ -197,15 +203,16 @@ elseif (isset($_POST['delete_contact'])){
     if ($stmt ->affected_rows > 0) {
         $_SESSION['message'] = "Message deleted successfully";
         header('refresh:1 user_account.php'); // Redirect to a specific page after updating
-        exit();
+        
     } else {
         $_SESSION['message'] =  "Error deleting message: " . $conn -> error;
         header('refresh:1 user_account.php'); // Redirect to a specific page after updating
-        exit();
+        
     }
     
     $stmt -> close();
     $conn -> close();
+    exit();
 }
 
 else {

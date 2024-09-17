@@ -10,7 +10,7 @@
 
 // // Initialize an empty array to hold update statements
 // $update_fields = [];
-// $target_dir = "../uploads";
+// $target_dir = "../../uploads";
 // $uploadOk = 1;
 // $target_file ='';
 // // Check if the full name is set and not empty
@@ -80,7 +80,7 @@
 // //     echo "No changes to update.";
 // // }
 
-// // header("refresh:2 ../profile.php");
+// // header("refresh:2 ../../profile.php");
 // // // Close the database connection
 // // $conn->close();
 
@@ -136,24 +136,24 @@
 //     // }
 // // } else {
 // //     echo "Error creating profile: " . mysqli_error($conn);
-// // }header("refresh:2 ../profile.php");
+// // }header("refresh:2 ../../profile.php");
 // // Close the database connection
 // $conn->close();
 ?> 
 
-
+instead of uploads why not plugins/images/users
 <?php
 if (isset($_SESSION['user id']) && isset($_SESSION['fname'])) {
 
     include "config.php";
-    include 'php/User.php';
+    include 'plugins/php/User.php';
     $user_id = getUserById($_SESSION['user id'], $conn);
     if ($user_id) {
         $old_pp = $_POST['old_pp'];
         $id = $_SESSION['user id'];
 
         $update_fields = [];
-        $target_dir = "../uploads/";
+        $target_dir = "../../plugins/images/users/";
         $uploadOk = 1;
         $target_file = '';
 
@@ -205,9 +205,9 @@ if (isset($_SESSION['user id']) && isset($_SESSION['fname'])) {
                $allowed_exs = array('jpg', 'jpeg', 'png');
                if(in_array($img_ex_to_lc, $allowed_exs)){
                   $new_img_name = uniqid($uname, true).'.'.$img_ex_to_lc;
-                  $img_upload_path = '../uploads/'.$new_img_name;
+                  $img_upload_path = '../../plugins/images/users/'.$new_img_name;
                   // Delete old profile pic
-                  $old_pp_des = "../uploads/$old_pp";
+                  $old_pp_des = "../../plugins/images/users/$old_pp";
                   if(unlink($old_pp_des)){
                         // just deleted
                     move_uploaded_file($tmp_name, $img_upload_path);
@@ -218,12 +218,12 @@ if (isset($_SESSION['user id']) && isset($_SESSION['fname'])) {
                   }
                 }else {
                     $em = "You can't upload files of this type";
-                    header("Location: ../../profile.php?error=$em&$data");
+                    header("Location: ../../../../profile.php?error=$em&$data");
                     exit;
                 }
             }else {
                 $em = "unknown error occurred!";
-                header("Location: ../../profile.php?error=$em&$data");
+                header("Location: ../../../../profile.php?error=$em&$data");
                 exit;
             }
      
@@ -258,15 +258,15 @@ if (isset($_SESSION['user id']) && isset($_SESSION['fname'])) {
         if (!empty($update_fields)) {
             $sql = "UPDATE registered_users SET " . implode(', ', $update_fields) . " WHERE ru_id = '$user_id'";
             if ($conn->query($sql) === TRUE) {
-                header("Location: ../profile.php?success=Your account has been updated successfully");
+                header("Location: ../../profile.php?success=Your account has been updated successfully");
                 exit;
 
             } else {
-                header("Location: ../profile.php?error=error");
+                header("Location: ../../profile.php?error=error");
 
             }
         }else {
-            header("Location: ../profile.php?error=error");
+            header("Location: ../../profile.php?error=error");
             exit;
         }
     }

@@ -10,6 +10,22 @@ $recipient_age = 0;
 $message = "";
 $recipients = [];
 
+
+/* $message_ids = [];
+            $result = $conn->query("SELECT m_id FROM messages");
+            while ($row = $result->fetch_assoc()) {
+                $message_ids[] = $row['m_id'];
+            }
+            
+            // Check if there are any message IDs available
+            if (empty($message_ids)) {
+                die("No messages available to assign.");
+            }
+
+            $random_message_id = $message_ids[array_rand($message_ids)]; */
+
+
+
 // Fetch contacts whose date of birth matches today's day and month
 $sql = "SELECT *, CONCAT(c_cntcode, c_pnum) AS phone 
         FROM contacts 
@@ -24,7 +40,26 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
         $recipient_id = $recipient_row['c_id'];
         $recipient_phone = $recipient_row['phone'];
         $registererid = $recipient_row['c_ruid'];
-        $recipient_messageid = $recipient_row['c_mid'];
+        // $recipient_messageid = $recipient_row['c_mid'];
+
+        /* randomisation */
+        $message_ids = [];
+            $result = $conn->query("SELECT m_id FROM messages");
+            while ($row = $result->fetch_assoc()) {
+                $message_ids[] = $row['m_id'];
+            }
+            
+            // Check if there are any message IDs available
+            if (empty($message_ids)) {
+                die("No messages available to assign.");
+            }
+
+            $random_message_id = $message_ids[array_rand($message_ids)];
+            /* End of randmisation */
+            
+            $recipient_messageid = $random_message_id;
+        // if($recipient_row['c_mid'] != NULL){$recipient_messageid = $recipient_row['c_mid'];} else{$recipient_messageid = $random_message_id;}
+
         $message_status = $recipient_row['m_stat'];
         // Fetch the message creator using registererid
         $stmt = $conn->prepare("SELECT ruf_name FROM registered_users WHERE ru_id = ?");
@@ -76,22 +111,28 @@ if ($recipient_result && $recipient_result->num_rows > 0) {
 
         // using Mnotify credentials
         // API Key and Endpoint
-        $apiKey = 'api_key'; // Replace with your actual API key
+        $apiKey = ''; // Replace with your actual API key
         $apiUrl = 'https://apps.mnotify.net/smsapi'; // Endpoint URL
         
         // Message details
         $recipient = $recipient_phone; // Replace with the recipient's phone number
         $message = $personalized_message;
-        $senderId = 'sender_id'; // Optional: Replace with your sender ID if required
+        $senderId = ''; // Optional: Replace with your sender ID if required
         
         // Prepare the URL with query parameters
         $url = $apiUrl . '?key=' . $apiKey . '&to=' . urlencode($recipient) . '&msg=' . urlencode($message) . '&sender_id=' . urlencode($senderId);
-        
+ 
         // Initialize cURL
         $ch = curl_init();
         // Set cURL options
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // added what is below to bypass ssl verification error code - cURL error: SSL certificate problem: unable to get local issuer certificate
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        // end of addition
+
         
         // Execute the request and get the response
         $response = curl_exec($ch);
@@ -124,3 +165,6 @@ else {
     header('refresh:10 automatic_message_sending.php'); 
 }
 ?>
+
+
+<!-- so randomisation of messages takes place here if you want to add a premium feature where user can add message then the sql statement will be like where c_mid is empty  since only paid will have something in message id -->

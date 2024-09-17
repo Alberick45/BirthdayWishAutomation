@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require("php/config.php");
+require("plugins/php/config.php");
 // include("automatic_message_sending.php");
 
 global $conn;
@@ -52,12 +52,12 @@ if (!isset($_SESSION['user id'])) {
     <meta name="description"
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Ample Admin Lite Template by WrapPixel</title>
+    <title>WishMe Admin page | <?php echo $user_name ?> </title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/logo1.ico">
     <!-- Custom CSS -->
-   <link href="css/style.min.css" rel="stylesheet">
+   <link href="plugins/css/style.min.css" rel="stylesheet">
    <style>
      #profile{
     transition: all 0.3s ease;
@@ -106,13 +106,13 @@ if (!isset($_SESSION['user id'])) {
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!-- Dark Logo icon -->
-                            <img src="plugins/images/logo-icon.png" alt="homepage" />
+                            <img src="plugins/images/logo1.ico" width="50" height="50" alt="homepage" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="plugins/images/logo-text.png" alt="homepage" />
+                            <!-- <img src="plugins/images/logo-text.png" alt="homepage" /> -->
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -156,7 +156,7 @@ if (!isset($_SESSION['user id'])) {
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="uploads/<?php echo $profile_pic?>" alt="user-img" width="45" height="45"
+                                <img src="plugins/images/users/<?php echo $profile_pic?>" alt="user-img" width="45" height="45"
                                     class="img-circle"><span class="text-white font-medium"><?php echo $user_name ?></span></a>
                         </li>
                         <!-- ============================================================== -->
@@ -222,7 +222,7 @@ if (!isset($_SESSION['user id'])) {
                             </a>
                         </li>
                         <li class="text-center p-20 upgrade-btn">
-                            <a href="php/user_account.php"
+                            <a href="plugins/php/user_account.php"
                                 class="btn d-grid btn-danger text-white" target="_blank">
                                 Homepage</a>
                         </li>
@@ -276,11 +276,11 @@ if (!isset($_SESSION['user id'])) {
                     <div class="col-lg-5 col-xlg- col-md-12">
                         <div class="white-box">
                             
-                            <div class="user-bg"><img width="100" height="250"alt="user" src="uploads/<?php echo $profile_pic?>">
+                            <div class="user-bg"><img width="100" height="250"alt="user" src="plugins/images/users/<?php echo $profile_pic?>">
                                 <div class="overlay-box">
                                     <div class="user-content">
                                         <a href="javascript:void(0)"><img style="height:240;width: 300;"
-                                                class="thumb-lg img-circle"id="profile" src="uploads/<?php echo $profile_pic?>" alt="Profile picture"></a>
+                                                class="thumb-lg img-circle"id="profile" src="plugins/images/users/<?php echo $profile_pic?>" alt="Profile picture"></a>
                                         <h4 class="text-white mt-2"><?php echo $first_name.'  '.$last_name ?></h4>
                                         <h5 class="text-white mt-2"><?php echo $user_cntcode.' '.$phone ?></h5>
                                     </div>
@@ -304,7 +304,7 @@ if (!isset($_SESSION['user id'])) {
 <!-- <div class="d-flex justify-content-center align-items-center "> -->
     
                         <form class="shadow w-450 p-3" 
-                            action="php/update_picture.php" 
+                            action="plugins/php/update_picture.php" 
                             method="post"
                             enctype="multipart/form-data">
 
@@ -367,7 +367,7 @@ if (!isset($_SESSION['user id'])) {
                         </form>
                     <!-- </div> -->
                             <!-- <div class="card-body">
-                            <form class="form-horizontal form-material" action="php/update_admin_profile.php" method="POST">
+                            <form class="form-horizontal form-material" action="plugins/php/update_admin_profile.php" method="POST">
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Full Name</label>
                                         <div class="col-md-12 border-bottom p-0">
@@ -457,14 +457,14 @@ if (!isset($_SESSION['user id'])) {
     <!-- ============================================================== -->
     <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/app-style-switcher.js"></script>
+    <script src="plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/js/app-style-switcher.js"></script>
     <!--Wave Effects -->
-    <script src="js/waves.js"></script>
+    <script src="plugins/js/waves.js"></script>
     <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
+    <script src="plugins/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="js/custom.js"></script>
+    <script src="plugins/js/custom.js"></script>
     <script>
 
        
@@ -476,7 +476,7 @@ document.getElementById('myForm').addEventListener('submit', function(e) {
     formData.append('dashboard', document.getElementById('postData2').value);
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'php/search.php', true);
+    xhr.open('POST', 'plugins/php/search.php', true);
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 400) {
             document.getElementById('response').innerHTML = xhr.responseText;

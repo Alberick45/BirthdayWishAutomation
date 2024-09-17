@@ -1,4 +1,4 @@
-<?php 
+<?php
 $server = "localhost";
 $username = "root";
 $password = "";
@@ -29,10 +29,10 @@ $SQL_createru_tb = "CREATE TABLE IF NOT EXISTS registered_users(
     rul_name VARCHAR(20),
     ru_name VARCHAR(20),
     ru_dob DATE,
-    ru_cntcode VARCHAR(5) default '+233',
+    ru_cntcode VARCHAR(5) DEFAULT '+233',
     ru_pnum BIGINT,
     ru_pass VARCHAR(65),
-    ru_pic VARCHAR(100) default 'default-pp.png',
+    ru_pic VARCHAR(100) DEFAULT 'default-pp.png',
     ru_status ENUM('User', 'Admin') NOT NULL DEFAULT 'User',
     CHECK(CHAR_LENGTH(ru_pass) >= 7)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -52,16 +52,16 @@ $SQL_createc_tb = "CREATE TABLE IF NOT EXISTS contacts(
     cf_name VARCHAR(20),
     cl_name VARCHAR(20),
     c_dob DATE,
-    c_cntcode VARCHAR(5) default '+233',
+    c_cntcode VARCHAR(5) DEFAULT '+233',
     c_pnum BIGINT,
-    c_mid INT,
+    c_mid INT DEFAULT NULL,
     c_ruid INT,
     m_stat TINYINT(1) DEFAULT 0,
+    c_status ENUM('Student', 'Public') NOT NULL DEFAULT 'Public',
     CONSTRAINT messagecreator_id FOREIGN KEY (c_mid) REFERENCES messages(m_id) ON DELETE CASCADE,
     CONSTRAINT messagecreated_id FOREIGN KEY (c_ruid) REFERENCES registered_users(ru_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ";
-
 
 // SQL queries to insert initial data
 $password = 'password'; // The password to be hashed
@@ -119,6 +119,46 @@ if ($conn->query($SQL_c_init_insert) === TRUE) {
     echo "Initial data for 'contacts' inserted successfully<br>";
 } else {
     echo "Error inserting initial data for 'contacts': " . $conn->error . "<br>";
+}
+
+// Add SQL Events for resetting and clearing
+$SQL_reset_mstatus_event = "
+DELIMITER //
+
+CREATE EVENT IF NOT EXISTS reset_mstatus
+ON SCHEDULE EVERY 1 YEAR
+DO
+BEGIN
+    UPDATE contacts SET m_stat = 0;
+END //
+
+DELIMITER ;
+";
+
+$SQL_clear_students_event = "
+DELIMITER //
+
+CREATE EVENT IF NOT EXISTS clear_final_year_students
+ON SCHEDULE EVERY 4 YEAR
+DO
+BEGIN
+    DELETE FROM contacts WHERE c_status = 'Student';
+END //
+
+DELIMITER ;
+";
+
+// Execute the events
+if ($conn->multi_query($SQL_reset_mstatus_event) === TRUE) {
+    echo "Event 'reset_mstatus' created successfully<br>";
+} else {
+    echo "Error creating event 'reset_mstatus': " . $conn->error . "<br>";
+}
+
+if ($conn->multi_query($SQL_clear_students_event) === TRUE) {
+    echo "Event 'clear_final_year_students' created successfully<br>";
+} else {
+    echo "Error creating event 'clear_final_year_students': " . $conn->error . "<br>";
 }
 
 // Close the connection

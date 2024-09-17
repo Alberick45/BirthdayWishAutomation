@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require("php/config.php");
+require("plugins/php/config.php");
 // include("automatic_message_sending.php");
 
 global $conn;
@@ -29,8 +29,8 @@ if (!isset($_SESSION['user id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WishMe</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="plugins/css/styles.css">
+    <link href="plugins/css/bootstrap.min.css" rel="stylesheet">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -49,7 +49,7 @@ if (!isset($_SESSION['user id'])) {
       
     </style>
 
-    <link rel="icon" href="img/logo2.ico" type="image/png">
+    <link rel="icon" href="plugins/images/logo2.ico" type="image/png">
 </head>
 
 
@@ -66,7 +66,7 @@ if (!isset($_SESSION['user id'])) {
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contacts-modal" style="margin-right: 10px;">Upload Contacts</button>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#messages-modal" style="margin-right: 10px;">Upload Messages</button>
           <a href="index.php" type="button" class="btn btn-primary" style="border:0px; margin-right: 10px;">Home page</a>
-          <a href="php/automatic_message_sending.php" type="button" class="btn btn-primary" style="border:0px; margin-right: 10px;">Automatic wish page</a>
+          <a href="plugins/php/automatic_message_sending.php" type="button" class="btn btn-primary" style="border:0px; margin-right: 10px;">Automatic wish page</a>
         </div>
       </div>
     </nav>
@@ -82,7 +82,7 @@ if (!isset($_SESSION['user id'])) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="php/contact_upload.php"  id="signin" method="POST" class="needs-validation" novalidate>
+          <form action="plugins/php/contact_upload.php"  id="signin" method="POST" class="needs-validation" novalidate>
           <div class="input-group mb-3">
             <input type="file" class="form-control" id="inputGroupFile02" name="contact_file">
             <label class="input-group-text" for="inputGroupFile02">Upload Contacts csv here</label>
@@ -112,7 +112,7 @@ if (!isset($_SESSION['user id'])) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="php/message_upload.php" method = 'POST' id="sign_up" class="needs-validation" novalidate>
+          <form action="plugins/php/message_upload.php" method = 'POST' id="sign_up" class="needs-validation" novalidate>
           <div class="input-group mb-3">
             <input type="file" class="form-control" id="inputGroupFile02" name="message_file">
             <label class="input-group-text" for="inputGroupFile02">Upload Message csv here</label>
@@ -134,8 +134,8 @@ if (!isset($_SESSION['user id'])) {
 
             </footer>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="plugins/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/js/script.js"></script>
 </body>
 </html>
 

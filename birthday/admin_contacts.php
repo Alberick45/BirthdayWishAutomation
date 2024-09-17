@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require("php/config.php");
+require("plugins/php/config.php");
 // include("automatic_message_sending.php");
 
 global $conn;
@@ -46,10 +46,10 @@ if (!isset($_SESSION['user id'])) {
     <meta name="description"
         content="Ample Admin Lite is powerful and clean admin dashboard template, inspired by Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>WishMe Admin page | <?php echo $user_name ?></title>
+    <title>WishMe Contacts page | <?php echo $user_name ?></title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/">
-    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
-    <link href="css/style.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/logo1.ico">
+    <link href="plugins/css/style.min.css" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 </head>
@@ -82,13 +82,12 @@ if (!isset($_SESSION['user id'])) {
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!-- Dark Logo icon -->
-                            <img src="plugins/images/logo-icon.png" alt="homepage" />
+                            <img src="plugins/images/logo1.ico" width="50" height="50" alt="homepage" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
-                            <!-- dark Logo text -->
-                            <img src="plugins/images/logo-text.png" alt="homepage" />
+                            <!-- dark Logo text --><!-- 
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -132,7 +131,7 @@ if (!isset($_SESSION['user id'])) {
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="uploads/<?php echo $profile_pic?>" alt="user-img" width="45" height="45"
+                                <img src="plugins/images/users/<?php echo $profile_pic?>" alt="user-img" width="45" height="45"
                                     class="img-circle"><span class="text-white font-medium"><?php echo $user_name ?></span></a>
                         </li>
                         <!-- ============================================================== -->
@@ -142,6 +141,7 @@ if (!isset($_SESSION['user id'])) {
                 </div>
             </nav>
         </header>
+        
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->
@@ -198,7 +198,7 @@ if (!isset($_SESSION['user id'])) {
                             </a>
                         </li>
                         <li class="text-center p-20 upgrade-btn">
-                            <a href="php/user_account.php"
+                            <a href="plugins/php/user_account.php"
                                 class="btn d-grid btn-danger text-white" target="_blank">Homepage</a>
                         </li>
                     </ul>
@@ -241,7 +241,9 @@ if (!isset($_SESSION['user id'])) {
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
+            <div id="response"></div>
         <div class=" scrollable-div px-3 py-4" style="padding-bottom:100px; max-height:80vh; min-height: 80vh; overflow-y:scroll">
+
             <div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
@@ -263,7 +265,7 @@ if (!isset($_SESSION['user id'])) {
                                     </thead>
                                     <tbody>
                                     <?php
-                require("php/config.php");
+                require("plugins/php/config.php");
                 
                 
                 $sql = "SELECT c_id, cf_name, cl_name, c_cntcode, c_pnum FROM contacts ";
@@ -285,7 +287,7 @@ if (!isset($_SESSION['user id'])) {
                                 <td>" .  $lastname  . "</td>
                                 <td>(". $cntcode.')'.$pnum . "</td>
                                 <td>
-                                <a class='btn btn-danger' href='php/users.php?action=deletecontact&cid=" . urlencode($contactid) .  "' role='button'>Delete</a>
+                                <a class='btn btn-danger' href='plugins/php/users.php?action=deletecontact&cid=" . urlencode($contactid) .  "' role='button'>Delete</a>
                                 </td>
                             </tr>";
                 
@@ -348,8 +350,21 @@ if (!isset($_SESSION['user id'])) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="php/contact_upload.php"  id="signin" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+          <form action="plugins/php/contact_upload.php"  id="signin" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
           <div class="input-group mb-3">
+            <select id="c_status"  required class="form-select" name="c_stat">
+                            <?php
+                            $c_statuses = ["Public","Student"];
+                            foreach ($c_statuses as $c_stat) {
+                                echo "<option value=\"$c_stat\" >$c_stat</option>";
+                            }
+                            ?>
+                </select>
+         </div>
+         
+          <div class="input-group mb-3">
+
+                          
             <input type="file" class="form-control" id="inputGroupFile02" name="contact_file" accept=".csv" required>
             <label class="input-group-text" for="inputGroupFile02">Upload Contacts csv here</label>
           </div>
@@ -376,14 +391,14 @@ if (!isset($_SESSION['user id'])) {
     <!-- ============================================================== -->
     <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/app-style-switcher.js"></script>
+    <script src="plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/js/app-style-switcher.js"></script>
     <!--Wave Effects -->
-    <script src="js/waves.js"></script>
+    <script src="plugins/js/waves.js"></script>
     <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
+    <script src="plugins/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="js/custom.js"></script>
+    <script src="plugins/js/custom.js"></script>
     <script>
 
 
@@ -396,7 +411,7 @@ if (!isset($_SESSION['user id'])) {
             formData.append('dashboard', document.getElementById('postData2').value);
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'php/search.php', true);
+            xhr.open('POST', 'plugins/php/search.php', true);
             xhr.onload = function() {
                 if (xhr.status >= 200 && xhr.status < 400) {
                     document.getElementById('response').innerHTML = xhr.responseText;

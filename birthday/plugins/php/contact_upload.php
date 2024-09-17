@@ -7,14 +7,15 @@
 require("config.php");
 session_start();
 if (!isset($_SESSION['user id'])) {
-    header("Location: ../index.html");
+    header("Location: ../../index.html");
     echo "You are not logged in";
     exit();
 } 
 else {
     $user_id = $_SESSION['user id'];
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['contact_file'])) {
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['contact_file']) && isset($_POST['c_stat'])) {
+    $contact_status = $_POST['c_stat'];
     $contact_file = $_FILES['contact_file'];
 
     // Check if the file is uploaded without errors
@@ -46,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['contact_file'])) {
                     }
 
                     // Retrieve all message IDs from the messages table
-                    $message_ids = [];
+                    /* $message_ids = [];
                     $result = $conn->query("SELECT m_id FROM messages");
                     while ($row = $result->fetch_assoc()) {
                         $message_ids[] = $row['m_id'];
@@ -56,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['contact_file'])) {
                     if (empty($message_ids)) {
                         die("No messages available to assign.");
                     }
-
+ */
                     // Loop through the CSV rows
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                         $firstname = $conn->real_escape_string($data[0]);
@@ -69,18 +70,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['contact_file'])) {
                             $contactNumber = substr($contactNumber, 1);
                         }
 
+
+                        // Convert the date format from MM/DD/YYYY to YYYY-MM-DD
+                        $dob = DateTime::createFromFormat('m/d/Y', $dateOfBirth);
+                        if ($dob) {
+                            $dateOfBirth = $dob->format('Y-m-d');
+                        } else {
+                            die("Invalid date format for DOB: $dateOfBirth. Please use MM/DD/YYYY.");
+                        }
+
+                        
                         // Default country code to +233 if none provided
                         $countrycode =  '+233' ;
 
 
                         // Randomly assign a message ID from the list
-                        $random_message_id = $message_ids[array_rand($message_ids)];
+                        // $random_message_id = $message_ids[array_rand($message_ids)];
 
                         // Insert the data into the contacts table
-                        $sql = "INSERT INTO contacts (cf_name, cl_name, c_dob, c_cntcode, c_pnum, c_mid, c_ruid, m_stat) VALUES (?, ?, ?, ?, ?, ?, ?, 0)";
+                        $sql = "INSERT INTO contacts (cf_name, cl_name, c_dob, c_cntcode, c_pnum, c_status, c_ruid, m_stat) VALUES (?, ?, ?, ?, ?, ?, ?, 0)";
                         $stmt = $conn->stmt_init();
                         if ($stmt->prepare($sql)) {
-                            $stmt->bind_param('ssssssi', $firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber, $random_message_id, $user_id);
+                            $stmt->bind_param('ssssssi', $firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber, $contact_status, $user_id);
                             if ($stmt->execute()) {
                                 $_SESSION['message'] = "Contact added successfully";
                             } else {
@@ -102,16 +113,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['contact_file'])) {
             }
 
             // Retrieve all message IDs from the messages table
-            $message_ids = [];
-            $result = $conn->query("SELECT m_id FROM messages");
-            while ($row = $result->fetch_assoc()) {
-                $message_ids[] = $row['m_id'];
-            }
+            // $message_ids = [];
+            // $result = $conn->query("SELECT m_id FROM messages");
+            // while ($row = $result->fetch_assoc()) {
+            //     $message_ids[] = $row['m_id'];
+            // }
 
-            // Check if there are any message IDs available
-            if (empty($message_ids)) {
-                die("No messages available to assign.");
-            }
+            // // Check if there are any message IDs available
+            // if (empty($message_ids)) {
+            //     die("No messages available to assign.");
+            // }
 
             // Loop through the CSV rows
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -126,18 +137,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['contact_file'])) {
                     $contactNumber = substr($contactNumber, 1);
                 }
 
+
+                // Convert the date format from MM/DD/YYYY to YYYY-MM-DD
+                $dob = DateTime::createFromFormat('m/d/Y', $dateOfBirth);
+                if ($dob) {
+                    $dateOfBirth = $dob->format('Y-m-d');
+                } else {
+                    die("Invalid date format for DOB: $dateOfBirth. Please use MM/DD/YYYY.");
+                }
+
                 // Default country code to +233 if none provided
                 $countrycode = empty($countrycode) ? '+233' : $countrycode;
 
 
                 // Randomly assign a message ID from the list
-                $random_message_id = $message_ids[array_rand($message_ids)];
+                // $random_message_id = $message_ids[array_rand($message_ids)];
 
                 // Insert the data into the contacts table
-                $sql = "INSERT INTO contacts (cf_name, cl_name, c_dob, c_cntcode, c_pnum, c_mid, c_ruid, m_stat) VALUES (?, ?, ?, ?, ?, ?, ?, 0)";
+                $sql = "INSERT INTO contacts (cf_name, cl_name, c_dob, c_cntcode, c_pnum, c_status, c_ruid, m_stat) VALUES (?, ?, ?, ?, ?, ?, ?, 0)";
                 $stmt = $conn->stmt_init();
                 if ($stmt->prepare($sql)) {
-                    $stmt->bind_param('ssssssi', $firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber, $random_message_id, $user_id);
+                    $stmt->bind_param('ssssssi', $firstname, $lastname, $dateOfBirth, $countrycode, $contactNumber, $contact_status, $user_id);
                     if ($stmt->execute()) {
                         $_SESSION['message'] = "Contact added successfully";
                     } else {
@@ -154,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['contact_file'])) {
             $conn->close();
 
             echo "CSV file data successfully imported!";
-            header('Location: ../admin_contacts.php?message=CSV file data successfully imported!');
+            header('Location: ../../admin_contacts.php?message=CSV file data successfully imported!');
         } else {
             echo "Error opening the file.";
         }

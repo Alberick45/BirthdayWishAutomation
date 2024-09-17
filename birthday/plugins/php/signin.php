@@ -276,7 +276,7 @@
 //             else{
 //                 echo  "<script>
 //                         alert('Incorrect password');
-//                         window.location.href = '../index.php';
+//                         window.location.href = '../../index.php';
 //                       </script>";
 //                 exit();
                 
@@ -563,12 +563,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             } else {
                 $_SESSION['error'] = "Incorrect password";
-                header("Location: ../index.php");
+                header("Location: ../../index.php");
                 exit();
             }
         } else {
             $_SESSION['message'] = "User not found";
-            header("Location: ../index.php");
+            header("Location: ../../index.php");
             exit();
         }
     }

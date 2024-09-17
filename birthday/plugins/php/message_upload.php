@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['message_file'])) {
             $conn->close();
 
             echo "CSV file data successfully imported!";
-            header('Location: ../admin_messages.php?CSV file data successfully imported!');
+            header('Location: ../../admin_messages.php?CSV file data successfully imported!');
         } else {
             echo "Error opening the file.";
         }

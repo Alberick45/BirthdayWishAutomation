@@ -2,8 +2,8 @@
 /* connect to database custom messages */
 $server = "localhost";
 $username = "root";
-$password = "";
+$password = "Alby@18$";
 $database = "birthday_sms";
-$port = 3307;
+/* $port = 3307; ,$port*/
 
-$conn = new mysqli($server,$username,$password,$database,$port);
+$conn = new mysqli($server,$username,$password,$database);

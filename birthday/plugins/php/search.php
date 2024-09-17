@@ -76,9 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $result_number1++;
                 } 
             }
-            else {
+            /* else {
                 $results1 = "No results found in messages";
-            }
+            } */
 
             if ($res2->num_rows > 0) {
                 $result_number2 = 1;
@@ -106,9 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $result_number2++;
                 } 
             }
-            else {
+            /* else {
                 $results2 = "No results found in contacts";
-            }
+            } */
             if ($res3->num_rows > 0) {
                 $result_number3 = 1;
                 while($row3 = $res3->fetch_assoc()){ 
@@ -134,9 +134,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $result_number3++;
                 } 
             }
-            else {
+            /* else {
                 $results3 = "No results found in contacts";
-            }
+            } */
         } 
         else {
             $searchParam = "%" . $search . "%";
@@ -206,9 +206,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result_number1++;
             } 
         }
-        else {
+        /* else {
             $results1 = "No results found in messages";
-        }
+        } */
 
         if ($res2->num_rows > 0) {
             $result_number2 = 1;
@@ -250,9 +250,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result_number2++;
             } 
         }
-        else {
-            $results2 = "No results found in contacts";
-        }
         if ($res3->num_rows > 0) {
             $result_number3 = 1;
             while($row3 = $res3->fetch_assoc()){ 
@@ -279,17 +276,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result_number3++;
             } 
         }
-        else {
-            $results3 = "No results found in contacts";
-        }
+     
     }
-    // else {
-    //     $results = "No results found";
-    // }
+    
+
 
 } 
-        echo '
-            <div class="container">
+
+if ($res1 -> num_rows > 0 || $res2 -> num_rows > 0 || $res3 -> num_rows > 0) {
+
+if ($res1 -> num_rows > 0) { echo '
+    
+    <div class="container">
                 <h2>"'.$search.'"Results from Messages👇</h2>
                 <div class="row">
                     <div class="col-12">
@@ -300,7 +298,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
             <br>
-            <div class="container">
+            <hr> ' ;} 
+            
+            
+if ($res2 -> num_rows > 0) { echo '
+    <div class="container">
             <h2>"'.$search.'" Results from Contacts👇</h2>
                 <div class="row">
                     <div class="col-12">
@@ -310,8 +312,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="container">
+            <br> 
+            <hr> '; }  
+
+
+if ($res3 -> num_rows > 0) { echo '
+    <div class="container">
             <h2>"'.$search.'" Results from Registered users👇</h2>
                 <div class="row">
                     <div class="col-12">
@@ -321,13 +327,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
             </div>
-           <hr> ';
+            <br>
+           <hr> ';}
+
+}
+
+else{
+    echo "<h2> No results </h2> <hr> ";
+}
+       
             
     
 }
-    // elseif(){
-
-    // }
+    
 
 else {
     echo "Method is not a post method";

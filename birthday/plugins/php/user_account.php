@@ -5,10 +5,10 @@ require("config.php");
 
 global $conn;
 if (!isset($_SESSION['user id'])) {
-    header("Location: ../index.php");
+    header("Location: ../../index.php");
     echo "You are not logged in";
-    exit();
     session_destroy();
+    exit();
 } 
 else {
     $user_id = $_SESSION['user id'];
@@ -139,7 +139,7 @@ else {
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../plugins/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       #top_header{
@@ -208,7 +208,7 @@ else {
     </style>
 
     <!-- Custom styles for this template -->
-    <link href="../css/dashboard.css" rel="stylesheet">
+    <link href="../../plugins/css/dashboard.css" rel="stylesheet">
 
   </head>
   <body class='bg-light' style=" ">
@@ -223,8 +223,8 @@ else {
             </a>
             <ul class="nav col-12 col-lg-auto  justify-content-center my-md-0 text-small">
               <li>
-                <a href="#" class="nav-link text-white">
-                  <img class="bi d-block mx-auto mb-1" width="40px" height="40px" src="../img/img-2.jpg" style="border-radius:50%"></img>
+                <a href="#" class="nav-link text-white"><!-- img-2.jpg -->
+                  <img class="bi d-block mx-auto mb-1" width="40px" height="40px" src="../../plugins/images/users/<?php echo $profile_pic?>" style="border-radius:50%"></img>
                   <?php
                   echo''. $user_name.'';
                   ?>
@@ -246,7 +246,7 @@ else {
               <button class="nav-item btn-warning my-2 rounded text-white" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"style="border:0px; margin-right:5vw;">Contact</button>
               <?php 
               if ($user_status == "Admin"){
-                echo '<a href="../dashboard.php" type="button" class="btn btn-outline-primary my-2"  style="border:0px; margin-right:5vw;">Admin page</a>';
+                echo '<a href="../../dashboard.php" type="button" class="btn btn-outline-primary my-2"  style="border:0px; margin-right:5vw;">Admin page</a>';
               }
               ?>
               <button type="button" class="btn btn-outline-primary my-2" data-bs-toggle="modal" data-bs-target="#logout-modal" style="border:0px; margin-right:5vw;">Logout</button>
@@ -302,12 +302,12 @@ else {
                   $stmt->bind_param('i', $user_id);
                   $stmt->execute();
                   $result = $stmt->get_result();
-                  $pics = ["../img/im1.jpg","../img/im2.jpg","../img/img-4.jpg","../img/im5.jpg",
-                    "../img/im6.jpg","../img/im7.jpg","../img/im8.jpg","../img/im4.jpg","../img/im3.jpg",
-                    "../img/img-1.jpg","../img/img-2.jpg","../img/im4.jpg","../img/im5.jpg",
-                    "../img/im6.jpg","../img/im7.jpg","../img/im8.jpg","../img/im7.jpg","../img/im3.jpg",
-                    "../img/im1.jpg","../img/im2.jpg","../img/im4.jpg","../img/im5.jpg",
-                    "../img/im6.jpg","../img/im7.jpg","../img/im8.jpg","../img/im6.jpg","../img/im3.jpg"
+                  $pics = ["../../img/im1.jpg","../../img/im2.jpg","../../img/img-4.jpg","../../img/im5.jpg",
+                    "../../img/im6.jpg","../../img/im7.jpg","../../img/im8.jpg","../../img/im4.jpg","../../img/im3.jpg",
+                    "../../img/img-1.jpg","../../img/img-2.jpg","../../img/im4.jpg","../../img/im5.jpg",
+                    "../../img/im6.jpg","../../img/im7.jpg","../../img/im8.jpg","../../img/im7.jpg","../../img/im3.jpg",
+                    "../../img/im1.jpg","../../img/im2.jpg","../../img/im4.jpg","../../img/im5.jpg",
+                    "../../img/im6.jpg","../../img/im7.jpg","../../img/im8.jpg","../../img/im6.jpg","../../img/im3.jpg"
                     ];
                     $wish_item='';
                   for ($i=0; $i < 20; $i++) { 
@@ -1215,11 +1215,11 @@ else {
    
     </div>
     
-    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../../plugins/js/bootstrap.bundle.min.js"></script>
     <!-- <script src="dashboard.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-    <script src="../js/dashboard.js"></script>
+    <script src="../../plugins/js/dashboard.js"></script>
   </body>
 </html>
 

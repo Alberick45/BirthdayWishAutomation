@@ -32,11 +32,11 @@ if($results -> num_rows >0){
 
     if (empty($fname)) {
     	$em = "Full name is required";
-    	header("Location: ../profile.php?error=$em");
+    	header("Location: ../../profile.php?error=$em");
 	    exit;
     }else if(empty($uname)){
     	$em = "User name is required";
-        header("Location: ../profile.php?error=$em");
+        header("Location: ../../profile.php?error=$em");
 
 	    exit;
     }else { */
@@ -55,9 +55,9 @@ if($results -> num_rows >0){
             $allowed_exs = array('jpg', 'jpeg', 'png');
             if(in_array($img_ex_to_lc, $allowed_exs)){
                $new_img_name = uniqid($uname, true).'.'.$img_ex_to_lc;
-               $img_upload_path = '../uploads/'.$new_img_name;
+               $img_upload_path = '../../plugins/images/users/'.$new_img_name;
                // Delete old profile pic
-               $old_pp_des = "../uploads/$old_pp";
+               $old_pp_des = "../../plugins/images/users/$old_pp";
                if(unlink($old_pp_des)){
                	  // just deleted
                	  move_uploaded_file($tmp_name, $img_upload_path);
@@ -74,16 +74,16 @@ if($results -> num_rows >0){
                $stmt = $conn->prepare($sql);
                $stmt->execute([$fname, $lname, $uname, $new_img_name, $userid]);
                
-               header("Location: ../profile.php?success=Your account has been updated successfully");
+               header("Location: ../../profile.php?success=Your account has been updated successfully");
                 exit;
             }else {
                $em = "You can't upload files of this type";
-               header("Location: ../profile.php?error=$em&$data");
+               header("Location: ../../profile.php?error=$em&$data");
                exit;
             }
          }else {
             $em = "unknown error occurred!";
-            header("Location: ../profile.php?error=$em&$data");
+            header("Location: ../../profile.php?error=$em&$data");
             exit;
           }
 
@@ -96,20 +96,20 @@ if($results -> num_rows >0){
        	$stmt = $conn->prepare($sql);
        	$stmt->execute([$fname,$lname, $uname, $userid]);
 
-       	header("Location: ../profile.php?success=Your account has been updated successfully");
+       	header("Location: ../../profile.php?success=Your account has been updated successfully");
    	    exit;
       }
     }
 
 
 /* }else {
-	header("Location: ../profile.php?error=error");
+	header("Location: ../../profile.php?error=error");
 	exit;
 }
 
 
 }else {
-	header("Location: ../index.php");
+	header("Location: ../../index.php");
 	exit;
 }  */
 
@@ -118,7 +118,7 @@ if($results -> num_rows >0){
 //     if (isset($_FILES['pp'])) {
 //         $profile_picture = $_FILES['pp'];
 //         $file_name= $_FILES['pp']['name'];
-//         $folder ='../uploads/'.$file_name;
+//         $folder ='../../uploads/'.$file_name;
 //         $tempname=$profile_picture['tmp_name'];
 //         if($tempname){
 //             $check = getimagesize($profile_picture['tmp_name']);

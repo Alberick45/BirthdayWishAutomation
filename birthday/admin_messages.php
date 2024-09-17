@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require("php/config.php");
+require("plugins/php/config.php");
 // include("automatic_message_sending.php");
 
 global $conn;
@@ -47,14 +47,14 @@ if (!isset($_SESSION['user id'])) {
     <meta name="description"
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>WishMe Admin page | <?php echo $user_name ?> </title>
+    <title>WishMe Messages page | <?php echo $user_name ?> </title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/logo1.ico">
     <!-- Custom CSS -->
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/">
-    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
-    <link href="css/style.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/logo1.ico">
+    <link href="plugins/css/style.min.css" rel="stylesheet">
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <!-- <script> -->
         <!-- // $(document).ready(function(){
@@ -64,7 +64,7 @@ if (!isset($_SESSION['user id'])) {
                 
         //         $.ajax({
         //             type: 'POST',
-        //             url: 'php/search.php',
+        //             url: 'plugins/php/search.php',
         //             data: formData,
         //             success: function(response){
         //                 var searchWord = $('#search').val(); // Assuming the input field ID is 'searchInput'
@@ -111,13 +111,13 @@ if (!isset($_SESSION['user id'])) {
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!-- Dark Logo icon -->
-                            <img src="plugins/images/logo-icon.png" alt="homepage" />
+                            <img src="plugins/images/logo1.ico" width="50" height="50" alt="homepage" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="plugins/images/logo-text.png" alt="homepage" />
+                            
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -161,7 +161,7 @@ if (!isset($_SESSION['user id'])) {
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="uploads/<?php echo $profile_pic?>" alt="user-img" width="45" height="45"
+                                <img src="plugins/images/users/<?php echo $profile_pic?>" alt="user-img" width="45" height="45"
                                     class="img-circle"><span class="text-white font-medium"><?php echo $user_name ?></span></a>
                         </li>
                         <!-- ============================================================== -->
@@ -229,7 +229,7 @@ if (!isset($_SESSION['user id'])) {
                         </li>
 
                         <li class="text-center p-20 upgrade-btn">
-                            <a href="php/user_account.php"
+                            <a href="plugins/php/user_account.php"
                                 class="btn d-grid btn-danger text-white" target="_blank">Homepage</a>
                         </li>
                     </ul>
@@ -278,14 +278,14 @@ if (!isset($_SESSION['user id'])) {
                     <!-- ============================================================== -->
                     <!-- Start Page Content -->
                     <!-- ============================================================== -->
-                    <div id="searchResults"></div>
+                    <!-- <div id="searchResults"></div> -->
                             <div class="white-box ">
                                 <h3 class="box-title">Messages Table</h3>
                                  
                              
 
                                 <?php
-                                    require("php/config.php");
+                                    require("plugins/php/config.php");
                                     
                                     
                                     $sql = "SELECT m_id, m_body, m_type FROM messages order by m_type ASC";
@@ -308,7 +308,7 @@ if (!isset($_SESSION['user id'])) {
                                                     <td>" .  $messagebody. "</td>
                                                     <td>" .  $messagestatus  . "</td>
                                                     <td>
-                                                    <a class='btn btn-danger' href='php/users.php?action=deletemsg&msgid=" . urlencode($messageid) .  "' role='button'>Delete</a>
+                                                    <a class='btn btn-danger' href='plugins/php/users.php?action=deletemsg&msgid=" . urlencode($messageid) .  "' role='button'>Delete</a>
                                                     </td>
                                                 </tr>";
                                     
@@ -320,7 +320,7 @@ if (!isset($_SESSION['user id'])) {
                                                     <td>" .  $messagebody. "</td>
                                                     <td>" .  $messagestatus  . "</td>
                                                     <td>
-                                                    <a class='btn btn-danger' href='php/users.php?action=deletemsg&msgid=" . urlencode($messageid) .  "' role='button'>Delete</a>
+                                                    <a class='btn btn-danger' href='plugins/php/users.php?action=deletemsg&msgid=" . urlencode($messageid) .  "' role='button'>Delete</a>
                                                     </td>
                                                 </tr>";
                                             } elseif($messagestatus=='sample'){
@@ -329,7 +329,7 @@ if (!isset($_SESSION['user id'])) {
                                                     <td>" .  $messagebody. "</td>
                                                     <td>" .  $messagestatus  . "</td>
                                                     <td>
-                                                    <a class='btn btn-danger' href='php/users.php?action=deletemsg&msgid=" . urlencode($messageid) .  "' role='button'>Delete</a>
+                                                    <a class='btn btn-danger' href='plugins/php/users.php?action=deletemsg&msgid=" . urlencode($messageid) .  "' role='button'>Delete</a>
                                                     </td>
                                                 </tr>";
                                             }else{
@@ -338,7 +338,7 @@ if (!isset($_SESSION['user id'])) {
                                                     <td>" .  $messagebody. "</td>
                                                     <td>" .  $messagestatus  . "</td>
                                                     <td>
-                                                    <a class='btn btn-danger' href='php/users.php?action=deletemsg&msgid=" . urlencode($messageid) .  "' role='button'>Delete</a>
+                                                    <a class='btn btn-danger' href='plugins/php/users.php?action=deletemsg&msgid=" . urlencode($messageid) .  "' role='button'>Delete</a>
                                                     </td>
                                                 </tr>";
                                             }
@@ -399,7 +399,7 @@ if (!isset($_SESSION['user id'])) {
                                         <div class="card white-box p-3 shadow-lg rounded">
                                             <h4>All sample Messages</h4>
                                             <div class="table-responsive "style=" height:50vh; overflow-y:scroll">
-                                                <table class="table">>
+                                                <table class="table">
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
@@ -519,7 +519,7 @@ if (!isset($_SESSION['user id'])) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="php/message_upload.php"  id="signin" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+          <form action="plugins/php/message_upload.php"  id="signin" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
           <div class="input-group mb-3">
             <input type="file" class="form-control" id="inputGroupFile02" name="messages_file" accept=".csv" required>
             <label class="input-group-text" for="inputGroupFile02">Upload Messages csv here</label>
@@ -548,7 +548,7 @@ if (!isset($_SESSION['user id'])) {
         </div>
         <div class="modal-body">
         
-        <form action="php/message_upload.php" method="POST" id="sign_up" class="needs-validation" novalidate enctype="multipart/form-data">
+        <form action="plugins/php/message_upload.php" method="POST" id="sign_up" class="needs-validation" novalidate enctype="multipart/form-data">
             <div class="input-group mb-3">
                 <input type="file" class="form-control" id="inputGroupFile02" name="message_file">
                 <label class="input-group-text" for="inputGroupFile02">Upload Message CSV here</label>
@@ -571,14 +571,14 @@ if (!isset($_SESSION['user id'])) {
     <!-- ============================================================== -->
     <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/app-style-switcher.js"></script>
+    <script src="plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/js/app-style-switcher.js"></script>
     <!--Wave Effects -->
-    <script src="js/waves.js"></script>
+    <script src="plugins/js/waves.js"></script>
     <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
+    <script src="plugins/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="js/custom.js"></script>
+    <script src="plugins/js/custom.js"></script>
  
     <script>
 
@@ -592,7 +592,7 @@ if (!isset($_SESSION['user id'])) {
             formData.append('dashboard', document.getElementById('postData2').value);
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'php/search.php', true);
+            xhr.open('POST', 'plugins/php/search.php', true);
             xhr.onload = function() {
                 if (xhr.status >= 200 && xhr.status < 400) {
                     document.getElementById('response').innerHTML = xhr.responseText;

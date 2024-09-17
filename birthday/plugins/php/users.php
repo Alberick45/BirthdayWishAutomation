@@ -12,7 +12,7 @@ function deleteuser($userid){
     // Execute the statement
     if ($stmt->execute()) {
         echo "Record deleted successfully";
-        header("Location: ../admin_users.php");
+        header("Location: ../../admin_users.php");
     } else {
         echo "Error deleting record: " . $conn->error;
     }
@@ -35,11 +35,11 @@ function deleteuser($userid){
         
         if ($stmt ->affected_rows > 0) {
             $_SESSION['message'] = "Message deleted successfully";
-            header('refresh:1 ../admin_messages.php'); // Redirect to a specific page after updating
+            header('refresh:1 ../../admin_messages.php'); // Redirect to a specific page after updating
             exit();
         } else {
             $_SESSION['message'] =  "Error deleting message: " . $conn -> error;
-            header('refresh:1 ../admin_messages.php'); // Redirect to a specific page after updating
+            header('refresh:1 ../../admin_messages.php'); // Redirect to a specific page after updating
             exit();
         }
         
@@ -59,7 +59,7 @@ function deleteuser($userid){
         if ($stmt ->affected_rows > 0) {
             // Set session variable for success message
             $_SESSION['message'] = "Contact deleted successfully";
-            header('Location: ../admin_contacts.php');
+            header('Location: ../../admin_contacts.php');
             exit();
         } else {
             $_SESSION['message'] =  "Error deleting contact: " . $conn -> error;
