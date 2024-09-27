@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
             if ($res1 -> num_rows > 0) {
                 $result_number1 = 1;
-                $pics1 = ["img/im1.jpg","img/im2.jpg","img/im4.jpg","img/im5.jpg","img/im6.jpg","img/im7.jpg"];
+                $pics1 = ["plugins/images/im1.jpg","plugins/images/im2.jpg","plugins/images/im4.jpg","plugins/images/im5.jpg","plugins/images/im6.jpg","plugins/images/im7.jpg"];
                 while(count($pics1) < $res1->num_rows){
                     foreach ($pics1 as $it1){
                         if (count($pics1) < $res1->num_rows ){
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($res1 -> num_rows > 0) {
            // Initialize results variable
             $result_number1 = 1;
-            $pics1 = ["img/im1.jpg","img/im2.jpg","img/im4.jpg","img/im5.jpg","img/im6.jpg","img/im7.jpg"];
+            $pics1 = ["plugins/images/im1.jpg","plugins/images/im2.jpg","plugins/images/im4.jpg","plugins/images/im5.jpg","plugins/images/im6.jpg","plugins/images/im7.jpg"];
             while(count($pics1) < $res1->num_rows){
                 foreach ($pics1 as $it1){
                     if (count($pics1) < $res1->num_rows ){
@@ -212,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($res2->num_rows > 0) {
             $result_number2 = 1;
-            // $pics2 = ["img/im1.jpg","img/im2.jpg","img/im4.jpg","img/im5.jpg","img/im6.jpg","img/im7.jpg"];
+            // $pics2 = ["plugins/images/im1.jpg","plugins/images/im2.jpg","plugins/images/im4.jpg","plugins/images/im5.jpg","plugins/images/im6.jpg","plugins/images/im7.jpg"];
             // while(count($pics1) < $res1->num_rows){
             //     foreach ($pics1 as $it1){
             //         if (count($pics1) < $res1->num_rows ){

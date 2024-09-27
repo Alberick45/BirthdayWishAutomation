@@ -1,0 +1,71 @@
+To show the balance of your Hubtel SMS account programmatically using their API, you can use the **Account Balance API** endpoint provided by Hubtel. This can be integrated into your code, and it will fetch your available balance and display it.
+
+Here’s how you can do it in PHP using `cURL`:
+
+### Example Code to Get Account Balance via Hubtel SMS API
+
+```php
+<?php
+// Hubtel API credentials
+$clientId = 'your-client-id';
+$clientSecret = 'your-client-secret';
+
+// Set up the API request to fetch account balance
+$ch = curl_init();
+
+// The URL to fetch the balance
+curl_setopt($ch, CURLOPT_URL, "https://api.hubtel.com/v1/merchantaccount/merchants/{your-merchant-id}/balance");
+
+// Authentication: using the client ID and secret
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Authorization: Basic ' . base64_encode($clientId . ':' . $clientSecret),
+    'Content-Type: application/json'
+));
+
+// Set other options
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// Execute the request
+$response = curl_exec($ch);
+
+// Check if the request was successful
+if ($response === false) {
+    echo 'Curl error: ' . curl_error($ch);
+} else {
+    // Decode the JSON response
+    $data = json_decode($response, true);
+
+    // Display the account balance
+    if (isset($data['totalBalance'])) {
+        echo "Your account balance is: " . $data['totalBalance'];
+    } else {
+        echo "Unable to retrieve balance.";
+    }
+}
+
+// Close the cURL session
+curl_close($ch);
+?>
+```
+
+### Explanation of the Code:
+1. **API Authentication**: We are using Basic Authentication, where the `clientId` and `clientSecret` are base64-encoded and passed in the `Authorization` header.
+2. **API Endpoint**: The URL used here is specific to Hubtel's merchant account balance.
+3. **cURL Setup**: We set up cURL to make an HTTP request to Hubtel's API to fetch the balance.
+4. **Response Handling**: The response is JSON-encoded. We decode it to check if the `totalBalance` key exists and display the balance.
+
+### Output:
+This code will output your current Hubtel SMS account balance like:
+```
+Your account balance is: 150.00
+```
+
+### Steps:
+- Replace `'your-client-id'` and `'your-client-secret'` with your actual Hubtel API credentials.
+- Replace `'{your-merchant-id}'` with your actual merchant ID in the URL.
+
+### Debugging:
+- If the response is unsuccessful, the code will print out a cURL error.
+- Ensure that your Hubtel account is correctly set up and that your credentials are valid.
+
+This script can be run any time to check your account balance in real-time! Let me know if you need further assistance with this.

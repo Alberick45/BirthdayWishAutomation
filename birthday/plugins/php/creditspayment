@@ -1,0 +1,126 @@
+Yes, you can automate payments from your phone to send money to a site, purchase credit from Hubtel, and provide that credit to others who pay you. To achieve this, you'll need to combine a few technologies and techniques, including mobile money payments, APIs, and some automation tools. Here’s how you could go about it:
+
+### Steps to Automate Payments for Credit Purchase and Distribution:
+
+#### 1. **Set Up a Hubtel Merchant Account**
+   - If you haven’t already, sign up for a [Hubtel merchant account](https://www.hubtel.com/).
+   - Generate your API keys for accessing Hubtel’s services.
+
+#### 2. **Programmatically Purchase Credit from Hubtel**
+   - You’ll need to use Hubtel’s API to buy credit from Hubtel. This would involve making an API call to their payment gateway, specifying the amount of credit you want to buy, and paying for it using a mobile money wallet or card.
+   - You can automate this payment process from your phone using a server-side script (like PHP, Python, or any other backend language).
+
+   Here’s an outline of what that process might look like:
+   
+   ```php
+   // Automate credit purchase using Hubtel API (Example in PHP)
+   $clientId = 'your-client-id';
+   $clientSecret = 'your-client-secret';
+   $amount = 10.00; // Amount to buy in credit
+   
+   $data = array(
+       'total_amount' => $amount,
+       'description' => 'Purchase of credit',
+       'client_reference' => 'unique-transaction-id',
+       'callback_url' => 'https://yourdomain.com/payment_callback',
+       'return_url' => 'https://yourdomain.com/payment_success',
+       'merchant_account_number' => 'your-merchant-account-number'
+   );
+   
+   $jsonData = json_encode($data);
+   
+   $ch = curl_init('https://api.hubtel.com/v1/merchantaccount/merchants/{your-merchant-id}/checkout/invoice/create');
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+       'Content-Type: application/json',
+       'Authorization: Basic ' . base64_encode($clientId . ':' . $clientSecret)
+   ));
+   curl_setopt($ch, CURLOPT_POST, 1);
+   curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+   
+   $response = curl_exec($ch);
+   curl_close($ch);
+   
+   echo $response;
+   ```
+
+   After you’ve completed the credit purchase, Hubtel will notify you via the callback URL about the payment status.
+
+#### 3. **Set Up Mobile Money Payment Automation from Your Phone**
+   To automate the process of sending money from your phone to Hubtel’s payment gateway, you can either:
+   - Use **mobile payment APIs** to programmatically send mobile money (MTN, AirtelTigo, Vodafone, etc.) directly from your wallet to the Hubtel gateway.
+   - You can also use third-party services like IFTTT (If This Then That) or Tasker to trigger actions when you make a payment. These apps can automate actions on your phone, such as sending mobile money or triggering a payment request.
+
+   Unfortunately, most telcos don't provide direct APIs for automating mobile money transfers, so you might have to rely on services like Hubtel or similar platforms to initiate payments for you.
+
+#### 4. **Store the Purchased Credit Information**
+   Once the credit purchase is successful, you should save the credit amount in a database associated with the users who are paying you. This can be stored as a user balance or credit points that they can later use.
+
+#### 5. **Automate Credit Distribution**
+   When a customer pays you, you’ll need to handle their request by:
+   
+   - **Accepting Payment**: When someone pays you, capture their payment details using an API (e.g., Hubtel’s API, Mobile Money APIs, or another payment gateway).
+   - **Providing Credit**: After receiving payment, update the user's balance in your database and notify them of their available credit.
+
+   Here’s an example of how to handle the process in PHP:
+   
+   ```php
+   // Add credit to user's account upon successful payment
+   function addCreditToUser($userId, $creditAmount) {
+       // Assuming you have a users table with a credit field
+       $query = "UPDATE users SET credit = credit + ? WHERE user_id = ?";
+       // Execute query using prepared statements to avoid SQL injection
+       // Example using PDO:
+       $stmt = $pdo->prepare($query);
+       $stmt->execute([$creditAmount, $userId]);
+   }
+   
+   // Payment callback
+   $paymentData = json_decode(file_get_contents('php://input'), true);
+   
+   if ($paymentData['status'] == 'completed') {
+       $userId = $paymentData['user_id']; // Assuming you pass user_id in the payment request
+       $creditAmount = $paymentData['amount'];
+       addCreditToUser($userId, $creditAmount);
+       echo "Credit added successfully!";
+   }
+   ```
+
+#### 6. **Set Up Notifications for Credit Availability**
+   Once the credit has been successfully added to the user’s account, send them a notification (via SMS, email, or app notification) to inform them about the available credit.
+
+   For SMS, you could use Hubtel’s SMS API:
+
+   ```php
+   // Send SMS notification using Hubtel API
+   $smsData = array(
+       'From' => 'YourService',
+       'To' => $userPhoneNumber,
+       'Content' => 'Your account has been credited with ' . $creditAmount . ' units of credit.',
+   );
+   
+   $smsJsonData = json_encode($smsData);
+   
+   $ch = curl_init('https://sms.hubtel.com/v1/messages/send');
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+       'Content-Type: application/json',
+       'Authorization: Basic ' . base64_encode($clientId . ':' . $clientSecret)
+   ));
+   curl_setopt($ch, CURLOPT_POST, 1);
+   curl_setopt($ch, CURLOPT_POSTFIELDS, $smsJsonData);
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+   
+   $response = curl_exec($ch);
+   curl_close($ch);
+   
+   echo $response;
+   ```
+
+### Tools & Technologies You May Need:
+1. **Programming Language**: Use PHP, Python, or any language that supports HTTP requests and database interaction.
+2. **Database**: You’ll need a database (like MySQL) to store user balances, transaction histories, etc.
+3. **Hubtel API**: For purchasing and distributing credits, as well as handling payments and notifications.
+4. **Mobile Money API**: Depending on the mobile network, you can use APIs to trigger automated payments (MTN, AirtelTigo, Vodafone, etc.).
+5. **Automation Apps**: For mobile-side automation (IFTTT, Tasker).
+
+By combining these components, you can fully automate the process of purchasing credit from Hubtel and distributing it to your customers after payment is made. Let me know if you need specific examples or further clarification!

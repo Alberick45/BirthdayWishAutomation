@@ -230,6 +230,14 @@ if (!isset($_SESSION['user id'])) {
                                 <span class="hide-menu">Automatic Birthday Page</span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin_sms.php"
+                                aria-expanded="false">
+                                <i class="far fa-address-book" aria-hidden="true"></i>
+                                <span class="hide-menu">SMS Packages</span>
+                            </a>
+                        </li>
                         
                         <li class="text-center p-20 upgrade-btn">
                             <a href="plugins/php/user_account.php"

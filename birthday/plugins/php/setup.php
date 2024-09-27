@@ -23,6 +23,14 @@ if ($conn->query($sql_createdb) === TRUE) {
 $conn->select_db("birthday_sms");
 
 // SQL queries to create tables
+
+$SQL_createsms_tb = "CREATE TABLE IF NOT EXISTS sms(
+    sms_id INT PRIMARY KEY AUTO_INCREMENT,
+    num_of_credits INT,
+    price DECIMAL(7,2) DEFAULT '0.00'
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+";
+
 $SQL_createru_tb = "CREATE TABLE IF NOT EXISTS registered_users(
     ru_id INT PRIMARY KEY AUTO_INCREMENT,
     ruf_name VARCHAR(20),
@@ -34,6 +42,7 @@ $SQL_createru_tb = "CREATE TABLE IF NOT EXISTS registered_users(
     ru_pass VARCHAR(65),
     ru_pic VARCHAR(100) DEFAULT 'default-pp.png',
     ru_status ENUM('User', 'Admin') NOT NULL DEFAULT 'User',
+    num_of_credits INT,
     CHECK(CHAR_LENGTH(ru_pass) >= 7)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ";

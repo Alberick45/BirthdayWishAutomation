@@ -100,3 +100,14 @@ Provide contact details for users who have questions or concerns about the terms
 
 
 the custom messages side which shows custom messages should show messages from database
+
+
+
+so sms credits so we need a database  where we can set the prices and staff 
+so it shows number of credites and price so we have another table called credits the admin can see and add more credits so it shows 
+ so the users have a credits column depending on the number they buy so after purchasing the amount you bought is added to yours after 
+ every use it is subtracted 
+
+ viewing credits on home page
+so instead of making payment from phone automatic for now lets make it such that admin can see account balance and how much ech client has paid altogether like what is
+ left so sum of all money currently left and balance in api so if ou can you can top up also i think a message is like 2p

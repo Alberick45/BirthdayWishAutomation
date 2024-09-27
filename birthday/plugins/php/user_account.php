@@ -249,6 +249,9 @@ else {
                 echo '<a href="../../dashboard.php" type="button" class="btn btn-outline-primary my-2"  style="border:0px; margin-right:5vw;">Admin page</a>';
               }
               ?>
+
+              <button type="button" class="btn btn-outline-primary my-2" data-bs-toggle="modal" data-bs-target="#credits-modal" style="border:0px; margin-right:5vw;">SMS.Credits</button>
+              
               <button type="button" class="btn btn-outline-primary my-2" data-bs-toggle="modal" data-bs-target="#logout-modal" style="border:0px; margin-right:5vw;">Logout</button>
               
               </div>
@@ -302,12 +305,12 @@ else {
                   $stmt->bind_param('i', $user_id);
                   $stmt->execute();
                   $result = $stmt->get_result();
-                  $pics = ["../../img/im1.jpg","../../img/im2.jpg","../../img/img-4.jpg","../../img/im5.jpg",
-                    "../../img/im6.jpg","../../img/im7.jpg","../../img/im8.jpg","../../img/im4.jpg","../../img/im3.jpg",
-                    "../../img/img-1.jpg","../../img/img-2.jpg","../../img/im4.jpg","../../img/im5.jpg",
-                    "../../img/im6.jpg","../../img/im7.jpg","../../img/im8.jpg","../../img/im7.jpg","../../img/im3.jpg",
-                    "../../img/im1.jpg","../../img/im2.jpg","../../img/im4.jpg","../../img/im5.jpg",
-                    "../../img/im6.jpg","../../img/im7.jpg","../../img/im8.jpg","../../img/im6.jpg","../../img/im3.jpg"
+                  $pics = ["../images/im1.jpg","../images/im2.jpg","../images/img-4.jpg","../images/im5.jpg",
+                    "../images/im6.jpg","../images/im7.jpg","../images/im8.jpg","../images/im4.jpg","../images/im3.jpg",
+                    "../images/img-1.jpg","../images/img-2.jpg","../images/im4.jpg","..images/im5.jpg",
+                    "../images/im6.jpg","../images/im7.jpg","../images/im8.jpg","../images/im7.jpg","../images/im3.jpg",
+                    "../images/im1.jpg","../images/im2.jpg","../images/im4.jpg","../images/im5.jpg",
+                    "../images/im6.jpg","../images/im7.jpg","../images/im8.jpg","../images/im6.jpg","../images/im3.jpg"
                     ];
                     $wish_item='';
                   for ($i=0; $i < 20; $i++) { 
@@ -1071,6 +1074,11 @@ else {
             <!-- Add contact button that toggles to the add contact modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contact-modal"  >
               Add contact
+            </button> 
+            Or
+            <!-- Upload contact button that toggles to the Upload contact modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#upload-contact-modal"  >
+            Upload contact
             </button>
             
           </div>
@@ -1189,6 +1197,45 @@ else {
             </div>
           </div>
 
+<!-- =================START OF CONTACT UPLOAD MODAL============== -->
+  <!-- =============================================== -->
+  <div class="modal fade" id="upload-contact-modal" tabindex="-1" aria-labelledby="upload-contact-ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="upload-contact-ModalLabel">Upload contacts</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="contact_upload.php"  id="signin" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+          <div class="input-group mb-3">
+            <select id="c_status"  required class="form-select" name="c_stat">
+                            <?php
+                            $c_statuses = ["Public","Student"];
+                            foreach ($c_statuses as $c_stat) {
+                                echo "<option value=\"$c_stat\" >$c_stat</option>";
+                            }
+                            ?>
+                </select>
+         </div>
+         
+          <div class="input-group mb-3">
+
+                          
+            <input type="file" class="form-control" id="inputGroupFile02" name="contact_file" accept=".csv" required>
+            <label class="input-group-text" for="inputGroupFile02">Upload Contacts csv here</label>
+          </div>
+
+              <br>
+              <button class="w-100 btn btn-primary btn-lg" name="sign_in" >Upload</button>
+            </div>    
+          </form>
+          
+          </div>
+       
+      </div>
+    </div>
+
           <!-- this is the logout modal -->
           <div class="modal fade" id="logout-modal" tabindex="-1" aria-labelledby="logout-modal-title" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -1205,6 +1252,28 @@ else {
                   
                   <form action="logout.php" method="post">
                   <button type="submit" class="btn btn-outline-danger" name="logout"  id="logout">Logout</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- this is the credits modal -->
+        <div class="modal fade" id="credits-modal" tabindex="-1" aria-labelledby="credits-modal-title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="credits-modal-title">SMS Packages</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>This is where packages are populated so you chan choose from them</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  
+                  <form action="credits.php" method="post">
+                  <button type="submit" class="btn btn-outline-danger" name="credit_purchase.php"  id="credits">Buy</button>
                   </form>
               </div>
             </div>
