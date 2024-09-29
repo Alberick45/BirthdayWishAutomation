@@ -27,7 +27,7 @@ function addsms() {
                     if ($stmt->execute()) {
                         $_SESSION['message'] = "sms added successfully";
                         $em = "sms added successfully";
-                        header("Location: ../../admin_sms.php?success=",$_SESSION['message'],"");
+                        header("Location: ../../admin_sms.php?success=".urlencode($_SESSION['message'])."");
                         exit;// Set session variable for success message
                         
                         // header('Location: ../../admin_sms.php');
@@ -35,7 +35,7 @@ function addsms() {
                     } else {
                         $_SESSION['message'] =  "Error executing statement: " . $stmt->error;
                         $em ="Error executing statement: " . $stmt->error;
-                        header("Location: ../../admin_sms.php?success=",$_SESSION['message'],"");
+                        header("Location: ../../admin_sms.php?success=".urlencode($_SESSION['message'])."");
                         exit;
                         
                     }
@@ -43,7 +43,7 @@ function addsms() {
                 } else {
                     $em ="Error preparing statement: " . $conn->error;
                     $_SESSION['message'] =  "Error preparing statement: " . $conn->error;
-                    header("Location: ../../admin_sms.php?success=",$_SESSION['message'],"");
+                    header("Location: ../../admin_sms.php?success=".urlencode($_SESSION['message'])."");
                 }
                 $stmt->close();
                 exit;

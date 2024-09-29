@@ -22,6 +22,86 @@ if (!isset($_SESSION['user id'])) {
     $Password = $row["ru_pass"];
     $user_name = $row['ru_name'];
     $profile_pic =$row["ru_pic"];
+
+
+
+    // Checking Total credit available
+
+// Your Hubtel API credentials
+$client_id = 'zypjcmzu';      // Replace with your actual client ID
+$client_secret = 'ukzxxojo';  // Replace with your actual client secret
+
+// API endpoint for retrieving balance
+$balance_url = "https://api.hubtel.com/v1/merchantaccount/balance";
+
+// Initialize cURL
+$ch = curl_init();
+
+// Set cURL options
+curl_setopt($ch, CURLOPT_URL, $balance_url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+curl_setopt($ch, CURLOPT_USERPWD, $client_id . ":" . $client_secret); // Basic authentication
+
+// Bypass SSL verification (not recommended in production)
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+// Execute the request and get the response
+$response = curl_exec($ch);
+
+echo "<pre>";
+print_r($response);
+echo "</pre>";
+
+
+// Check for cURL errors
+if (curl_errno($ch)) {
+    echo "cURL error: " . curl_error($ch);
+} else {
+    // Decode the JSON response
+    $balance_data = json_decode($response, true);
+    
+    // Check if the balance was successfully retrieved
+    if (isset($balance_data['ResponseCode']) && $balance_data['ResponseCode'] == "0000") {
+        // Display the available balance
+        echo "Your current balance is: " . $balance_data['Data']['AvailableBalance'] . " GH₵";
+    } else {
+        echo "Failed to retrieve balance. Error: " . $balance_data['ResponseText'];
+        var_dump($balance_data);
+    }
+}
+
+// Close cURL
+curl_close($ch);
+
+
+
+    // checking total credit needed
+    // Query to get the total credit needed
+$sitebalance_query = "SELECT SUM(num_of_credits) AS total_credit_needed FROM registered_users";
+
+// Execute the query
+$all_sitebalance_results = mysqli_query($conn, $sitebalance_query);
+
+// Check if the query execution was successful
+if ($all_sitebalance_results) {
+    $all_sitebalance_rows = mysqli_fetch_assoc($all_sitebalance_results);
+    
+    // Check if the result is not null, meaning there are some rows
+    if ($all_sitebalance_rows && isset($all_sitebalance_rows['total_credit_needed'])) {
+        $all_sitebalance = $all_sitebalance_rows['total_credit_needed'];
+    } else {
+        $all_sitebalance = 0;
+    }
+} else {
+    // If the query failed, you can log the error and also set the balance to 0
+    echo "Error executing query: " . mysqli_error($conn);
+    $all_sitebalance = 0;
+}
+
+
+
     if (isset($_SESSION['message'])) {
         echo $_SESSION['message'];
         unset($_SESSION['message']);
@@ -244,8 +324,37 @@ if (!isset($_SESSION['user id'])) {
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div id="response"></div>
+            
         <div class=" scrollable-div px-3 py-4" style="padding-bottom:100px; max-height:80vh; min-height: 80vh; overflow-y:scroll">
 
+        <div class="row justify-content-center">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="white-box analytics-info" id='Apibalance'>
+                                    <h3 class="box-title">Total Credit Available</h3>
+                                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                        <li>
+                                            <hr>
+                                        </li>
+                                        <li class="ms-auto"><span class="counter text-success"><?php echo $all_apibalance?></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="white-box analytics-info"id='sitebalance'>
+                                    <h3 class="box-title">Total Credit Needed</h3>
+                                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                        <li>
+                                            <hr>
+                                        </li>
+                                        <li clt="ms-auto"><span class="counter text-purple"><?php echo  $all_sitebalance;?></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                           
+                        </div>
+
+
+                        
             <div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
@@ -323,6 +432,122 @@ if (!isset($_SESSION['user id'])) {
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
+
+
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start settings  Content -->
+                <!-- ============================================================== -->
+                 <!-- So here you can view the credt left the credit needed and you can change the times you recieve an update so two boxes one to time number and one to type type so 1 day etc  -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">SMS Settings</h3>
+                            
+                        <div class="card">
+                        <?php
+                require("plugins/php/config.php");
+                
+                
+                $sql = "SELECT * FROM alert_system";
+                $result = $conn->query($sql);
+                
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $interval_change_id= htmlspecialchars($row["alert_s_id"]);
+                        $interval_value= htmlspecialchars($row["alert_time_num"]);
+                        $interval_unit = htmlspecialchars($row["alert_time_str"]);
+                        ?>
+                        
+                    
+    
+                        <form class="shadow w-450 p-3" 
+                            action="plugins/php/alertsettings.php" 
+                            method="post">
+
+                            <h4 class="display-4  fs-1">Edit alert Interval Settings</h4><br>
+                            <!-- error -->
+                            <?php if(isset($_GET['error'])){ ?>
+                            <div class="alert alert-danger" role="alert">
+                            <?php echo $_GET['error']; ?>
+                            </div>
+                            <?php } ?>
+                            
+                            <!-- success -->
+                            <?php if(isset($_GET['success'])){ ?>
+                            <div class="alert alert-success" role="alert">
+                            <?php echo $_GET['success']; ?>
+                            </div>
+                            <?php } ?>
+                        <div class="mb-3">
+
+
+
+                        <input type="hidden" placeholder="<?php echo $interval_change_id;?>" name="alert-id">
+
+
+                            <label class="form-label">Set Interval Value of sms alerts here</label>
+                            <input type="number" 
+                                class="form-control"
+                                name="interval_value"
+                                placeholder="<?php echo $interval_value?>"
+                                value="<?php echo $interval_value?>"
+                                 >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Set Interval Unit of sms alerts here</label>
+                            <input type="text" 
+                                class="form-control"
+                                name="lname"
+                                placeholder="<?php echo $interval_unit ?>"
+                                aria-label="interval unit" name="interval_unit" 
+                                value="<?php echo $interval_unit?>">
+                        </div>
+                        
+                        
+                    <button type="submit" class="btn btn-outline-primary" name="update_interval"  id="update_interval">Update interval</button>
+                       
+
+                        </form>
+                        </div>
+
+
+
+                        <?php
+                    $conn->close();
+
+                            }
+                            }
+                    ?>
+
+                           
+
+                                        </form>
+                          
+                      
+                                
+                                    </tbody>
+                                </table>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Settings Content -->
+                <!-- ============================================================== -->
+                 </div>
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+           
+
+            
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
@@ -359,10 +584,10 @@ if (!isset($_SESSION['user id'])) {
                     <input type="hidden" name="smslist" value="Add">
                     <div class="row g-3">
                       <div class="col-6">
-                        <input type="number" class="form-control" placeholder="number of credits" aria-label="number of credits" name="num_of_credits">
+                        <input type="number" class="form-control" placeholder="number of credits" aria-label="number of credits" name="num_of_credits" required>
                       </div>
                       <div class="col-6">
-                        <input type="number" class="form-control" placeholder="Price" aria-label="price" name="price">
+                        <input type="number" class="form-control" placeholder="Price" aria-label="price" name="price" required>
                       </div>
                       
                     
