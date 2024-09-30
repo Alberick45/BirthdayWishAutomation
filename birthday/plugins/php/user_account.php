@@ -26,6 +26,8 @@ else {
     $phone =$row["ru_pnum"];
     $count_code =$row["ru_cntcode"];
     $profile_pic =$row["ru_pic"];
+    $balance = $row["num_of_credits"];
+    if ($balance){$balance = $balance;}else{$balance = 0;}
     if (isset($_SESSION['message'])) {
         echo $_SESSION['message'];
         unset($_SESSION['message']);
@@ -136,6 +138,7 @@ else {
     <meta name="author" content="Thomas">
     <meta name="generator" content="Hugo 0.84.0">
     <title>WishMe | <?php echo $user_name?> </title>
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/logo1.ico">
     <link rel="shortcut icon" href="<?php echo $favicon?> " type="image/x-icon">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
 
@@ -227,7 +230,7 @@ else {
                 <a href="#" class="nav-link text-white"><!-- img-2.jpg -->
                   <img class="bi d-block mx-auto mb-1" width="40px" height="40px" src="../../plugins/images/users/<?php echo $profile_pic?>" style="border-radius:50%"></img>
                   <?php
-                  echo''. $user_name.'';
+                  echo''. $user_name.' - '.$balance.' credits';
                   ?>
                 </a>
               </li>

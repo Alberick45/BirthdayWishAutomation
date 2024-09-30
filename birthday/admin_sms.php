@@ -587,7 +587,7 @@ if ($all_sitebalance_results) {
                         <input type="number" class="form-control" placeholder="number of credits" aria-label="number of credits" name="num_of_credits" required>
                       </div>
                       <div class="col-6">
-                        <input type="number" class="form-control" placeholder="Price" aria-label="price" name="price" required>
+                        <input type="text" class="form-control" placeholder="Price" aria-label="price" name="price" required>
                       </div>
                       
                     

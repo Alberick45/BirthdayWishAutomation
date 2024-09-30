@@ -40,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
 
                 // Code for transaction goes here
-                $clientId = 'your-client-id';
-                $clientSecret = 'your-client-secret';
+                $clientId = 'zypjcmzu';
+                $clientSecret = 'ukzxxojo';
                 $amount = $price; // Amount to buy in credit
 
                 $data = array(
