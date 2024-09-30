@@ -31,6 +31,14 @@ $SQL_createsms_tb = "CREATE TABLE IF NOT EXISTS sms(
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ";
 
+
+$SQL_createas_tb = "CREATE TABLE IF NOT EXISTS alert_system(
+    alert_s_id INT PRIMARY KEY AUTO_INCREMENT,
+    alert_time_num INT DEFAULT 1,
+    alert_time_str varchar(30) DEFAULT 'Day'
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+
+
 $SQL_createru_tb = "CREATE TABLE IF NOT EXISTS registered_users(
     ru_id INT PRIMARY KEY AUTO_INCREMENT,
     ruf_name VARCHAR(20),
@@ -72,6 +80,15 @@ $SQL_createc_tb = "CREATE TABLE IF NOT EXISTS contacts(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ";
 
+$SQL_createt_tb = "CREATE TABLE IF NOT EXISTS transactions(
+    transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+    userid INT,
+    sms_id INT,
+    transaction_status ENUM('pending', 'complete') NOT NULL DEFAULT 'pending',
+    CONSTRAINT transactionuser_id FOREIGN KEY (userid) REFERENCES registered_users(ru_id) ON DELETE CASCADE,
+    CONSTRAINT packagetype_fk FOREIGN KEY (sms_id) REFERENCES sms(sms_id) ON DELETE CASCADE
+);";
+
 // SQL queries to insert initial data
 $password = 'password'; // The password to be hashed
 
@@ -80,6 +97,8 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 $SQL_r_init_insert = "INSERT INTO registered_users (ruf_name, rul_name, ru_name, ru_dob, ru_pnum, ru_pass) VALUES 
 ('John', 'Doe', 'root', '1990-01-01', 1234567890, '$hashed_password')"; 
+
+$SQL_m_init_insert = "INSERT INTO alert_system(alert_time_num,alert_time_str) VALUES (1,'day')";
 
 $SQL_m_init_insert = "INSERT INTO messages (m_body, m_ruid, m_type) VALUES 
 ('None', 1, 'sample'),
